@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { catalogMeta } from '../data/catalog'
+import { CAMPAIGN_MAX_CHAPTER } from '../data/stages'
 import { buildTeamFromInventory } from '../lib/teamBuilder'
 import { evaluateStages, suggestTeams } from '../lib/recommendations'
 import type { InventoryState } from '../types'
@@ -12,26 +13,54 @@ interface Props {
 export function HomePage({ inventory, ownedCount }: Props) {
   const teams = suggestTeams(inventory).slice(0, 3)
   const stages = evaluateStages(inventory)
+  const anomaly = stages.filter((s) => s.stage.mode === 'anomaly')
   const likely = stages.filter((s) => s.canClear === 'likely').length
   const built = buildTeamFromInventory(inventory, ownedCount < 10 ? 'campaign' : 'boss')
 
   return (
     <div className="page home-page">
-      <section className="hero">
+      <section className="hero hero-hud">
+        <div className="hero-frame" aria-hidden>
+          <span className="hud-corner tl" />
+          <span className="hud-corner tr" />
+          <span className="hud-corner bl" />
+          <span className="hud-corner br" />
+        </div>
         <div className="hero-copy">
-          <p className="eyebrow">Outpost aide</p>
-          <h1 className="hero-brand">Nikke Companion</h1>
+          <p className="eyebrow">
+            <span className="pulse-dot" /> Commander terminal
+          </p>
+          <h1 className="hero-brand">
+            Goddess of Victory
+            <span className="hero-brand-sub">NIKKE Companion</span>
+          </h1>
           <p className="hero-lede">
-            Roster checklist, burst-aware teams, and stage coverage for {catalogMeta.nikkeCount} Nikkes (
-            {catalogMeta.source}) — from what you actually own. Local-first, no game account login.
+            Local-first outpost aide for {catalogMeta.nikkeCount} Nikkes — roster, burst teams, campaign Ch.1–
+            {CAMPAIGN_MAX_CHAPTER} (Normal/Hard), and all Anomaly Interception bosses.
           </p>
           <div className="cta-row">
             <Link className="btn primary" to="/roster">
               Open roster
             </Link>
-            <Link className="btn ghost" to="/teams">
-              Build team
+            <Link className="btn ghost" to="/stages">
+              Stages &amp; AI bosses
             </Link>
+          </div>
+        </div>
+        <div className="hero-side" aria-hidden>
+          <div className="hero-stat">
+            <span>SYNC</span>
+            <strong>{ownedCount}</strong>
+          </div>
+          <div className="hero-stat">
+            <span>BURST</span>
+            <strong>
+              {built.burstCounts[1]}-{built.burstCounts[2]}-{built.burstCounts[3]}
+            </strong>
+          </div>
+          <div className="hero-stat">
+            <span>CLEAR</span>
+            <strong>{likely}</strong>
           </div>
         </div>
       </section>
@@ -42,24 +71,46 @@ export function HomePage({ inventory, ownedCount }: Props) {
           <span>Nikkes logged</span>
         </div>
         <div>
-          <strong>{likely}</strong>
-          <span>stages looking clearable</span>
+          <strong>{anomaly.filter((a) => a.canClear === 'likely').length}/5</strong>
+          <span>AI bosses looking ready</span>
         </div>
         <div>
-          <strong>
-            B{built.burstCounts[1]}/{built.burstCounts[2]}/{built.burstCounts[3]}
-          </strong>
-          <span>suggested burst mix</span>
+          <strong>{CAMPAIGN_MAX_CHAPTER}</strong>
+          <span>campaign chapters tracked</span>
         </div>
       </section>
 
       <section className="section">
-        <h2>Suggested from your roster</h2>
+        <h2>Suggested squad</h2>
         <p className="section-lede">
           {built.label}: {built.members.map((m) => m.name).join(', ') || 'Log Nikkes to generate a team'}
         </p>
         <Link className="text-link" to="/teams">
           Open team builder →
+        </Link>
+      </section>
+
+      <section className="section">
+        <h2>Anomaly Interception</h2>
+        <div className="stack">
+          {anomaly.map((a) => (
+            <article key={a.stage.id} className={`panel stage-card mode-anomaly`}>
+              <div className="panel-head">
+                <h3>{a.stage.name}</h3>
+                <span className={`pill status-${a.canClear}`}>{a.canClear}</span>
+              </div>
+              <div className="ai-meta">
+                {a.stage.weakTo ? <span className="tag weak">Weak to {a.stage.weakTo}</span> : null}
+                {a.stage.drops ? <span className="tag">{a.stage.drops.split(',')[0]}</span> : null}
+              </div>
+              <p className="fine-print">
+                {a.ownedCount}/{a.totalCount} sample owned
+              </p>
+            </article>
+          ))}
+        </div>
+        <Link className="text-link" to="/stages">
+          Full stage list →
         </Link>
       </section>
 

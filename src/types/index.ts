@@ -11,6 +11,14 @@ export type Manufacturer =
   | 'Other'
 export type Element = 'Fire' | 'Wind' | 'Iron' | 'Electric' | 'Water' | string
 
+export type StageMode =
+  | 'campaign'
+  | 'campaign-hard'
+  | 'anomaly'
+  | 'tower'
+  | 'union'
+  | 'solo'
+
 export interface Nikke {
   id: string
   name: string
@@ -50,11 +58,16 @@ export interface TeamTemplate {
 
 export interface Stage {
   id: string
-  mode: 'campaign' | 'tower' | 'union' | 'solo'
+  mode: StageMode
   chapter: string
   name: string
   threat: number
   enemyNotes: string
   tips: string[]
   sampleTeams: { label: string; members: string[]; notes: string }[]
+  /** Boss element / code when relevant */
+  element?: string
+  weakTo?: string
+  strongAgainst?: string
+  drops?: string
 }

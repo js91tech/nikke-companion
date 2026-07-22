@@ -14,14 +14,18 @@ export function Layout() {
       <div className="ambient" aria-hidden>
         <div className="ambient-glow a" />
         <div className="ambient-glow b" />
+        <div className="ambient-grid" />
         <div className="ambient-scan" />
+        <div className="ambient-vignette" />
       </div>
       <header className="topbar">
         <NavLink to="/" className="brand">
-          <img className="brand-mark" src="/pwa-192.png" alt="" width={36} height={36} />
+          <span className="brand-mark-wrap">
+            <img className="brand-mark" src="/pwa-192.png" alt="" width={36} height={36} />
+          </span>
           <span className="brand-text">
-            <span className="brand-title">Nikke</span>
-            <span className="brand-sub">Companion</span>
+            <span className="brand-title">NIKKE</span>
+            <span className="brand-sub">Companion // Outpost</span>
           </span>
         </NavLink>
         <nav className="nav" aria-label="Primary">
@@ -40,7 +44,10 @@ export function Layout() {
       <main className="main">
         <Outlet />
       </main>
-      <footer className="footer">Fan-made aide · Not affiliated with Shift Up / Level Infinite</footer>
+      <footer className="footer">
+        <span className="footer-tag">ARK LINK</span>
+        Fan-made aide · Not affiliated with Shift Up / Level Infinite
+      </footer>
     </div>
   )
 }
