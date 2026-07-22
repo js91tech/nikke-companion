@@ -161,7 +161,7 @@ export function UnionRaidPage() {
   return (
     <div className="page">
       <header className="page-header">
-        <h1>Union Raid planner</h1>
+        <h1>Union Raid calculator</h1>
         <p>
           Assign mock-battle damage across bosses without overkill waste. Enter remaining HP, member
           attempt damage, then generate a plan. Local only — not linked to the game.

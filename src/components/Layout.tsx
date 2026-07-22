@@ -5,7 +5,7 @@ const links = [
   { to: '/roster', label: 'Roster', end: false },
   { to: '/teams', label: 'Teams', end: false },
   { to: '/stages', label: 'Stages', end: false },
-  { to: '/union-raid', label: 'UR Plan', end: false },
+  { to: '/union-raid', label: 'UR Calc', end: false },
   { to: '/progress', label: 'Progress', end: false },
 ]
 

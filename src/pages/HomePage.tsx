@@ -183,6 +183,11 @@ export function HomePage({ inventory, ownedCount }: Props) {
             <h2>Union Raid</h2>
             <span className="section-tag">{union.length}</span>
           </div>
+          <p className="fine-print" style={{ marginBottom: '0.5rem' }}>
+            <Link className="text-link" to="/union-raid">
+              Open damage calculator →
+            </Link>
+          </p>
           <div className="mini-boss-list">
             {union.slice(0, 6).map((a) => (
               <div key={a.stage.id} className="mini-boss">
@@ -200,7 +205,7 @@ export function HomePage({ inventory, ownedCount }: Props) {
         </Link>
         {' · '}
         <Link className="text-link" to="/union-raid">
-          Union Raid damage planner →
+          Union Raid damage calculator →
         </Link>
       </p>
 
