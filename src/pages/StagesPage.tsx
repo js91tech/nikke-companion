@@ -1,7 +1,7 @@
 import type { StageMode } from '../types'
 import { useMemo, useState } from 'react'
 import { CAMPAIGN_MAX_CHAPTER } from '../data/stages'
-import { evaluateStages } from '../lib/recommendations'
+import { evaluateStages, type TeamEval } from '../lib/recommendations'
 import type { InventoryState } from '../types'
 
 interface Props {
@@ -19,6 +19,34 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'union', label: 'Union Raid' },
   { id: 'solo', label: 'Solo Raid' },
 ]
+
+function TeamCard({ team, isBest }: { team: TeamEval; isBest: boolean }) {
+  const isBis = team.label === 'BiS' || team.label.startsWith('BiS')
+  return (
+    <div className={`team-card ${isBis ? 'is-bis' : 'is-sub'} ${isBest ? 'is-best' : ''}`}>
+      <div className="team-card-head">
+        <span className={`team-label ${isBis ? 'bis' : ''}`}>{team.label}</span>
+        <span className="team-cov">
+          {team.ownedCount}/{team.totalCount}
+        </span>
+      </div>
+      <ul className="chip-row team-members">
+        {team.members.map((name) => {
+          const have = team.owned.includes(name)
+          return (
+            <li key={name} className={have ? 'have' : 'need'}>
+              {name}
+            </li>
+          )
+        })}
+      </ul>
+      <p className="fine-print">{team.notes}</p>
+      <div className="meter" aria-hidden>
+        <span style={{ width: `${Math.round(team.coverage * 100)}%` }} />
+      </div>
+    </div>
+  )
+}
 
 export function StagesPage({ inventory }: Props) {
   const [mode, setMode] = useState<Filter>('anomaly')
@@ -44,8 +72,8 @@ export function StagesPage({ inventory }: Props) {
       <header className="page-header">
         <h1>Stages</h1>
         <p>
-          Normal & Hard campaign Ch.1–{CAMPAIGN_MAX_CHAPTER}, all Anomaly Interception bosses, plus tower/raids —
-          coverage from your roster.
+          BiS + substitute teams for Normal/Hard Ch.1–{CAMPAIGN_MAX_CHAPTER}, Anomaly AI, Solo Museum, Union
+          Raid, and Tower — coverage from your roster.
         </p>
       </header>
 
@@ -73,7 +101,7 @@ export function StagesPage({ inventory }: Props) {
       </div>
 
       <p className="fine-print">
-        Showing {filtered.length} / {results.length} entries
+        Showing {filtered.length} / {results.length} entries · green chips = owned
       </p>
 
       <div className="stack" style={{ marginTop: '0.75rem' }}>
@@ -86,7 +114,7 @@ export function StagesPage({ inventory }: Props) {
               </h3>
               <span className={`pill status-${r.canClear}`}>{r.canClear}</span>
             </div>
-            {r.stage.mode === 'anomaly' ? (
+            {(r.stage.element || r.stage.weakTo || r.stage.strongAgainst) && (
               <div className="ai-meta">
                 {r.stage.element ? <span className="tag">Code {r.stage.element}</span> : null}
                 {r.stage.weakTo ? <span className="tag weak">Weak to {r.stage.weakTo}</span> : null}
@@ -94,21 +122,22 @@ export function StagesPage({ inventory }: Props) {
                   <span className="tag resist">Strong vs {r.stage.strongAgainst}</span>
                 ) : null}
               </div>
-            ) : null}
+            )}
             <p>{r.stage.enemyNotes}</p>
             {r.stage.drops ? <p className="fine-print">Drops: {r.stage.drops}</p> : null}
-            <p className="fine-print">
-              Best sample: {r.bestLabel} · {r.ownedCount}/{r.totalCount} owned
-            </p>
-            <div className="meter" aria-hidden>
-              <span style={{ width: `${Math.round(r.coverage * 100)}%` }} />
+
+            <p className="subhead">Recommended teams</p>
+            <div className="team-grid">
+              {r.teams.map((t) => (
+                <TeamCard key={t.label} team={t} isBest={t.label === r.bestLabel} />
+              ))}
             </div>
+
             <ul className="tips">
               {r.stage.tips.map((t) => (
                 <li key={t}>{t}</li>
               ))}
             </ul>
-            {r.missing.length > 0 ? <p className="missing">Missing: {r.missing.join(', ')}</p> : null}
           </article>
         ))}
       </div>

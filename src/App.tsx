@@ -8,6 +8,7 @@ import { ProgressPage } from './pages/ProgressPage'
 import { RosterPage } from './pages/RosterPage'
 import { StagesPage } from './pages/StagesPage'
 import { TeamsPage } from './pages/TeamsPage'
+import { UnionRaidPage } from './pages/UnionRaidPage'
 
 export default function App() {
   const inv = useInventory()
@@ -39,6 +40,7 @@ export default function App() {
             />
             <Route path="teams" element={<TeamsPage inventory={inv.inventory} />} />
             <Route path="stages" element={<StagesPage inventory={inv.inventory} />} />
+            <Route path="union-raid" element={<UnionRaidPage />} />
             <Route path="progress" element={<ProgressPage inventory={inv.inventory} />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

@@ -1,4 +1,5 @@
 import type { Stage } from '../types'
+import { META_SOURCE } from './metaSource'
 
 /** Current campaign ceiling (Normal + Hard). Ch. 47–48 planned Aug 2026. */
 export const CAMPAIGN_MAX_CHAPTER = 46
@@ -54,100 +55,161 @@ const CHAPTER_TITLES: Record<number, string> = {
 
 type Team = { label: string; members: string[]; notes: string }
 
+/** Campaign BiS by chapter band — Prydwen Story meta for late chapters ({@link META_SOURCE}). */
 function bandTeams(chapter: number, hard: boolean): Team[] {
   if (chapter <= 6) {
     return [
       {
-        label: hard ? 'Hard clear' : 'Story clear',
+        label: 'BiS',
         members: ['Neon', 'Anis', 'Rapi', 'Mary', 'N102'],
-        notes: 'Counters core + free healers.',
+        notes: hard ? 'Hard early — counters + free healers.' : 'Story BiS: counters core + free healers (Prydwen starter).',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Neon', 'Anis', 'Rapi', 'Pepper', 'Product-12'],
+        notes: 'Swap healers if Mary / N102 are thin.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Delta', 'Anis', 'Rapi', 'Mary', 'Neon'],
+        notes: 'Extra taunt / budget B1 flex.',
       },
     ]
   }
   if (chapter <= 12) {
     return [
       {
-        label: 'Comfort',
+        label: 'BiS',
         members: ['Liter', 'Anis', 'Rapi', 'Neon', 'Privaty'],
-        notes: 'Real B1 battery makes full burst reliable.',
+        notes: 'Liter battery unlocks real full-burst clears.',
       },
       {
-        label: 'Budget',
+        label: 'Sub 1',
         members: ['N102', 'Anis', 'Rapi', 'Pepper', 'Neon'],
-        notes: 'Works if Liter is missing.',
+        notes: 'Budget if Liter is missing.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Liter', 'Centi', 'Helm', 'Rapi', 'Privaty'],
+        notes: 'Sustain-heavy comfort clear.',
       },
     ]
   }
   if (chapter <= 18) {
     return [
       {
-        label: 'Gunboat',
+        label: 'BiS',
         members: ['Liter', 'Blanc', 'Noir', 'Alice', 'Scarlet'],
-        notes: 'Classic bunny duo + dual B3.',
+        notes: 'Classic bunny duo + dual B3 (still strong mid-game).',
       },
       {
-        label: 'Safe',
+        label: 'Sub 1',
         members: ['Liter', 'Centi', 'Helm', 'Modernia', 'Privaty'],
-        notes: 'Sustain-heavy mid clear.',
+        notes: 'Sustain mid clear when bunny is incomplete.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Dorothy', 'Blanc', 'Noir', 'Alice', 'Maxwell'],
+        notes: 'Dorothy battery + charge / pierce flex.',
       },
     ]
   }
   if (chapter <= 22) {
     return [
       {
-        label: 'Boss push',
+        label: 'BiS',
         members: ['Liter', 'Crown', 'Naga', 'Modernia', 'Alice'],
-        notes: 'Chapter 22 unlocks Anomaly Interception.',
+        notes: 'Ch.22 boss push — unlocks Anomaly Interception.',
       },
       {
-        label: 'Alt',
+        label: 'Sub 1',
         members: ['Dorothy', 'Blanc', 'Noir', 'Scarlet', 'Alice'],
         notes: 'Strong if Crown is missing.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Liter', 'Crown', 'Tia', 'Scarlet', 'Modernia'],
+        notes: 'Tia enable + dual B3 generalists.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Centi', 'Helm', 'Alice', 'Privaty'],
+        notes: 'Budget / sustain when meta B2s are missing.',
       },
     ]
   }
   if (chapter <= 30) {
     return [
       {
-        label: 'Meta clear',
-        members: ['Liter', 'Crown', 'Naga', 'Scarlet: Black Shadow', 'Alice'],
-        notes: 'Late-story pressure; OL gear helps.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Rapi: Red Hood', 'Scarlet: Black Shadow'],
+        notes: 'Prydwen Story — Anis: Star B1 + Crown enable (late Ch.23–30).',
       },
       {
-        label: 'Alt DPS',
-        members: ['Dorothy', 'Tia', 'Naga', 'Modernia', 'Red Hood'],
-        notes: 'Flex B3s for stubborn bosses.',
+        label: 'Sub 1',
+        members: ['Siren', 'Crown', 'Naga', 'Modernia', 'Alice'],
+        notes: 'Siren if Anis: Star missing.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Liter', 'Blanc', 'Noir', 'Scarlet: Black Shadow', 'Alice'],
+        notes: 'Bunny enable if Crown / Naga incomplete.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Anis: Star', 'Mast: Romantic Maid', 'Anchor: Innocent Maid', 'Rapi: Red Hood', 'Alice'],
+        notes: 'Duo Maids enable (Prydwen).',
       },
     ]
   }
   if (chapter <= 38) {
     return [
       {
-        label: 'Endgame',
-        members: ['Liter', 'Crown', 'Naga', 'Rapi: Red Hood', 'Alice'],
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Scarlet: Black Shadow'],
         notes: hard
-          ? 'Hard mode — bring invested OL and manual bossing.'
-          : 'High synchro + OL recommended.',
+          ? 'Hard — Prydwen Story BiS; invest OL on carries.'
+          : 'Prydwen Story BiS (Anis: Star + Crown + Maid Mast).',
       },
       {
-        label: 'Pilgrim',
-        members: ['Dorothy', 'Crown', 'Scarlet: Black Shadow', 'Red Hood', 'Modernia'],
-        notes: 'Pilgrim-heavy burst windows.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Vesti: Tactical Upgrade', 'Ada Wong'],
+        notes: 'Vesgod / Ada Wong SSS B3 carries.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Naga', 'Scarlet: Black Shadow', 'Alice'],
+        notes: 'Siren + Crown/Naga if no Anis: Star / Maid Mast.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Anis: Star', 'Mint', 'Prika', 'Rapi: Red Hood', 'Scarlet: Black Shadow'],
+        notes: 'Duo Idols (Mint-ka) from Prydwen meta teams.',
       },
     ]
   }
   return [
     {
-      label: 'Current meta',
-      members: ['Liter', 'Crown', 'Naga', 'Scarlet: Black Shadow', 'Alice'],
+      label: 'BiS',
+      members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Scarlet: Black Shadow'],
       notes: hard
-        ? 'Hard Ch.40+ — expect strict CP and element checks.'
-        : 'Latest chapters; invest OL on carries.',
+        ? 'Hard Ch.40+ — Prydwen Story SSS/SS core.'
+        : `Current campaign BiS (Prydwen ${META_SOURCE.asOf}).`,
     },
     {
-      label: 'Alt battery',
-      members: ['Liter', 'Crown', 'Helm (Treasure)', 'Rapi: Red Hood', 'Modernia'],
-      notes: 'Strong generalist if LM / SBS unavailable.',
+      label: 'Sub 1',
+      members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Ada Wong', 'Vesti: Tactical Upgrade'],
+      notes: 'Ada + Vesgod SSS B3 alternate.',
+    },
+    {
+      label: 'Sub 2',
+      members: ['Siren', 'Nayuta', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Snow White: Heavy Arms'],
+      notes: 'Siren / Nayuta wind-leaning high deficit flex.',
+    },
+    {
+      label: 'Sub 3',
+      members: ['Anis: Star', 'Mast: Romantic Maid', 'Anchor: Innocent Maid', 'Privaty (Treasure)', 'Alice'],
+      notes: 'Full Maids + PrivatyT when Crown is spent.',
     },
   ]
 }
@@ -177,7 +239,7 @@ function makeCampaignStages(): Stage[] {
           ch === 22 && !hard
             ? [
                 'Clearing 22 boss unlocks Anomaly Interception.',
-                'Invest a real B1 (Liter / Dorothy / LM) before pushing further.',
+                'Invest a real B1 (Anis: Star / Siren / Liter) before pushing further.',
               ]
             : hard
               ? [
@@ -208,20 +270,31 @@ const anomalyStages: Stage[] = [
     drops: 'Custom Modules, Custom Module Shards, Custom Locks, T9 gear',
     enemyNotes: 'Endgame AI farm for modules/shards. Level capped at 400. Punishes Electric codes.',
     tips: [
-      'Prefer Wind B3 DPS (SBS, Liberalio, Asuka: Wille).',
+      'Prefer Wind B3 DPS (SBS, Liberalio, Asuka: Wille, Nayuta).',
       'Avoid Electric Nikkes — boss deals massive extra damage to them.',
+      'Anis: Star is Prydwen BiS B1 for Wind teams; Siren is #2.',
       'Clear stage 7+ for max module rate; shards are unique to Kraken.',
     ],
     sampleTeams: [
       {
-        label: 'Meta Wind',
-        members: ['Liter', 'Crown', 'Naga', 'Scarlet: Black Shadow', 'Alice'],
-        notes: 'Crown enable + SBS carry. Swap Naga if she dies to Iron.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Nayuta', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Liberalio'],
+        notes: 'Prydwen Kraken Team 53 — Liberalio CS-buffs SBS; Nayuta can replace Crown.',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Crown', 'Helm (Treasure)', 'Scarlet: Black Shadow', 'Liberalio'],
-        notes: 'Liter battery if LM missing.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Asuka Shikinami Langley: Wille'],
+        notes: 'Crown survivability line (Prydwen Team 54).',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Anis: Star', 'Mast: Romantic Maid', 'Anchor: Innocent Maid', 'Scarlet: Black Shadow', 'Liberalio'],
+        notes: 'Maids vs Octopus — no Crown (Prydwen Team 55).',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Scarlet: Black Shadow', 'Alice'],
+        notes: 'Beginner bunny Wind (Prydwen Team 58).',
       },
     ],
   },
@@ -237,19 +310,29 @@ const anomalyStages: Stage[] = [
     drops: 'Custom Modules, T9 Gloves (Manufacturer), Custom Locks, Manufacturer Arms',
     enemyNotes: 'Water code boss. Farm gloves. Punishes Fire codes.',
     tips: [
-      'Bring Electric / Water-strong B3s (Cinderella, Ein, S.Anis, Maiden: Ice Rose).',
+      'Bring Electric B3s (Cinderella, Ein, Ada Wong, S.Anis, Maiden: Ice Rose).',
       'Avoid Fire DPS for this boss.',
     ],
     sampleTeams: [
       {
-        label: 'Electric / Water',
-        members: ['Liter', 'Crown', 'Naga', 'Cinderella', 'Ein'],
-        notes: 'Strong AI Mirror clear.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Anis: Sparkling Summer', 'Cinderella', 'Maiden: Ice Rose'],
+        notes: 'Prydwen Electric funnel — Ice Rose bursts late as 3rd B3.',
       },
       {
-        label: 'Alt',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Cinderella', 'Ein'],
+        notes: 'Cindy + Ein with Maid Mast flex.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Rouge', 'Crown', 'Anis: Sparkling Summer', 'Cinderella', 'Ada Wong'],
+        notes: 'Rouge B1 buffer for Cindy / Ice Rose (Prydwen Mirror).',
+      },
+      {
+        label: 'Sub 3',
         members: ['Liter', 'Blanc', 'Noir', 'Anis: Sparkling Summer', 'Isabel'],
-        notes: 'Bunny enable + Electric SG / RL carries.',
+        notes: 'Bunny Electric beginner line.',
       },
     ],
   },
@@ -265,19 +348,29 @@ const anomalyStages: Stage[] = [
     drops: 'Custom Modules, T9 Armor (Manufacturer), Custom Locks, Manufacturer Arms',
     enemyNotes: 'Wind code (also called Indivilla). Farm torso armor. Punishes Iron codes.',
     tips: [
-      'Fire B3s shine: Rapi: Red Hood, Alice, Asuka, Mihara: Bonding Chain.',
-      'Watch Iron supports (Crown still used carefully / with cover).',
+      'Fire B3s: Rapi: Red Hood, Mihara: Bonding Chain, Alice, Asuka.',
+      'Time Crown S2 for Phase 2 team laser.',
     ],
     sampleTeams: [
       {
-        label: 'Fire meta',
-        members: ['Liter', 'Crown', 'Naga', 'Rapi: Red Hood', 'Alice'],
-        notes: 'Standard Indivilia push.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Mihara: Bonding Chain'],
+        notes: 'Prydwen Indivilia Team 83 — Burst Mast on Crown→Crown→Mast.',
       },
       {
-        label: 'Alt',
-        members: ['D: Killer Wife', 'Crown', 'Naga', 'Asuka Shikinami Langley', 'Modernia'],
-        notes: 'Collab / alt Fire DPS.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Mast: Romantic Maid', 'Anchor: Innocent Maid', 'Rapi: Red Hood', 'Mihara: Bonding Chain'],
+        notes: 'No Crown — Maids (Prydwen Team 61).',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Helm (Treasure)'],
+        notes: 'Wheelchair HelmT line (Prydwen Team 84).',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Siren', 'Crown', 'Naga', 'Alice', 'Asuka Shikinami Langley'],
+        notes: 'Siren + pierce Fire alts.',
       },
     ],
   },
@@ -293,19 +386,29 @@ const anomalyStages: Stage[] = [
     drops: 'Custom Modules, T9 Helmet (Manufacturer), Custom Locks, Manufacturer Arms',
     enemyNotes: 'Electric code. Farm helmets. Punishes Water codes.',
     tips: [
-      'Iron B3s: Red Hood B3, Rapi: Red Hood, Snow White, Milk: Blooming Bunny.',
+      'Iron B3s: Red Hood B3, Rapi: Red Hood, Snow White, Milk: Blooming Bunny, Raven.',
       'Avoid Water DPS for this fight.',
     ],
     sampleTeams: [
       {
-        label: 'Iron meta',
-        members: ['Liter', 'Crown', 'Naga', 'Red Hood', 'Rapi: Red Hood'],
-        notes: 'Helmet farm lineup.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Red Hood B3', 'Rapi: Red Hood'],
+        notes: 'Prydwen Ultra DPS table — RH B3 + RRH.',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Crown', 'Tia', 'Snow White', 'Raven'],
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Snow White', 'Raven'],
         notes: 'Alt Iron / charge carries.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Mast: Romantic Maid', 'Milk: Blooming Bunny', 'Snow White: Heavy Arms'],
+        notes: 'Siren + Iron SG / SWHA flex.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Red Hood B3', 'Modernia'],
+        notes: 'Bunny Iron for mid stages.',
       },
     ],
   },
@@ -319,21 +422,32 @@ const anomalyStages: Stage[] = [
     weakTo: 'Water',
     strongAgainst: 'Wind',
     drops: 'Custom Modules, T9 Boots (Manufacturer), Custom Locks, Manufacturer Arms',
-    enemyNotes: 'Fire code. Farm boots. Punishes Wind codes. Dorothy is often BiS B1 here.',
+    enemyNotes: 'Fire code. Farm boots. Punishes Wind codes. Destroy Head ASAP for permanent core.',
     tips: [
-      'Water B3s: Dorothy: Serendipity, Helm (Treasure), Ludmilla: Winter Owner, Bready.',
-      'Prefer Dorothy over Liter for elemental advantage on B1.',
+      'Prydwen BiS Water DPS is Snow White: Heavy Arms; Dorothy: Serendipity needs Tove (Treasure).',
+      'Kill mobs before Helm (Treasure) / Elegg: Boom and Shock bursts.',
+      'Anis: Star is preferred B1; Siren is #2 but dies easily.',
     ],
     sampleTeams: [
       {
-        label: 'Water meta',
-        members: ['Dorothy', 'Crown', 'Naga', 'Dorothy: Serendipity', 'Helm (Treasure)'],
-        notes: 'Element-aligned Harvester clear.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Snow White: Heavy Arms', 'Helm (Treasure)'],
+        notes: 'Prydwen Harvester Team 80 — Spider Slayer.',
       },
       {
-        label: 'Alt',
-        members: ['Dorothy', 'Crown', 'Naga', 'Ludmilla: Winter Owner', 'Quency: Escape Queen'],
-        notes: 'Alt Water / strong generalist B3s.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Bready', 'Liberalio'],
+        notes: 'Bread vs Spider — Bready needs Maid Mast (Prydwen Team 81).',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Dorothy: Serendipity', 'Privaty (Treasure)'],
+        notes: 'Doro:S + PrivatyT Water alt.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Mast: Romantic Maid', 'Anchor: Innocent Maid', 'Ludmilla: Winter Owner', 'Quency: Escape Queen'],
+        notes: 'No Pilgrims beginner Water (Prydwen Team 82).',
       },
     ],
   },
@@ -358,14 +472,24 @@ const soloRaidStages: Stage[] = [
     ],
     sampleTeams: [
       {
-        label: 'Electric lead',
-        members: ['Liter', 'Crown', 'Naga', 'Cinderella', 'Ein'],
-        notes: 'Strong Electric B3 openers.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Cinderella', 'Ein'],
+        notes: 'Electric BiS opener — Prydwen Mirror DPS core.',
       },
       {
-        label: 'Flex DPS',
-        members: ['Liter', 'Blanc', 'Noir', 'Alice', 'Scarlet'],
-        notes: 'Generalist pierce / shotgun line for later squads.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Blanc', 'Noir', 'Anis: Sparkling Summer', 'Maiden: Ice Rose'],
+        notes: 'Electric SG / Ice Rose for later squads.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Tia', 'Ada Wong', 'Isabel'],
+        notes: 'Siren + Ada Wong Electric depth.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Naga', 'Alice', 'Scarlet'],
+        notes: 'Generalist pierce for squad depth.',
       },
     ],
   },
@@ -380,20 +504,30 @@ const soloRaidStages: Stage[] = [
     drops: 'Harmony Cube batteries, Collection items, Museum ranking rewards',
     enemyNotes: 'Museum Hall boss. High core value; armor-piercing pressure from behind.',
     tips: [
-      'Stack Water codes across squads.',
+      'Stack Water codes across squads — Prydwen ranks SWHA as top Water DPS.',
       'Core damage OL lines pay off heavily.',
       'Watch rear shots — keep cover discipline.',
     ],
     sampleTeams: [
       {
-        label: 'Water meta',
-        members: ['Dorothy', 'Crown', 'Naga', 'Dorothy: Serendipity', 'Helm (Treasure)'],
-        notes: 'Element-aligned Black Smith squad.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Snow White: Heavy Arms', 'Helm (Treasure)'],
+        notes: 'Water BiS aligned with Prydwen Harvester Spider Slayer.',
       },
       {
-        label: 'Alt Water',
-        members: ['Liter', 'Crown', 'Naga', 'Ludmilla: Winter Owner', 'Bready'],
-        notes: 'Alt Water B3s for squad 2–5.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Dorothy: Serendipity', 'Privaty (Treasure)'],
+        notes: 'Doro:S Water alt for squads 2–5.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Blanc', 'Noir', 'Bready', 'Liberalio'],
+        notes: 'Bready needs CS/distributed buff (Liberalio / Maid).',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Tia', 'Ludmilla: Winter Owner', 'Quency: Escape Queen'],
+        notes: 'Alt Water B3 depth.',
       },
     ],
   },
@@ -408,19 +542,29 @@ const soloRaidStages: Stage[] = [
     drops: 'Harmony Cube batteries, Collection items, Museum ranking rewards',
     enemyNotes: 'Museum Hall boss. Same family as Anomaly Ultra — Iron codes preferred.',
     tips: [
-      'Prioritize Iron B3s (Red Hood, Rapi: Red Hood, Snow White).',
+      'Prioritize Iron B3s (Red Hood B3, Rapi: Red Hood, Snow White).',
       'Avoid over-investing Water DPS into this fight.',
     ],
     sampleTeams: [
       {
-        label: 'Iron meta',
-        members: ['Liter', 'Crown', 'Naga', 'Red Hood', 'Rapi: Red Hood'],
-        notes: 'Iron carry openers.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Red Hood B3', 'Rapi: Red Hood'],
+        notes: 'Iron BiS — Prydwen Ultra table.',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Crown', 'Tia', 'Snow White', 'Milk: Blooming Bunny'],
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Tia', 'Snow White', 'Milk: Blooming Bunny'],
         notes: 'Alt Iron / charge carries.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Naga', 'Snow White: Heavy Arms', 'Raven'],
+        notes: 'Siren + SWHA Iron depth.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Red Hood B3', 'Modernia'],
+        notes: 'Bunny Iron for later squads.',
       },
     ],
   },
@@ -435,19 +579,29 @@ const soloRaidStages: Stage[] = [
     drops: 'Harmony Cube batteries, Collection items, Museum Hall 3 rewards',
     enemyNotes: 'Museum Hall 3 (added Jul 2026). Water-weak Fire boss — same elemental lane as AI Harvester.',
     tips: [
-      'Dorothy is often preferred B1 for elemental advantage.',
+      'Prydwen: Anis: Star B1 + Snow White: Heavy Arms Water carry.',
       'Spread Water DPS across multiple squads.',
     ],
     sampleTeams: [
       {
-        label: 'Water meta',
-        members: ['Dorothy', 'Crown', 'Naga', 'Dorothy: Serendipity', 'Ludmilla: Winter Owner'],
-        notes: 'Hall 3 Water push.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Snow White: Heavy Arms', 'Helm (Treasure)'],
+        notes: 'Hall 3 Water BiS (Prydwen Spider Slayer).',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Crown', 'Naga', 'Helm (Treasure)', 'Quency: Escape Queen'],
-        notes: 'Alt Water / flexible B3s.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Bready', 'Liberalio'],
+        notes: 'Bready + Liberalio Water.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Blanc', 'Noir', 'Dorothy: Serendipity', 'Privaty (Treasure)'],
+        notes: 'Doro:S bunny Water depth.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Tia', 'Ludmilla: Winter Owner', 'Quency: Escape Queen'],
+        notes: 'Alt Water when meta B1s are spent.',
       },
     ],
   },
@@ -469,14 +623,24 @@ const soloRaidStages: Stage[] = [
     ],
     sampleTeams: [
       {
-        label: 'Electric',
-        members: ['Liter', 'Crown', 'Naga', 'Cinderella', 'Ein'],
-        notes: 'Electric B3 openers.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Anis: Sparkling Summer', 'Cinderella', 'Ein'],
+        notes: 'Electric BiS openers (Prydwen Mirror core).',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Blanc', 'Noir', 'Anis: Sparkling Summer', 'Maiden: Ice Rose'],
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Blanc', 'Noir', 'Maiden: Ice Rose', 'Ada Wong'],
         notes: 'SG / Electric alt squads.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Tia', 'Isabel', 'Maxwell'],
+        notes: 'Electric RL / charge depth.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Naga', 'Cinderella', 'Alice'],
+        notes: 'Liter + Electric / pierce flex.',
       },
     ],
   },
@@ -491,19 +655,29 @@ const soloRaidStages: Stage[] = [
     drops: 'Harmony Cube batteries, Collection items, Museum Hall 3 rewards',
     enemyNotes: 'Museum Hall 3 (added Jul 2026). Iron-weak listing for Museum — plan Iron DPS depth.',
     tips: [
-      'Build multiple Iron B3 squads.',
+      'Build multiple Iron B3 squads (RH B3, RRH, Snow White).',
       'Does not always match Anomaly Indivilia Fire teams — check Museum listing.',
     ],
     sampleTeams: [
       {
-        label: 'Iron meta',
-        members: ['Liter', 'Crown', 'Naga', 'Red Hood', 'Snow White'],
-        notes: 'Iron Museum Indivilia.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Red Hood B3', 'Snow White'],
+        notes: 'Iron Museum Indivilia BiS.',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Crown', 'Tia', 'Rapi: Red Hood', 'Raven'],
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Tia', 'Rapi: Red Hood', 'Raven'],
         notes: 'Alt Iron carries.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Naga', 'Milk: Blooming Bunny', 'Snow White: Heavy Arms'],
+        notes: 'Siren + Iron SG / SWHA.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Red Hood B3', 'Modernia'],
+        notes: 'Bunny Iron for later Museum squads.',
       },
     ],
   },
@@ -526,14 +700,24 @@ const unionRaidStages: Stage[] = [
     ],
     sampleTeams: [
       {
-        label: 'Fire RL',
-        members: ['Liter', 'Crown', 'Naga', 'Laplace', 'Alice'],
-        notes: 'RL / Fire pressure on Obelisk.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Alice', 'Rapi: Red Hood'],
+        notes: 'Fire / pierce BiS for Obelisk parts.',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Centi', 'Helm', 'Modernia', 'Privaty'],
-        notes: 'Budget / generalist clear.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Laplace', 'Modernia'],
+        notes: 'RL splash + generalist B3.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Blanc', 'Noir', 'Alice', 'Asuka Shikinami Langley'],
+        notes: 'Bunny Fire line for attempt 2–3.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Centi', 'Helm', 'Privaty', 'Maxwell'],
+        notes: 'Budget / sustain if meta B2s are spent.',
       },
     ],
   },
@@ -553,14 +737,24 @@ const unionRaidStages: Stage[] = [
     ],
     sampleTeams: [
       {
-        label: 'Electric',
-        members: ['Liter', 'Crown', 'Naga', 'Cinderella', 'Ein'],
-        notes: 'Electric Doctor push.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Anis: Sparkling Summer', 'Cinderella', 'Ein'],
+        notes: 'Electric Doctor BiS (Prydwen Mirror DPS).',
       },
       {
-        label: 'Sustain',
-        members: ['Liter', 'Blanc', 'Noir', 'Alice', 'Rapunzel'],
-        notes: 'Healer-friendly if radiation hurts.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Blanc', 'Noir', 'Alice', 'Rapunzel'],
+        notes: 'Sustain-friendly if radiation hurts.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Tia', 'Maiden: Ice Rose', 'Ada Wong'],
+        notes: 'Electric SG / Ada alt attempts.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Naga', 'Isabel', 'Maxwell'],
+        notes: 'Liter Electric depth.',
       },
     ],
   },
@@ -576,18 +770,28 @@ const unionRaidStages: Stage[] = [
     enemyNotes: 'Also called Angel Ring. Close-range stage. Water codes preferred.',
     tips: [
       'Water B3s and SG comps perform well at close range.',
-      'Privaty S1 investment historically mattered for some Halo seasons.',
+      'Prydwen ranks SWHA as top Water DPS.',
     ],
     sampleTeams: [
       {
-        label: 'Water close',
-        members: ['Dorothy', 'Crown', 'Naga', 'Dorothy: Serendipity', 'Helm (Treasure)'],
-        notes: 'Water-aligned Halo.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Snow White: Heavy Arms', 'Helm (Treasure)'],
+        notes: 'Water Halo BiS (Prydwen Spider Slayer core).',
       },
       {
-        label: 'SG',
-        members: ['Liter', 'Blanc', 'Noir', 'Sugar', 'Drake'],
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Blanc', 'Noir', 'Sugar', 'Drake'],
         notes: 'Close-range shotgun line.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Tia', 'Dorothy: Serendipity', 'Privaty (Treasure)'],
+        notes: 'Alt Water B3s for later attempts.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Mast: Romantic Maid', 'Anchor: Innocent Maid', 'Bready', 'Liberalio'],
+        notes: 'Maids Water when Crown is on other bosses.',
       },
     ],
   },
@@ -602,20 +806,30 @@ const unionRaidStages: Stage[] = [
     drops: 'Union Chips',
     enemyNotes: 'Tyrant Modernia. Mid-range. Missile intercept windows and heavy particle blades.',
     tips: [
-      'Wind codes preferred.',
+      'Wind codes preferred — Prydwen Kraken Wind DPS translate well.',
       'High synchro / OL recommended on later rounds.',
       'Save strong Wind DPS — do not burn them all on earlier bosses.',
     ],
     sampleTeams: [
       {
-        label: 'Wind',
-        members: ['Liter', 'Crown', 'Naga', 'Scarlet: Black Shadow', 'Alice'],
-        notes: 'Wind / pierce Modernia line.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Nayuta', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Liberalio'],
+        notes: 'Wind Modernia BiS (Prydwen Kraken Team 53 core).',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Crown', 'Tia', 'Liberalio', 'Nayuta'],
-        notes: 'Alt Wind B3s.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Alice'],
+        notes: 'Crown survivability Wind line.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Naga', 'Asuka Shikinami Langley: Wille', 'Ark Ranger Black'],
+        notes: 'Siren + Wind collab / ARB depth.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Scarlet: Black Shadow', 'Alice'],
+        notes: 'Bunny Wind when Crown teams are spent.',
       },
     ],
   },
@@ -630,19 +844,29 @@ const unionRaidStages: Stage[] = [
     drops: 'Union Chips',
     enemyNotes: 'Long-range air boss. True damage / DEF checks — Iron codes preferred.',
     tips: [
-      'Iron B3s and true-damage styles help on high DEF rounds.',
+      'Iron B3s (RH B3, RRH, Snow White) help on high DEF rounds.',
       'Destroy missile shoulders when possible.',
     ],
     sampleTeams: [
       {
-        label: 'Iron',
-        members: ['Liter', 'Crown', 'Naga', 'Red Hood', 'Cinderella'],
-        notes: 'Iron / high burst Stormbringer.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Red Hood B3', 'Rapi: Red Hood'],
+        notes: 'Iron BiS for Stormbringer (Prydwen Ultra).',
       },
       {
-        label: 'Alt',
-        members: ['Liter', 'Crown', 'Tia', 'Snow White', 'Rapi: Red Hood'],
-        notes: 'Alt Iron carries.',
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Tia', 'Snow White', 'Cinderella'],
+        notes: 'Alt Iron / high-burst carries.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Naga', 'Snow White: Heavy Arms', 'Raven'],
+        notes: 'Siren Iron depth.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Red Hood B3', 'Modernia'],
+        notes: 'Bunny Iron for attempt depth.',
       },
     ],
   },
@@ -658,9 +882,24 @@ const unionRaidStages: Stage[] = [
     tips: ['Bring Wind B3 depth.', 'Coordinate with Union — pick bosses your roster counters.'],
     sampleTeams: [
       {
-        label: 'Wind',
-        members: ['Liter', 'Crown', 'Naga', 'Scarlet: Black Shadow', 'Liberalio'],
-        notes: 'Wind Sinister line.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Nayuta', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Liberalio'],
+        notes: 'Wind Sinister BiS.',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Tia', 'Alice', 'Ark Ranger Black'],
+        notes: 'Alt Wind / pierce.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Naga', 'Scarlet: Black Shadow', 'Asuka Shikinami Langley: Wille'],
+        notes: 'Siren Wind depth.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Scarlet: Black Shadow', 'Alice'],
+        notes: 'Bunny Wind substitute.',
       },
     ],
   },
@@ -676,9 +915,24 @@ const unionRaidStages: Stage[] = [
     tips: ['Water DPS across attempts.', 'Mock battle before spending daily attempts.'],
     sampleTeams: [
       {
-        label: 'Water',
-        members: ['Dorothy', 'Crown', 'Naga', 'Ludmilla: Winter Owner', 'Bready'],
-        notes: 'Water Red Shoes line.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Snow White: Heavy Arms', 'Helm (Treasure)'],
+        notes: 'Water Red Shoes BiS.',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Dorothy: Serendipity', 'Privaty (Treasure)'],
+        notes: 'Alt Water B3s.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Blanc', 'Noir', 'Bready', 'Liberalio'],
+        notes: 'Bready Water substitute.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Tia', 'Ludmilla: Winter Owner', 'Quency: Escape Queen'],
+        notes: 'Liter Water depth.',
       },
     ],
   },
@@ -691,12 +945,27 @@ const unionRaidStages: Stage[] = [
     weakTo: 'Fire',
     drops: 'Union Chips',
     enemyNotes: 'Rotating season boss / story Tyrant. Fire codes preferred.',
-    tips: ['Fire B3s (Alice, Rapi: Red Hood, Asuka).', 'Learn burn / phase patterns before Hard rounds.'],
+    tips: ['Fire B3s (RRH, Mihara: BC, Alice, Asuka).', 'Learn burn / phase patterns before Hard rounds.'],
     sampleTeams: [
       {
-        label: 'Fire',
-        members: ['Liter', 'Crown', 'Naga', 'Rapi: Red Hood', 'Alice'],
-        notes: 'Fire Nihilister.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Mihara: Bonding Chain'],
+        notes: 'Fire Nihilister BiS (Prydwen Indivilia).',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Alice', 'Asuka Shikinami Langley'],
+        notes: 'Pierce Fire alts.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Brid: Silent Track', 'Mast: Romantic Maid', 'Diesel: Winter Sweets', 'Alice'],
+        notes: 'Winter Fire line if available.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Rapi: Red Hood', 'Alice'],
+        notes: 'Bunny Fire substitute.',
       },
     ],
   },
@@ -711,9 +980,24 @@ const unionRaidStages: Stage[] = [
     tips: ['Part-break and RL/SG splash often help.', 'Check season superior code before locking teams.'],
     sampleTeams: [
       {
-        label: 'Generalist',
-        members: ['Liter', 'Crown', 'Naga', 'Modernia', 'Alice'],
-        notes: 'Flexible Torso clear.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Modernia', 'Alice'],
+        notes: 'Flexible Torso BiS — adjust to season code.',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Laplace', 'Scarlet: Black Shadow'],
+        notes: 'RL / pierce part-break line.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Liter', 'Blanc', 'Noir', 'Sugar', 'Drake'],
+        notes: 'SG splash for body parts.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Siren', 'Crown', 'Tia', 'Cinderella', 'Maxwell'],
+        notes: 'Alt battery + high burst.',
       },
     ],
   },
@@ -729,9 +1013,24 @@ const unionRaidStages: Stage[] = [
     tips: ['Align with season superior code UI.', 'Reuse Anomaly Ultra practice for patterns.'],
     sampleTeams: [
       {
-        label: 'Electric',
-        members: ['Liter', 'Crown', 'Naga', 'Cinderella', 'Ein'],
-        notes: 'Electric Ultra UR.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Anis: Sparkling Summer', 'Cinderella', 'Ein'],
+        notes: 'Electric Ultra UR BiS.',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Blanc', 'Noir', 'Maiden: Ice Rose', 'Ada Wong'],
+        notes: 'Bunny Electric / Ada.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Crown', 'Tia', 'Isabel', 'Maxwell'],
+        notes: 'Alt Electric / charge.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Naga', 'Cinderella', 'Alice'],
+        notes: 'Liter Electric depth.',
       },
     ],
   },
@@ -749,9 +1048,24 @@ const unionRaidStages: Stage[] = [
     ],
     sampleTeams: [
       {
-        label: 'Burst window',
-        members: ['Liter', 'Crown', 'Naga', 'Cinderella', 'Snow White'],
-        notes: 'Core-break burst line.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Cinderella', 'Snow White'],
+        notes: 'Core-break burst BiS.',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Tia', 'Red Hood B3', 'Alice'],
+        notes: 'High single-target after core.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Blanc', 'Noir', 'Scarlet: Black Shadow', 'Modernia'],
+        notes: 'Bunny generalist burst window.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Naga', 'Maxwell', 'Raven'],
+        notes: 'Liter + charge / Iron flex.',
       },
     ],
   },
@@ -767,9 +1081,24 @@ const unionRaidStages: Stage[] = [
     tips: ['Fire DPS preferred when season lists Fire-weak.', 'Practice missile timing in mock.'],
     sampleTeams: [
       {
-        label: 'Fire',
-        members: ['Liter', 'Crown', 'Naga', 'Alice', 'Rapi: Red Hood'],
-        notes: 'Fire Alteisen.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Alice', 'Rapi: Red Hood'],
+        notes: 'Fire Alteisen BiS.',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Asuka Shikinami Langley', 'Mihara: Bonding Chain'],
+        notes: 'Collab / Bonding Chain Fire.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Brid: Silent Track', 'Mast: Romantic Maid', 'Diesel: Winter Sweets', 'Laplace'],
+        notes: 'Winter Fire + RL splash.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Blanc', 'Noir', 'Alice', 'Rapi: Red Hood'],
+        notes: 'Bunny Fire substitute.',
       },
     ],
   },
@@ -784,9 +1113,24 @@ const unionRaidStages: Stage[] = [
     tips: ['Verify superior code in-game each season.', 'Save attempts for bosses your Union needs.'],
     sampleTeams: [
       {
-        label: 'Generalist',
-        members: ['Liter', 'Crown', 'Naga', 'Scarlet: Black Shadow', 'Modernia'],
-        notes: 'Flexible Chatterbox line.',
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Modernia'],
+        notes: 'Flexible Chatterbox BiS — retune to season code.',
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Naga', 'Alice', 'Cinderella'],
+        notes: 'Pierce / Electric flex.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Blanc', 'Noir', 'Red Hood B3', 'Ada Wong'],
+        notes: 'Bunny generalist attempts.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Liter', 'Crown', 'Tia', 'Rapi: Red Hood', 'Scarlet: Black Shadow'],
+        notes: 'Liter depth when Anis: Star is spent.',
       },
     ],
   },
@@ -800,12 +1144,27 @@ const otherStages: Stage[] = [
     name: 'Manufacturer floors',
     threat: 3,
     enemyNotes: 'Restricted by manufacturer — roster depth matters.',
-    tips: ['Invest one carry per brand.', 'B1 scarcity walls many towers.'],
+    tips: ['Invest one carry per brand.', 'B1 scarcity walls many towers — Anis: Star / Siren help.'],
     sampleTeams: [
       {
-        label: 'Tetra sample',
-        members: ['Volume', 'Blanc', 'Noir', 'Alice', 'Sugar'],
-        notes: 'Tetra-friendly line.',
+        label: 'BiS Tetra',
+        members: ['Anis: Star', 'Blanc', 'Noir', 'Alice', 'Sugar'],
+        notes: 'Tetra-friendly line with modern B1.',
+      },
+      {
+        label: 'Sub Elysion',
+        members: ['Neon', 'Rapi', 'Privaty', 'Maxwell', 'Diesel'],
+        notes: 'Elysion tower sample.',
+      },
+      {
+        label: 'Sub Missilis',
+        members: ['Liter', 'Novel', 'Pepper', 'Laplace', 'Drake'],
+        notes: 'Missilis tower sample.',
+      },
+      {
+        label: 'Sub Pilgrim',
+        members: ['Siren', 'Crown', 'Scarlet: Black Shadow', 'Red Hood B3', 'Modernia'],
+        notes: 'Pilgrim tower / late floors.',
       },
     ],
   },

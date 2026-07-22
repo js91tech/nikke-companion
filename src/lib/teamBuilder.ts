@@ -1,4 +1,5 @@
 import { catalog } from '../data/catalog'
+import { STORY_TIER_SCORE } from '../data/metaSource'
 import type { Burst, InventoryState, Nikke } from '../types'
 
 export type TeamGoal = 'campaign' | 'boss' | 'tower' | 'raid'
@@ -12,13 +13,25 @@ export interface BuiltTeam {
   notes: string
 }
 
-const RARITY: Record<string, number> = { R: 1, SR: 3, SSR: 7 }
+const RARITY: Record<string, number> = { R: 1, SR: 3, SSR: 6 }
 
 const GOAL_META: Record<TeamGoal, { label: string; notes: string }> = {
-  campaign: { label: 'Campaign', notes: 'Balanced burst rotation with a reliable B1.' },
-  boss: { label: 'Boss / Raid', notes: 'High DPS B3s with strong B2 enablers.' },
-  tower: { label: 'Tribe Tower', notes: 'Prefer owned depth; manufacturer limits apply in-game.' },
-  raid: { label: 'Solo / Union Raid', notes: 'Maximize burst windows and element-ready carries.' },
+  campaign: {
+    label: 'Campaign',
+    notes: 'Prydwen Story meta — prefer Anis: Star / Siren B1 and Crown / Maid Mast enables.',
+  },
+  boss: {
+    label: 'Boss / Raid',
+    notes: 'Bossing picks favor high-tier B3 carries (RRH, SBS, Ada, SWHA) + Crown/Naga or Maids.',
+  },
+  tower: {
+    label: 'Tribe Tower',
+    notes: 'Prefer owned depth; manufacturer limits apply in-game.',
+  },
+  raid: {
+    label: 'Solo / Union Raid',
+    notes: 'Element-ready carries + spare B1 batteries across squads.',
+  },
 }
 
 function owned(inv: InventoryState): Nikke[] {
@@ -27,12 +40,17 @@ function owned(inv: InventoryState): Nikke[] {
 
 function scoreNikke(n: Nikke, goal: TeamGoal): number {
   let s = RARITY[n.rarity] ?? 2
-  if (goal === 'campaign' && n.burst === 1) s += 4
-  if (goal === 'boss' && n.burst === 3) s += 5
-  if (goal === 'boss' && n.class === 'Defender') s += 2
-  if (goal === 'raid' && n.burst === 3) s += 4
-  if (n.name === 'Liter' || n.name === 'Dorothy' || n.name === 'Crown') s += 3
-  if (n.name.includes('Scarlet') || n.name === 'Modernia' || n.name === 'Alice' || n.name === 'Red Hood') s += 3
+  s += STORY_TIER_SCORE[n.name] ?? 0
+
+  if (goal === 'campaign' && n.burst === 1) s += 3
+  if (goal === 'boss' && n.burst === 3) s += 4
+  if (goal === 'boss' && (n.name === 'Crown' || n.name === 'Naga' || n.name === 'Mast: Romantic Maid')) s += 2
+  if (goal === 'raid' && n.burst === 3) s += 3
+  if (goal === 'tower' && n.burst === 1) s += 2
+
+  // Soft alias: Siren catalog variants
+  if (n.name.includes('Siren') || n.name.includes('Little Mermaid')) s = Math.max(s, 18)
+
   return s
 }
 
@@ -43,10 +61,11 @@ export function buildTeamFromInventory(inv: InventoryState, goal: TeamGoal): Bui
   const meta = GOAL_META[goal]
 
   const pickBurst = (burst: Burst, prefer?: (n: Nikke) => boolean) => {
-    const pick = pool
-      .filter((n) => !used.has(n.id) && n.burst === burst && (!prefer || prefer(n)))
-      .sort((a, b) => scoreNikke(b, goal) - scoreNikke(a, goal))[0]
-      ?? pool
+    const pick =
+      pool
+        .filter((n) => !used.has(n.id) && n.burst === burst && (!prefer || prefer(n)))
+        .sort((a, b) => scoreNikke(b, goal) - scoreNikke(a, goal))[0] ??
+      pool
         .filter((n) => !used.has(n.id) && n.burst === burst)
         .sort((a, b) => scoreNikke(b, goal) - scoreNikke(a, goal))[0]
     if (pick) {
@@ -61,7 +80,6 @@ export function buildTeamFromInventory(inv: InventoryState, goal: TeamGoal): Bui
   pickBurst(3)
   pickBurst(3)
 
-  // Fill remaining slots with best leftover
   while (members.length < 5) {
     const next = pool
       .filter((n) => !used.has(n.id))
@@ -89,7 +107,7 @@ export function buildTeamFromInventory(inv: InventoryState, goal: TeamGoal): Bui
       pool.length < 5
         ? 'Log more Nikkes in Roster for better teams.'
         : burstCounts[1] === 0
-          ? 'No B1 owned — full burst will feel slow. Pull/invest in a battery.'
+          ? 'No B1 owned — full burst will feel slow. Prioritize Anis: Star / Siren / Liter.'
           : meta.notes,
   }
 }

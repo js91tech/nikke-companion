@@ -26,7 +26,10 @@ export function TeamsPage({ inventory }: Props) {
     <div className="page">
       <header className="page-header">
         <h1>Teams</h1>
-        <p>Burst-aware squads from your owned roster, plus template coverage.</p>
+        <p>
+          Burst-aware squads from your roster (Prydwen Story tier weights, Jul 2026) plus template coverage from
+          Prydwen AI / meta-team guides. Not live-scraped — refresh when the meta shifts.
+        </p>
       </header>
 
       <section className="panel">

@@ -154,7 +154,9 @@ export function HomePage({ inventory, ownedCount }: Props) {
                 <span style={{ width: `${Math.round(a.coverage * 100)}%` }} />
               </div>
               <p className="fine-print">
-                {a.ownedCount}/{a.totalCount} sample owned
+                BiS: {a.stage.sampleTeams[0]?.members.slice(0, 3).join(', ')}
+                {(a.stage.sampleTeams[0]?.members.length ?? 0) > 3 ? '…' : ''} · {a.ownedCount}/
+                {a.totalCount} best owned · {a.stage.sampleTeams.length} teams
               </p>
             </article>
           ))}
@@ -195,6 +197,10 @@ export function HomePage({ inventory, ownedCount }: Props) {
       <p className="section-foot">
         <Link className="text-link" to="/stages">
           Open full stage database →
+        </Link>
+        {' · '}
+        <Link className="text-link" to="/union-raid">
+          Union Raid damage planner →
         </Link>
       </p>
 

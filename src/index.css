@@ -1481,6 +1481,66 @@ select {
   border-color: rgba(255, 193, 77, 0.32);
 }
 
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.65rem;
+  margin: 0.55rem 0 0.85rem;
+}
+
+.team-card {
+  padding: 0.7rem 0.8rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--line);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+.team-card.is-bis {
+  border-color: rgba(255, 36, 88, 0.4);
+  background:
+    linear-gradient(135deg, rgba(255, 36, 88, 0.1), transparent 50%),
+    rgba(0, 0, 0, 0.35);
+}
+
+.team-card.is-best {
+  box-shadow: inset 0 0 0 1px rgba(61, 207, 142, 0.35);
+}
+
+.team-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.team-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.team-label.bis {
+  color: var(--signal-soft);
+  text-shadow: 0 0 10px rgba(255, 36, 88, 0.35);
+}
+
+.team-cov {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.team-members {
+  margin: 0.35rem 0;
+}
+
+.team-members li {
+  font-size: 0.78rem;
+}
+
 .stats-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1721,6 +1781,106 @@ select,
 
 .active-check {
   border-color: rgba(255, 36, 88, 0.45);
+}
+
+/* —— Union Raid planner —— */
+.ur-settings-row {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.ur-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.ur-field.grow {
+  flex: 1;
+  min-width: 10rem;
+}
+
+.ur-hint {
+  margin: 0;
+}
+
+.ur-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.ur-check.compact {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: var(--font-mono);
+}
+
+.ur-add-row {
+  align-items: flex-end;
+}
+
+.ur-boss-row,
+.ur-mock-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.65rem;
+  align-items: end;
+  margin: 0.55rem 0;
+}
+
+.ur-name {
+  max-width: 16rem;
+  font-family: var(--font-ui);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.ur-boss.dimmed {
+  opacity: 0.45;
+}
+
+.ur-actions {
+  margin: 1.25rem 0;
+}
+
+.ur-summary strong {
+  color: var(--signal-soft);
+}
+
+.ur-plan-boss.cleared {
+  border-color: rgba(61, 207, 142, 0.4);
+}
+
+.ur-assign-list {
+  list-style: none;
+  margin: 0.55rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.ur-assign-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0.6rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.ur-assign-list span {
+  color: var(--cyan);
 }
 
 @media (max-width: 860px) {
