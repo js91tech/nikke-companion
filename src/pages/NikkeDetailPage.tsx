@@ -32,7 +32,11 @@ export function NikkeDetailPage({ inventory, toggleNikke }: Props) {
       <header className="page-header">
         <h1>{nikke.name}</h1>
         <p>
-          B{nikke.burst} · {nikke.class} · {nikke.weapon} · {nikke.manufacturer} · {nikke.rarity}
+          B{nikke.burst}
+          {nikke.burstLabel && nikke.burstLabel !== String(nikke.burst) ? ` (${nikke.burstLabel})` : ''} ·{' '}
+          {nikke.class} · {nikke.weaponLabel || nikke.weapon} · {nikke.manufacturerLabel || nikke.manufacturer} ·{' '}
+          {nikke.rarity}
+          {nikke.element ? ` · ${nikke.element}` : ''}
         </p>
       </header>
       <section className="panel">
@@ -44,6 +48,18 @@ export function NikkeDetailPage({ inventory, toggleNikke }: Props) {
             Use in team builder
           </Link>
         </div>
+        {nikke.squad ? <p>Squad: {nikke.squad}</p> : null}
+        {nikke.specialties && nikke.specialties.length > 0 ? (
+          <>
+            <h4 className="subhead">Specialties</h4>
+            <ul className="chip-row">
+              {nikke.specialties.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+        {nikke.releaseDate ? <p className="fine-print">Added: {nikke.releaseDate}</p> : null}
         {nikke.notes ? <p>{nikke.notes}</p> : null}
       </section>
     </div>

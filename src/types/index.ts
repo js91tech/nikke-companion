@@ -9,15 +9,24 @@ export type Manufacturer =
   | 'Pilgrim'
   | 'Abnormal'
   | 'Other'
+export type Element = 'Fire' | 'Wind' | 'Iron' | 'Electric' | 'Water' | string
 
 export interface Nikke {
   id: string
   name: string
   rarity: Rarity
   burst: Burst
+  burstLabel?: string
   class: NikkeClass
   weapon: Weapon
+  weaponLabel?: string
   manufacturer: Manufacturer
+  manufacturerLabel?: string
+  element?: Element
+  squad?: string
+  specialties?: string[]
+  releaseDate?: string
+  sourceId?: number
   notes?: string
 }
 

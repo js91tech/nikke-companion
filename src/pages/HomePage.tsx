@@ -22,8 +22,8 @@ export function HomePage({ inventory, ownedCount }: Props) {
           <p className="eyebrow">Outpost aide</p>
           <h1 className="hero-brand">Nikke Companion</h1>
           <p className="hero-lede">
-            Roster checklist, burst-aware teams, and stage coverage for {catalogMeta.nikkeCount} seeded Nikkes — from
-            what you actually own. Local-first, no game account login.
+            Roster checklist, burst-aware teams, and stage coverage for {catalogMeta.nikkeCount} Nikkes (
+            {catalogMeta.source}) — from what you actually own. Local-first, no game account login.
           </p>
           <div className="cta-row">
             <Link className="btn primary" to="/roster">

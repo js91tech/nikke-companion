@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { SyncPanel } from '../components/SyncPanel'
 import {
   allClasses,
+  allElements,
   allManufacturers,
   allRarities,
   allWeapons,
@@ -42,6 +43,7 @@ export function RosterPage({
   const [weapon, setWeapon] = useState('all')
   const [rarity, setRarity] = useState('all')
   const [burst, setBurst] = useState('all')
+  const [element, setElement] = useState('all')
   const [paste, setPaste] = useState('')
   const [pasteReport, setPasteReport] = useState('')
   const [msg, setMsg] = useState('')
@@ -61,10 +63,16 @@ export function RosterPage({
       if (weapon !== 'all' && n.weapon !== weapon) return false
       if (rarity !== 'all' && n.rarity !== rarity) return false
       if (burst !== 'all' && String(n.burst) !== burst) return false
+      if (element !== 'all' && n.element !== element) return false
       if (!query) return true
-      return n.name.toLowerCase().includes(query) || n.manufacturer.toLowerCase().includes(query)
+      return (
+        n.name.toLowerCase().includes(query) ||
+        n.manufacturer.toLowerCase().includes(query) ||
+        (n.squad || '').toLowerCase().includes(query) ||
+        (n.element || '').toLowerCase().includes(query)
+      )
     })
-  }, [q, inventory.nikkes, effectiveOwn, manufacturer, klass, weapon, rarity, burst])
+  }, [q, inventory.nikkes, effectiveOwn, manufacturer, klass, weapon, rarity, burst, element])
 
   const applyPaste = () => {
     const result = matchNameList(paste)
@@ -86,7 +94,7 @@ export function RosterPage({
       <header className="page-header">
         <h1>Roster</h1>
         <p>
-          {catalogMeta.nikkeCount} Nikkes in seed catalog · you have logged {ownedCount}.
+          {catalogMeta.nikkeCount} Nikkes ({catalogMeta.source}) · you have logged {ownedCount}.
         </p>
       </header>
 
@@ -221,6 +229,17 @@ export function RosterPage({
           </select>
         </label>
         <label>
+          Element
+          <select value={element} onChange={(e) => setElement(e.target.value)}>
+            <option value="all">All</option>
+            {allElements.map((el) => (
+              <option key={el} value={el}>
+                {el}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
           Rarity
           <select value={rarity} onChange={(e) => setRarity(e.target.value)}>
             <option value="all">All</option>
@@ -246,7 +265,8 @@ export function RosterPage({
                   <Link to={`/nikkes/${n.id}`}>{n.name}</Link>
                 </span>
                 <span className="meta">
-                  B{n.burst} · {n.class} · {n.weapon} · {n.manufacturer} · {n.rarity}
+                  B{n.burst} · {n.class} · {n.weapon}
+                  {n.element ? ` · ${n.element}` : ''} · {n.manufacturer} · {n.rarity}
                 </span>
               </label>
             </li>
