@@ -4,9 +4,10 @@ import {
   exportInventory,
   importInventory,
   loadInventory,
+  normalizeOwnedEntry,
   saveInventory,
 } from '../lib/inventory'
-import type { InventoryState } from '../types'
+import type { InventoryState, OwnedEntry } from '../types'
 
 export function useInventory() {
   const [inventory, setInventory] = useState<InventoryState>(() => loadInventory())
@@ -17,10 +18,16 @@ export function useInventory() {
 
   const toggleNikke = useCallback((id: string) => {
     setInventory((prev) => {
-      const current = prev.nikkes[id]?.owned ?? false
+      const current = prev.nikkes[id]
+      const owned = !(current?.owned ?? false)
       return {
         ...prev,
-        nikkes: { ...prev.nikkes, [id]: { owned: !current } },
+        nikkes: {
+          ...prev.nikkes,
+          [id]: owned
+            ? normalizeOwnedEntry({ ...current, owned: true })
+            : { owned: false },
+        },
       }
     })
   }, [])
@@ -29,8 +36,27 @@ export function useInventory() {
     if (ids.length === 0) return
     setInventory((prev) => {
       const nikkes = { ...prev.nikkes }
-      for (const id of ids) nikkes[id] = { owned }
+      for (const id of ids) {
+        nikkes[id] = owned
+          ? normalizeOwnedEntry({ ...nikkes[id], owned: true })
+          : { owned: false }
+      }
       return { ...prev, nikkes }
+    })
+  }, [])
+
+  const patchNikke = useCallback((id: string, patch: Partial<OwnedEntry>) => {
+    setInventory((prev) => {
+      const current = prev.nikkes[id]
+      const next = normalizeOwnedEntry({
+        ...current,
+        owned: patch.owned ?? current?.owned ?? true,
+        ...patch,
+      })
+      if (!next.owned) {
+        return { ...prev, nikkes: { ...prev.nikkes, [id]: { owned: false } } }
+      }
+      return { ...prev, nikkes: { ...prev.nikkes, [id]: next } }
     })
   }, [])
 
@@ -38,7 +64,9 @@ export function useInventory() {
 
   const replaceInventory = useCallback((state: InventoryState) => {
     setInventory({
-      nikkes: state.nikkes ?? {},
+      nikkes: Object.fromEntries(
+        Object.entries(state.nikkes ?? {}).map(([id, e]) => [id, normalizeOwnedEntry(e)]),
+      ),
       updatedAt: new Date().toISOString(),
     })
   }, [])
@@ -63,6 +91,7 @@ export function useInventory() {
     inventory,
     toggleNikke,
     setNikkesOwned,
+    patchNikke,
     reset,
     replaceInventory,
     download,

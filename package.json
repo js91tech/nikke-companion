@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run data:build && tsc -b && vite build",
+    "build": "npm run data:build && npm run meta:check && tsc -b && vite build",
     "data:build": "node scripts/build-data.mjs",
+    "meta:check": "node scripts/meta-check.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },

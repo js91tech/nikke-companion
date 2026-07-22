@@ -125,8 +125,9 @@ function findUtilsEntry(name, utilsByNorm) {
 function fromUtils(name, src) {
   const burstRaw = String(src?.burst || '')
   const over = OVERRIDES[name] || {}
+  const id = slug(name)
   return {
-    id: slug(name),
+    id,
     name,
     rarity: src?.rarity === 'R' || src?.rarity === 'SR' || src?.rarity === 'SSR' ? src.rarity : 'SSR',
     burst: over.burst ?? mapBurst(src?.burst, name),
@@ -142,6 +143,8 @@ function fromUtils(name, src) {
     releaseDate: src?.dateAdded || undefined,
     sourceId: src?.id,
     treasure: /\(Treasure\)$/i.test(name) || String(src?.treasure).toLowerCase() === 'yes',
+    portraitUrl: `https://cdn.prydwen.gg/images/nikke/characters/${id}.webp`,
+    cardUrl: `https://cdn.prydwen.gg/images/nikke/characters/${id}_card.webp`,
     notes: burstRaw.includes('-')
       ? `Flexible burst (${burstRaw}).`
       : /\(Treasure\)$/i.test(name)
@@ -151,12 +154,15 @@ function fromUtils(name, src) {
 }
 
 function stubFromBase(name, base) {
+  const id = slug(name)
   if (base) {
     return {
       ...base,
-      id: slug(name),
+      id,
       name,
       treasure: /\(Treasure\)$/i.test(name),
+      portraitUrl: `https://cdn.prydwen.gg/images/nikke/characters/${id}.webp`,
+      cardUrl: `https://cdn.prydwen.gg/images/nikke/characters/${id}_card.webp`,
       notes: /\(Treasure\)$/i.test(name)
         ? `Treasure variant of ${base.name}.`
         : name === 'Red Hood B3'
@@ -167,7 +173,7 @@ function stubFromBase(name, base) {
   }
   const over = OVERRIDES[name] || {}
   return {
-    id: slug(name),
+    id,
     name,
     rarity: 'SSR',
     burst: over.burst ?? 3,
@@ -177,6 +183,8 @@ function stubFromBase(name, base) {
     element: over.element,
     specialties: [],
     treasure: /\(Treasure\)$/i.test(name),
+    portraitUrl: `https://cdn.prydwen.gg/images/nikke/characters/${id}.webp`,
+    cardUrl: `https://cdn.prydwen.gg/images/nikke/characters/${id}_card.webp`,
     notes: 'Stub entry — metadata incomplete; listed on Prydwen.',
   }
 }

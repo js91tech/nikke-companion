@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Portrait } from '../components/Portrait'
 import { SyncPanel } from '../components/SyncPanel'
 import {
   allClasses,
@@ -256,13 +257,21 @@ export function RosterPage({
 
       <ul className="check-list">
         {filtered.slice(0, visible).map((n) => {
-          const owned = Boolean(inventory.nikkes[n.id]?.owned)
+          const entry = inventory.nikkes[n.id]
+          const owned = Boolean(entry?.owned)
           return (
             <li key={n.id}>
               <label className={owned ? 'owned' : ''}>
                 <input type="checkbox" checked={owned} onChange={() => toggleNikke(n.id)} />
+                <Portrait src={n.portraitUrl} name={n.name} size={36} />
                 <span className="name">
                   <Link to={`/nikkes/${n.id}`}>{n.name}</Link>
+                  {owned && (entry?.limitBreak || entry?.olLines) ? (
+                    <span className="invest-chips">
+                      {entry?.limitBreak ? ` LB${entry.limitBreak}` : ''}
+                      {entry?.olLines ? ` OL${entry.olLines}` : ''}
+                    </span>
+                  ) : null}
                 </span>
                 <span className="meta">
                   B{n.burst} · {n.class} · {n.weapon}

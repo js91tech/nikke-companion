@@ -36,11 +36,19 @@ export interface Nikke {
   releaseDate?: string
   sourceId?: number
   treasure?: boolean
+  portraitUrl?: string
+  cardUrl?: string
   notes?: string
 }
 
 export interface OwnedEntry {
   owned: boolean
+  /** Limit Break 0–3 */
+  limitBreak?: 0 | 1 | 2 | 3
+  /** Skill levels 1–10 for S1/S2/Burst */
+  skills?: [number, number, number]
+  /** Number of Overload gear pieces invested (0–3) */
+  olLines?: 0 | 1 | 2 | 3
 }
 
 export interface InventoryState {

@@ -1091,6 +1091,7 @@ select {
   justify-content: center;
   border: 1px solid transparent;
   padding: 0.8rem 1.35rem;
+  min-height: 44px;
   cursor: pointer;
   background: transparent;
   color: var(--ink);
@@ -1617,7 +1618,8 @@ select,
   border: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
-  padding: 0.42rem 0.8rem;
+  padding: 0.55rem 0.9rem;
+  min-height: 44px;
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: 0.76rem;
@@ -1648,10 +1650,12 @@ select,
 
 .check-list label {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto 1fr;
   grid-template-rows: auto auto;
+  align-items: center;
   gap: 0.1rem 0.65rem;
   padding: 0.6rem 0.75rem;
+  min-height: 52px;
   border: 1px solid var(--line);
   background: rgba(0, 0, 0, 0.28);
   cursor: pointer;
@@ -1671,7 +1675,13 @@ select,
 .check-list input {
   grid-row: span 2;
   margin-top: 0.25rem;
+  width: 1.1rem;
+  height: 1.1rem;
   accent-color: var(--signal);
+}
+
+.check-list .portrait {
+  grid-row: span 2;
 }
 
 .check-list .name {
@@ -1679,10 +1689,18 @@ select,
 }
 
 .check-list .meta {
-  grid-column: 2;
+  grid-column: 3;
   font-size: 0.78rem;
   color: var(--muted);
   font-family: var(--font-mono);
+}
+
+.check-list .invest-chips {
+  margin-left: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan);
+  font-weight: 500;
 }
 
 .chip-row {
@@ -1881,6 +1899,126 @@ select,
 
 .ur-assign-list span {
   color: var(--cyan);
+}
+
+.portrait {
+  display: inline-block;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.45);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.portrait-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--cyan);
+  background: linear-gradient(145deg, rgba(61, 231, 255, 0.12), rgba(0, 0, 0, 0.5));
+}
+
+.detail-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.detail-portrait {
+  border-color: rgba(61, 231, 255, 0.35);
+}
+
+.invest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.55rem 0 0;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.meta-badge a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+.meta-badge a:hover {
+  text-decoration: underline;
+}
+
+.stages-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  margin: 0 -0.25rem 0.5rem;
+  padding: 0.55rem 0.25rem 0.65rem;
+  background: linear-gradient(180deg, rgba(5, 6, 8, 0.97) 70%, rgba(5, 6, 8, 0.85));
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.finish-badge {
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bg);
+  background: var(--signal);
+  vertical-align: middle;
+}
+
+.ur-add-row,
+.ur-mock-row,
+.ur-boss-row,
+.ur-settings-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: flex-end;
+}
+
+.ur-field.grow {
+  flex: 1 1 12rem;
+}
+
+.ur-field select,
+.ur-field input,
+.invest-grid select {
+  min-height: 44px;
+}
+
+.ur-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.ur-name {
+  flex: 1;
+  min-width: 8rem;
+}
+
+.ur-member.dimmed,
+.ur-boss.dimmed {
+  opacity: 0.55;
 }
 
 @media (max-width: 860px) {

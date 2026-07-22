@@ -18,6 +18,7 @@ import {
   type UrMember,
   type UnionRaidState,
 } from '../lib/unionRaidStorage'
+import { decodeUrPlan, encodeUrPlan, planToDiscordText } from '../lib/urSyncCode'
 
 function DamageField({
   value,
@@ -48,11 +49,60 @@ function DamageField({
   )
 }
 
+function parseHpPaste(
+  text: string,
+  bosses: UrBossRow[],
+): { updates: { id: string; remainingHp: number }[]; report: string } {
+  const lines = text
+    .split(/\n|;/)
+    .map((l) => l.trim())
+    .filter(Boolean)
+  const updates: { id: string; remainingHp: number }[] = []
+  const unmatched: string[] = []
+
+  for (const line of lines) {
+    const m = line.match(/^(.+?)\s+(?:s|stage)?\s*(\d)?\s*[:=\s]\s*([\d.,]+\s*[kmb]?)$/i)
+    const loose = line.match(/^(.+?)\s+([\d.,]+\s*[kmb]?)$/i)
+    const hit = m || loose
+    if (!hit) {
+      unmatched.push(line)
+      continue
+    }
+    const namePart = hit[1].trim().toLowerCase()
+    const stage = m?.[2] ? Number(m[2]) : undefined
+    const hp = parseDamageInput(hit[hit.length - 1])
+    if (hp <= 0) {
+      unmatched.push(line)
+      continue
+    }
+    const boss = bosses.find((b) => {
+      const bn = b.name.toLowerCase()
+      if (!bn.includes(namePart) && !namePart.includes(bn)) return false
+      if (stage != null && b.stage !== stage) return false
+      return true
+    })
+    if (!boss) {
+      unmatched.push(line)
+      continue
+    }
+    updates.push({ id: boss.id, remainingHp: hp })
+  }
+
+  return {
+    updates,
+    report: `Updated ${updates.length}.${unmatched.length ? ` Unmatched: ${unmatched.slice(0, 5).join(' · ')}` : ''}`,
+  }
+}
+
 export function UnionRaidPage() {
   const [state, setState] = useState<UnionRaidState>(() => loadUnionRaidState())
   const [addBossId, setAddBossId] = useState(unionBossTemplates[0]?.id ?? 'obelisk')
   const [addStage, setAddStage] = useState(6)
   const [plan, setPlan] = useState<PlanResult | null>(null)
+  const [hpPaste, setHpPaste] = useState('')
+  const [hpReport, setHpReport] = useState('')
+  const [shareCode, setShareCode] = useState('')
+  const [shareMsg, setShareMsg] = useState('')
 
   useEffect(() => {
     saveUnionRaidState(state)
@@ -153,9 +203,54 @@ export function UnionRaidPage() {
     )
   }
 
+  function applyPlanToHp() {
+    if (!plan) return
+    setState((s) => ({
+      ...s,
+      bosses: s.bosses.map((b) => {
+        const summary = plan.targets.find((t) => t.targetId === b.id)
+        if (!summary) return b
+        return { ...b, remainingHp: Math.max(0, summary.endHp) }
+      }),
+    }))
+    setShareMsg('Applied plan damage to remaining HP.')
+    setPlan(null)
+  }
+
   function resetAll() {
     setState(defaultUnionRaidState())
     setPlan(null)
+  }
+
+  async function exportShare() {
+    const code = await encodeUrPlan(state)
+    setShareCode(code)
+    await navigator.clipboard.writeText(code).catch(() => undefined)
+    setShareMsg('URC1 share code copied.')
+  }
+
+  async function importShare() {
+    try {
+      const partial = await decodeUrPlan(shareCode)
+      setState((s) => ({
+        ...s,
+        ...partial,
+        members: partial.members ?? s.members,
+        bosses: partial.bosses ?? s.bosses,
+        updatedAt: new Date().toISOString(),
+      }))
+      setPlan(null)
+      setShareMsg('Imported UR plan code.')
+    } catch (e) {
+      setShareMsg(e instanceof Error ? e.message : 'Import failed')
+    }
+  }
+
+  async function copyDiscord() {
+    if (!plan) return
+    const text = planToDiscordText(state, plan, formatDamage)
+    await navigator.clipboard.writeText(text).catch(() => undefined)
+    setShareMsg('Discord plan text copied.')
   }
 
   return (
@@ -163,8 +258,8 @@ export function UnionRaidPage() {
       <header className="page-header">
         <h1>Union Raid calculator</h1>
         <p>
-          Assign mock-battle damage across bosses without overkill waste. Enter remaining HP, member
-          attempt damage, then generate a plan. Local only — not linked to the game.
+          Assign mock-battle damage across bosses without overkill waste. Paste remaining HP, share{' '}
+          <code>URC1.…</code> codes, apply the plan. Local only.
         </p>
       </header>
 
@@ -188,9 +283,7 @@ export function UnionRaidPage() {
               }}
             />
           </label>
-          <p className="fine-print ur-hint">
-            Real raids often land ~70–85% of mock. Default 0.8.
-          </p>
+          <p className="fine-print ur-hint">Real raids often land ~70–85% of mock. Default 0.8.</p>
           <label className="ur-check">
             <input
               type="checkbox"
@@ -214,10 +307,7 @@ export function UnionRaidPage() {
         <div className="ur-add-row toolbar">
           <label className="ur-field grow">
             <span>Boss</span>
-            <select
-              value={addBossId}
-              onChange={(e) => setAddBossId(e.target.value)}
-            >
+            <select value={addBossId} onChange={(e) => setAddBossId(e.target.value)}>
               <optgroup label="Classic">
                 {classicOptions.map((b) => (
                   <option key={b.id} value={b.id}>
@@ -249,6 +339,41 @@ export function UnionRaidPage() {
           <button type="button" className="btn ghost" onClick={addBoss}>
             Add boss
           </button>
+        </div>
+
+        <div className="panel" style={{ marginTop: '0.75rem' }}>
+          <h3>Paste remaining HP</h3>
+          <p className="fine-print">One per line — e.g. <code>Obelisk 6 120m</code> or <code>Modernia S6 1.2b</code></p>
+          <textarea
+            className="paste-box"
+            rows={3}
+            value={hpPaste}
+            onChange={(e) => setHpPaste(e.target.value)}
+            placeholder={'Obelisk 6 120m\nModernia S6 800m\nDoctor 50m'}
+            aria-label="Paste remaining HP"
+          />
+          <div className="toolbar secondary">
+            <button
+              type="button"
+              className="btn primary"
+              disabled={!hpPaste.trim() || state.bosses.length === 0}
+              onClick={() => {
+                const { updates, report } = parseHpPaste(hpPaste, state.bosses)
+                setState((s) => ({
+                  ...s,
+                  bosses: s.bosses.map((b) => {
+                    const u = updates.find((x) => x.id === b.id)
+                    return u ? { ...b, remainingHp: u.remainingHp } : b
+                  }),
+                }))
+                setHpReport(report)
+                setPlan(null)
+              }}
+            >
+              Apply HP paste
+            </button>
+          </div>
+          {hpReport ? <p className="flash">{hpReport}</p> : null}
         </div>
 
         <div className="stack" style={{ marginTop: '0.75rem' }}>
@@ -284,7 +409,8 @@ export function UnionRaidPage() {
                   </button>
                 </div>
                 <p className="fine-print">
-                  Table full HP: {formatDamage(getTemplateHp(b.templateId, b.stage) ?? 0) || '— (enter manually)'}
+                  Table full HP:{' '}
+                  {formatDamage(getTemplateHp(b.templateId, b.stage) ?? 0) || '— (enter manually)'}
                 </p>
               </article>
             ))
@@ -295,7 +421,9 @@ export function UnionRaidPage() {
       <section className="section">
         <div className="section-head">
           <h2>Union members</h2>
-          <span className="section-tag">{state.members.length} · {attempts.length} attempts</span>
+          <span className="section-tag">
+            {state.members.length} · {attempts.length} attempts
+          </span>
         </div>
         <div className="toolbar">
           <button type="button" className="btn primary" onClick={addMember}>
@@ -347,6 +475,30 @@ export function UnionRaidPage() {
         </div>
       </section>
 
+      <section className="panel">
+        <h3>Share</h3>
+        <div className="toolbar secondary">
+          <button type="button" className="btn ghost" onClick={() => void exportShare()}>
+            Export URC1 code
+          </button>
+          <button type="button" className="btn ghost" onClick={() => void importShare()} disabled={!shareCode.trim()}>
+            Import code
+          </button>
+          <button type="button" className="btn ghost" onClick={() => void copyDiscord()} disabled={!plan}>
+            Copy Discord text
+          </button>
+        </div>
+        <textarea
+          className="paste-box"
+          rows={2}
+          value={shareCode}
+          onChange={(e) => setShareCode(e.target.value)}
+          placeholder="Paste URC1.… here to import"
+          aria-label="UR share code"
+        />
+        {shareMsg ? <p className="flash">{shareMsg}</p> : null}
+      </section>
+
       <div className="toolbar ur-actions">
         <button
           type="button"
@@ -356,6 +508,9 @@ export function UnionRaidPage() {
         >
           <span className="btn-glow" aria-hidden />
           Generate plan
+        </button>
+        <button type="button" className="btn ghost" onClick={applyPlanToHp} disabled={!plan}>
+          Apply plan to HP
         </button>
         <button type="button" className="btn ghost" onClick={resetAll}>
           Reset planner
@@ -418,6 +573,7 @@ export function UnionRaidPage() {
                       <li key={a.attemptId}>
                         <strong>
                           {a.memberName} · A{a.slot}
+                          {a.isFinish ? <span className="finish-badge"> finish</span> : null}
                         </strong>
                         <span>
                           {formatDamage(a.plannedDamage)}

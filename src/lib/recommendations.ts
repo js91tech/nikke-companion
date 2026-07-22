@@ -66,6 +66,16 @@ function evalTeam(
   }
 }
 
+function elementMatchBonus(stage: Stage, members: string[]): number {
+  if (!stage.weakTo) return 0
+  let hits = 0
+  for (const ref of members) {
+    const n = resolveNikkeRef(ref)
+    if (n?.element === stage.weakTo) hits++
+  }
+  return hits
+}
+
 export function evaluateStages(inv: InventoryState): StageClearResult[] {
   return stages
     .map((stage) => {
@@ -73,6 +83,9 @@ export function evaluateStages(inv: InventoryState): StageClearResult[] {
       const best =
         [...teams].sort((a, b) => {
           if (b.coverage !== a.coverage) return b.coverage - a.coverage
+          const elemDiff =
+            elementMatchBonus(stage, b.members) - elementMatchBonus(stage, a.members)
+          if (elemDiff !== 0) return elemDiff
           const aBis = a.label === 'BiS' || a.label.startsWith('BiS') ? 1 : 0
           const bBis = b.label === 'BiS' || b.label.startsWith('BiS') ? 1 : 0
           return bBis - aBis

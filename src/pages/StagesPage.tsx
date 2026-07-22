@@ -1,5 +1,6 @@
 import type { StageMode } from '../types'
 import { useMemo, useState } from 'react'
+import { MetaBadge } from '../components/MetaBadge'
 import { CAMPAIGN_MAX_CHAPTER } from '../data/stages'
 import { evaluateStages, type TeamEval } from '../lib/recommendations'
 import type { InventoryState } from '../types'
@@ -75,29 +76,32 @@ export function StagesPage({ inventory }: Props) {
           BiS + substitute teams for Normal/Hard Ch.1–{CAMPAIGN_MAX_CHAPTER}, Anomaly AI, Solo Museum, Union
           Raid, and Tower — coverage from your roster.
         </p>
+        <MetaBadge />
       </header>
 
-      <div className="seg wrap">
-        {FILTERS.map((m) => (
-          <button
-            key={m.id}
-            type="button"
-            className={mode === m.id ? 'active' : ''}
-            onClick={() => setMode(m.id)}
-          >
-            {m.label}
-          </button>
-        ))}
-      </div>
+      <div className="stages-sticky">
+        <div className="seg wrap">
+          {FILTERS.map((m) => (
+            <button
+              key={m.id}
+              type="button"
+              className={mode === m.id ? 'active' : ''}
+              onClick={() => setMode(m.id)}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
 
-      <div className="toolbar" style={{ marginTop: '0.85rem' }}>
-        <input
-          className="search"
-          value={chapterQ}
-          onChange={(e) => setChapterQ(e.target.value)}
-          placeholder="Filter by chapter, boss, drops…"
-          aria-label="Filter stages"
-        />
+        <div className="toolbar" style={{ marginTop: '0.85rem' }}>
+          <input
+            className="search"
+            value={chapterQ}
+            onChange={(e) => setChapterQ(e.target.value)}
+            placeholder="Filter by chapter, boss, drops…"
+            aria-label="Filter stages"
+          />
+        </div>
       </div>
 
       <p className="fine-print">

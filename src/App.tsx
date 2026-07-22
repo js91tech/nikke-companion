@@ -36,7 +36,13 @@ export default function App() {
             />
             <Route
               path="nikkes/:id"
-              element={<NikkeDetailPage inventory={inv.inventory} toggleNikke={inv.toggleNikke} />}
+              element={
+                <NikkeDetailPage
+                  inventory={inv.inventory}
+                  toggleNikke={inv.toggleNikke}
+                  patchNikke={inv.patchNikke}
+                />
+              }
             />
             <Route path="teams" element={<TeamsPage inventory={inv.inventory} />} />
             <Route path="stages" element={<StagesPage inventory={inv.inventory} />} />

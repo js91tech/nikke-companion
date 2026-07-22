@@ -24,6 +24,8 @@ export interface Assignment {
   plannedDamage: number
   usefulDamage: number
   overkill: number
+  /** True when this hit clears leftover HP (may overkill). */
+  isFinish: boolean
 }
 
 export interface TargetSummary {
@@ -106,6 +108,7 @@ export function planUnionRaid(
         plannedDamage: pick.effectiveDamage,
         usefulDamage: useful,
         overkill: 0,
+        isFinish: false,
       })
       hpLeft -= useful
       remaining.set(target.id, hpLeft)
@@ -131,6 +134,7 @@ export function planUnionRaid(
           plannedDamage: finish.effectiveDamage,
           usefulDamage: hpLeft,
           overkill,
+          isFinish: true,
         })
         remaining.set(target.id, 0)
       }
@@ -157,6 +161,7 @@ export function planUnionRaid(
         plannedDamage: attempt.effectiveDamage,
         usefulDamage: attempt.effectiveDamage,
         overkill: 0,
+        isFinish: false,
       })
       remaining.set(target.id, hpLeft - attempt.effectiveDamage)
     } else if (allowFinishOverkill) {
@@ -171,6 +176,7 @@ export function planUnionRaid(
         plannedDamage: attempt.effectiveDamage,
         usefulDamage: hpLeft,
         overkill: attempt.effectiveDamage - hpLeft,
+        isFinish: true,
       })
       remaining.set(target.id, 0)
     }

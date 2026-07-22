@@ -16,7 +16,8 @@ export function SyncPanel({ inventory, onApply }: Props) {
     <section className="panel">
       <h2>Sync code</h2>
       <p className="section-lede">
-        Copy a compact <code>NKC1.…</code> code to another device. Data stays on-device — no account login.
+        Copy a compact <code>NKC2.…</code> code (investment-aware) to another device. Legacy{' '}
+        <code>NKC1.…</code> still imports. Data stays on-device — no account login.
       </p>
       <div className="toolbar secondary">
         <button

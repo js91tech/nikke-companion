@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { MetaBadge } from '../components/MetaBadge'
 import { catalogMeta } from '../data/catalog'
 import { CAMPAIGN_MAX_CHAPTER } from '../data/stages'
 import { buildTeamFromInventory } from '../lib/teamBuilder'
@@ -54,6 +55,7 @@ export function HomePage({ inventory, ownedCount }: Props) {
               Dock checklist, burst teams, and raid coverage for {catalogMeta.nikkeCount} Nikkes — campaign Ch.1–
               {CAMPAIGN_MAX_CHAPTER}, Anomaly AI, Solo Museum, Union bosses.
             </p>
+            <MetaBadge />
             <div className="cta-row">
               <Link className="btn primary" to="/roster">
                 <span className="btn-glow" aria-hidden />
