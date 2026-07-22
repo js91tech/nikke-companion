@@ -27,6 +27,7 @@ export interface Nikke {
   specialties?: string[]
   releaseDate?: string
   sourceId?: number
+  treasure?: boolean
   notes?: string
 }
 

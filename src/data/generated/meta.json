@@ -1,7 +1,11 @@
 {
-  "nikkeCount": 194,
-  "version": "nikke-utils",
+  "nikkeCount": 213,
+  "prydwenCount": 212,
+  "utilsCount": 194,
+  "stubCount": 0,
+  "version": "prydwen+nikke-utils",
   "package": "@sancti0n/nikke-utils",
-  "builtAt": "2026-07-22T16:16:46.201Z",
-  "note": "Generated offline from nikke-utils. Live NikkeAPI (fuwaguwa) is unavailable."
+  "builtAt": "2026-07-22T16:24:00.454Z",
+  "note": "Master list from Prydwen (Jul 2026). Stats/metadata from nikke-utils where available.",
+  "stubs": []
 }

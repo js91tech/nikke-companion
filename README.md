@@ -8,8 +8,9 @@ Fan-made. Not affiliated with Shift Up / Level Infinite.
 
 | Source | Status |
 | --- | --- |
-| [fuwaguwa/NikkeAPI](https://github.com/fuwaguwa/NikkeAPI) (`nikke-api.vercel.app`) | **Broken** — Prydwen character-list JSON moved/blocked; endpoints return `No NIKKE Found!` / 500 |
-| [@sancti0n/nikke-utils](https://www.npmjs.com/package/@sancti0n/nikke-utils) | **Used** — offline static catalog (~194 Nikkes) baked in at build time |
+| [Prydwen characters](https://www.prydwen.gg/nikke/characters) | **Master list** — all known playable Nikkes (incl. Treasure), refreshed via `scripts/prydwen-names.json` |
+| [@sancti0n/nikke-utils](https://www.npmjs.com/package/@sancti0n/nikke-utils) | **Metadata** — rarity / burst / class / weapon / element / specialties |
+| [fuwaguwa/NikkeAPI](https://github.com/fuwaguwa/NikkeAPI) | Broken (Prydwen scrape) |
 
 Refresh catalog:
 
@@ -17,6 +18,7 @@ Refresh catalog:
 npm run data:build
 ```
 
+To add newly released Nikkes, append the English name to `scripts/prydwen-names.json` then rebuild.
 ## Features
 
 - Roster checklist + paste import + `NKC1.…` sync codes

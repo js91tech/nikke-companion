@@ -14,7 +14,8 @@
     "squad": "YoRHa",
     "specialties": [],
     "releaseDate": "2023-09-01",
-    "sourceId": 96
+    "sourceId": 96,
+    "treasure": false
   },
   {
     "id": "a2",
@@ -31,7 +32,8 @@
     "squad": "YoRHa",
     "specialties": [],
     "releaseDate": "2023-09-08",
-    "sourceId": 98
+    "sourceId": 98,
+    "treasure": false
   },
   {
     "id": "ada-wong",
@@ -52,7 +54,8 @@
       "True Damage"
     ],
     "releaseDate": "2025-09-24",
-    "sourceId": 168
+    "sourceId": 168,
+    "treasure": false
   },
   {
     "id": "ade",
@@ -72,7 +75,8 @@
       "Cleanser"
     ],
     "releaseDate": "2024-02-15",
-    "sourceId": 112
+    "sourceId": 112,
+    "treasure": false
   },
   {
     "id": "ade-agent-bunny",
@@ -93,7 +97,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-09-04",
-    "sourceId": 166
+    "sourceId": 166,
+    "treasure": false
   },
   {
     "id": "admi",
@@ -112,7 +117,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 6
+    "sourceId": 6,
+    "treasure": false
   },
   {
     "id": "alice",
@@ -132,7 +138,8 @@
       "Pierce"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 7
+    "sourceId": 7,
+    "treasure": false
   },
   {
     "id": "alice-wonderland-bunny",
@@ -152,7 +159,8 @@
       "Healer"
     ],
     "releaseDate": "2024-06-06",
-    "sourceId": 123
+    "sourceId": 123,
+    "treasure": false
   },
   {
     "id": "anchor",
@@ -171,7 +179,8 @@
       "Taunter"
     ],
     "releaseDate": "2023-08-03",
-    "sourceId": 93
+    "sourceId": 93,
+    "treasure": false
   },
   {
     "id": "anchor-innocent-maid",
@@ -192,7 +201,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-02-06",
-    "sourceId": 146
+    "sourceId": 146,
+    "treasure": false
   },
   {
     "id": "anis",
@@ -212,7 +222,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 2
+    "sourceId": 2,
+    "treasure": false
   },
   {
     "id": "anis-sparkling-summer",
@@ -231,7 +242,8 @@
       "Buffer"
     ],
     "releaseDate": "2023-08-03",
-    "sourceId": 94
+    "sourceId": 94,
+    "treasure": false
   },
   {
     "id": "anis-star",
@@ -252,7 +264,8 @@
       "Healer"
     ],
     "releaseDate": "2026-04-23",
-    "sourceId": 187
+    "sourceId": 187,
+    "treasure": false
   },
   {
     "id": "anne-miracle-fairy",
@@ -274,7 +287,8 @@
       "Revive"
     ],
     "releaseDate": "2022-12-15",
-    "sourceId": 69
+    "sourceId": 69,
+    "treasure": false
   },
   {
     "id": "arcana",
@@ -297,7 +311,8 @@
       "Screen Wipe"
     ],
     "releaseDate": "2025-05-15",
-    "sourceId": 155
+    "sourceId": 155,
+    "treasure": false
   },
   {
     "id": "arcana-fortune-mate",
@@ -318,7 +333,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2026-03-19",
-    "sourceId": 185
+    "sourceId": 185,
+    "treasure": false
   },
   {
     "id": "aria",
@@ -338,7 +354,8 @@
       "Shielder"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 8
+    "sourceId": 8,
+    "treasure": false
   },
   {
     "id": "ark-ranger-black",
@@ -359,7 +376,8 @@
       "Screen Wipe"
     ],
     "releaseDate": "2026-06-11",
-    "sourceId": 192
+    "sourceId": 192,
+    "treasure": false
   },
   {
     "id": "asuka-shikinami-langley",
@@ -379,7 +397,8 @@
       "Pierce"
     ],
     "releaseDate": "2024-08-21",
-    "sourceId": 128
+    "sourceId": 128,
+    "treasure": false
   },
   {
     "id": "asuka-shikinami-langley-wille",
@@ -399,7 +418,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-02-20",
-    "sourceId": 148
+    "sourceId": 148,
+    "treasure": false
   },
   {
     "id": "avistar",
@@ -419,7 +439,8 @@
       "Healer"
     ],
     "releaseDate": "2026-04-23",
-    "sourceId": 188
+    "sourceId": 188,
+    "treasure": false
   },
   {
     "id": "bay",
@@ -440,7 +461,31 @@
       "Healer"
     ],
     "releaseDate": "2024-04-11",
-    "sourceId": 118
+    "sourceId": 118,
+    "treasure": true
+  },
+  {
+    "id": "bay-treasure",
+    "name": "Bay (Treasure)",
+    "rarity": "SSR",
+    "burst": 2,
+    "burstLabel": "II",
+    "class": "Defender",
+    "weapon": "RL",
+    "weaponLabel": "Rocket Launcher",
+    "manufacturer": "Tetra",
+    "manufacturerLabel": "Tetra Line",
+    "element": "Fire",
+    "squad": "Rewind",
+    "specialties": [
+      "Buffer",
+      "Cover Heal",
+      "Healer"
+    ],
+    "releaseDate": "2024-04-11",
+    "sourceId": 118,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "belorta",
@@ -460,7 +505,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 9
+    "sourceId": 9,
+    "treasure": false
   },
   {
     "id": "biscuit",
@@ -481,7 +527,8 @@
       "Healer"
     ],
     "releaseDate": "2023-03-15",
-    "sourceId": 80
+    "sourceId": 80,
+    "treasure": false
   },
   {
     "id": "blanc",
@@ -504,7 +551,8 @@
       "Shielder"
     ],
     "releaseDate": "2023-05-18",
-    "sourceId": 86
+    "sourceId": 86,
+    "treasure": false
   },
   {
     "id": "bready",
@@ -524,7 +572,8 @@
       "Debuffer"
     ],
     "releaseDate": "2025-03-27",
-    "sourceId": 151
+    "sourceId": 151,
+    "treasure": false
   },
   {
     "id": "brid",
@@ -541,7 +590,8 @@
     "squad": "Infinity Rail",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 10
+    "sourceId": 10,
+    "treasure": false
   },
   {
     "id": "brid-silent-track",
@@ -562,7 +612,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-12-11",
-    "sourceId": 177
+    "sourceId": 177,
+    "treasure": false
   },
   {
     "id": "centi",
@@ -583,7 +634,31 @@
       "Shielder"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 11
+    "sourceId": 11,
+    "treasure": true
+  },
+  {
+    "id": "centi-treasure",
+    "name": "Centi (Treasure)",
+    "rarity": "SSR",
+    "burst": 2,
+    "burstLabel": "II",
+    "class": "Defender",
+    "weapon": "RL",
+    "weaponLabel": "Rocket Launcher",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Iron",
+    "squad": "Mighty Tools",
+    "specialties": [
+      "Debuffer",
+      "Healer",
+      "Shielder"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 11,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "chime",
@@ -602,7 +677,8 @@
       "Buffer"
     ],
     "releaseDate": "2025-10-30",
-    "sourceId": 175
+    "sourceId": 175,
+    "treasure": false
   },
   {
     "id": "chisato-nishikigi",
@@ -621,7 +697,8 @@
       "True Damage"
     ],
     "releaseDate": "2026-02-12",
-    "sourceId": 181
+    "sourceId": 181,
+    "treasure": false
   },
   {
     "id": "cinderella",
@@ -640,7 +717,8 @@
       "Buffer"
     ],
     "releaseDate": "2024-10-31",
-    "sourceId": 140
+    "sourceId": 140,
+    "treasure": false
   },
   {
     "id": "cinderella-crystal-wave",
@@ -656,7 +734,8 @@
     "squad": "Old Tales",
     "specialties": [],
     "releaseDate": "2026-07-02",
-    "sourceId": 193
+    "sourceId": 193,
+    "treasure": false
   },
   {
     "id": "claire-redfield",
@@ -677,7 +756,8 @@
       "Shielder"
     ],
     "releaseDate": "2025-09-24",
-    "sourceId": 132
+    "sourceId": 132,
+    "treasure": false
   },
   {
     "id": "clay",
@@ -698,7 +778,8 @@
       "True Damage"
     ],
     "releaseDate": "2024-07-20",
-    "sourceId": 124
+    "sourceId": 124,
+    "treasure": false
   },
   {
     "id": "cocoa",
@@ -719,7 +800,8 @@
       "Debuffer"
     ],
     "releaseDate": "2023-02-01",
-    "sourceId": 75
+    "sourceId": 75,
+    "treasure": false
   },
   {
     "id": "crow",
@@ -738,7 +820,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 12
+    "sourceId": 12,
+    "treasure": false
   },
   {
     "id": "crown",
@@ -759,7 +842,8 @@
       "Taunter"
     ],
     "releaseDate": "2024-04-25",
-    "sourceId": 119
+    "sourceId": 119,
+    "treasure": false
   },
   {
     "id": "crust",
@@ -778,7 +862,8 @@
       "Buffer"
     ],
     "releaseDate": "2025-04-10",
-    "sourceId": 152
+    "sourceId": 152,
+    "treasure": false
   },
   {
     "id": "d",
@@ -797,7 +882,8 @@
       "Buffer"
     ],
     "releaseDate": "2023-04-13",
-    "sourceId": 83
+    "sourceId": 83,
+    "treasure": false
   },
   {
     "id": "d-killer-wife",
@@ -819,7 +905,8 @@
       "Pierce"
     ],
     "releaseDate": "2024-03-07",
-    "sourceId": 114
+    "sourceId": 114,
+    "treasure": false
   },
   {
     "id": "delta",
@@ -839,7 +926,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 13
+    "sourceId": 13,
+    "treasure": false
   },
   {
     "id": "delta-ninja-thief",
@@ -861,7 +949,8 @@
       "Taunter"
     ],
     "releaseDate": "2025-10-16",
-    "sourceId": 169
+    "sourceId": 169,
+    "treasure": false
   },
   {
     "id": "diesel",
@@ -881,7 +970,30 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 14
+    "sourceId": 14,
+    "treasure": true
+  },
+  {
+    "id": "diesel-treasure",
+    "name": "Diesel (Treasure)",
+    "rarity": "SSR",
+    "burst": 2,
+    "burstLabel": "II",
+    "class": "Defender",
+    "weapon": "AR",
+    "weaponLabel": "Machine Gun",
+    "manufacturer": "Elysion",
+    "manufacturerLabel": "Elysion",
+    "element": "Wind",
+    "squad": "Infinity Rail",
+    "specialties": [
+      "Buffer",
+      "Taunter"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 14,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "diesel-winter-sweets",
@@ -901,7 +1013,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-12-04",
-    "sourceId": 176
+    "sourceId": 176,
+    "treasure": false
   },
   {
     "id": "dolla",
@@ -921,7 +1034,8 @@
       "Burst CD Reduction"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 15
+    "sourceId": 15,
+    "treasure": false
   },
   {
     "id": "dorothy",
@@ -942,7 +1056,8 @@
       "Pierce"
     ],
     "releaseDate": "2023-04-27",
-    "sourceId": 84
+    "sourceId": 84,
+    "treasure": false
   },
   {
     "id": "dorothy-serendipity",
@@ -961,7 +1076,8 @@
       "Buffer"
     ],
     "releaseDate": "2025-07-17",
-    "sourceId": 161
+    "sourceId": 161,
+    "treasure": false
   },
   {
     "id": "drake",
@@ -980,7 +1096,29 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 16
+    "sourceId": 16,
+    "treasure": true
+  },
+  {
+    "id": "drake-treasure",
+    "name": "Drake (Treasure)",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "SG",
+    "weaponLabel": "Shotgun",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Fire",
+    "squad": "Matis",
+    "specialties": [
+      "Buffer"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 16,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "e-h",
@@ -999,7 +1137,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2026-03-05",
-    "sourceId": 184
+    "sourceId": 184,
+    "treasure": false
   },
   {
     "id": "ein",
@@ -1018,7 +1157,8 @@
       "True Damage"
     ],
     "releaseDate": "2024-07-25",
-    "sourceId": 127
+    "sourceId": 127,
+    "treasure": false
   },
   {
     "id": "elegg",
@@ -1038,7 +1178,8 @@
       "Debuffer"
     ],
     "releaseDate": "2024-02-22",
-    "sourceId": 113
+    "sourceId": 113,
+    "treasure": false
   },
   {
     "id": "elegg-boom-and-shock",
@@ -1057,7 +1198,8 @@
       "Buffer"
     ],
     "releaseDate": "2025-07-24",
-    "sourceId": 160
+    "sourceId": 160,
+    "treasure": false
   },
   {
     "id": "emilia",
@@ -1074,7 +1216,8 @@
     "squad": "Emilia's Faction",
     "specialties": [],
     "releaseDate": "2024-03-21",
-    "sourceId": 115
+    "sourceId": 115,
+    "treasure": false
   },
   {
     "id": "emma",
@@ -1093,7 +1236,8 @@
       "Healer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 17
+    "sourceId": 17,
+    "treasure": false
   },
   {
     "id": "emma-tactical-upgrade",
@@ -1116,7 +1260,8 @@
       "True Damage"
     ],
     "releaseDate": "2025-08-07",
-    "sourceId": 164
+    "sourceId": 164,
+    "treasure": false
   },
   {
     "id": "epinel",
@@ -1133,7 +1278,8 @@
     "squad": "Nepenthe",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 18
+    "sourceId": 18,
+    "treasure": false
   },
   {
     "id": "ether",
@@ -1154,7 +1300,8 @@
       "Shielder"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 19
+    "sourceId": 19,
+    "treasure": false
   },
   {
     "id": "eunhwa",
@@ -1174,7 +1321,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 20
+    "sourceId": 20,
+    "treasure": false
   },
   {
     "id": "eunhwa-tactical-upgrade",
@@ -1195,7 +1343,8 @@
       "True Damage"
     ],
     "releaseDate": "2025-08-14",
-    "sourceId": 163
+    "sourceId": 163,
+    "treasure": false
   },
   {
     "id": "eve",
@@ -1215,7 +1364,8 @@
       "Screen Wipe"
     ],
     "releaseDate": "2025-06-12",
-    "sourceId": 158
+    "sourceId": 158,
+    "treasure": false
   },
   {
     "id": "exia",
@@ -1234,7 +1384,29 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 21
+    "sourceId": 21,
+    "treasure": true
+  },
+  {
+    "id": "exia-treasure",
+    "name": "Exia (Treasure)",
+    "rarity": "SSR",
+    "burst": 1,
+    "burstLabel": "I",
+    "class": "Supporter",
+    "weapon": "SR",
+    "weaponLabel": "Sniper Rifle",
+    "manufacturer": "Tetra",
+    "manufacturerLabel": "Tetra Line",
+    "element": "Electric",
+    "squad": "Protocol",
+    "specialties": [
+      "Debuffer"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 21,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "flora",
@@ -1255,7 +1427,8 @@
       "True Damage"
     ],
     "releaseDate": "2024-11-21",
-    "sourceId": 141
+    "sourceId": 141,
+    "treasure": false
   },
   {
     "id": "folkwang",
@@ -1277,7 +1450,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 22
+    "sourceId": 22,
+    "treasure": false
   },
   {
     "id": "frima",
@@ -1297,7 +1471,30 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 23
+    "sourceId": 23,
+    "treasure": true
+  },
+  {
+    "id": "frima-treasure",
+    "name": "Frima (Treasure)",
+    "rarity": "SSR",
+    "burst": 1,
+    "burstLabel": "I",
+    "class": "Supporter",
+    "weapon": "SR",
+    "weaponLabel": "Sniper Rifle",
+    "manufacturer": "Tetra",
+    "manufacturerLabel": "Tetra Line",
+    "element": "Iron",
+    "squad": "Cafe Sweety",
+    "specialties": [
+      "Buffer",
+      "Debuffer"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 23,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "grave",
@@ -1317,7 +1514,8 @@
       "Pierce"
     ],
     "releaseDate": "2024-11-07",
-    "sourceId": 139
+    "sourceId": 139,
+    "treasure": false
   },
   {
     "id": "guillotine",
@@ -1334,7 +1532,8 @@
     "squad": "Extrinsic",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 24
+    "sourceId": 24,
+    "treasure": false
   },
   {
     "id": "guillotine-winter-slayer",
@@ -1353,7 +1552,8 @@
       "Buffer"
     ],
     "releaseDate": "2024-12-12",
-    "sourceId": 142
+    "sourceId": 142,
+    "treasure": false
   },
   {
     "id": "guilty",
@@ -1373,7 +1573,8 @@
       "Debuffer"
     ],
     "releaseDate": "2023-01-12",
-    "sourceId": 70
+    "sourceId": 70,
+    "treasure": false
   },
   {
     "id": "harran",
@@ -1393,7 +1594,8 @@
       "Screen wipe"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 25
+    "sourceId": 25,
+    "treasure": false
   },
   {
     "id": "helm",
@@ -1413,7 +1615,30 @@
       "Healer"
     ],
     "releaseDate": "2022-11-10",
-    "sourceId": 5
+    "sourceId": 5,
+    "treasure": true
+  },
+  {
+    "id": "helm-treasure",
+    "name": "Helm (Treasure)",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "SR",
+    "weaponLabel": "Sniper Rifle",
+    "manufacturer": "Elysion",
+    "manufacturerLabel": "Elysion",
+    "element": "Water",
+    "squad": "Aegis",
+    "specialties": [
+      "Buffer",
+      "Healer"
+    ],
+    "releaseDate": "2022-11-10",
+    "sourceId": 5,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "helm-aquamarine",
@@ -1434,7 +1659,8 @@
       "Debuffer"
     ],
     "releaseDate": "2023-08-10",
-    "sourceId": 95
+    "sourceId": 95,
+    "treasure": false
   },
   {
     "id": "himeno",
@@ -1454,7 +1680,8 @@
       "Debuffer"
     ],
     "releaseDate": "2023-02-22",
-    "sourceId": 77
+    "sourceId": 77,
+    "treasure": false
   },
   {
     "id": "idoll-flower",
@@ -1474,7 +1701,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 26
+    "sourceId": 26,
+    "treasure": false
   },
   {
     "id": "idoll-ocean",
@@ -1493,7 +1721,8 @@
       "Healer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 27
+    "sourceId": 27,
+    "treasure": false
   },
   {
     "id": "idoll-sun",
@@ -1510,7 +1739,8 @@
     "squad": "Replace",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 28
+    "sourceId": 28,
+    "treasure": false
   },
   {
     "id": "isabel",
@@ -1530,7 +1760,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 29
+    "sourceId": 29,
+    "treasure": false
   },
   {
     "id": "jackal",
@@ -1550,7 +1781,8 @@
       "Debuffer"
     ],
     "releaseDate": "2023-01-12",
-    "sourceId": 71
+    "sourceId": 71,
+    "treasure": false
   },
   {
     "id": "jill-valentine",
@@ -1570,7 +1802,8 @@
       "True Damage"
     ],
     "releaseDate": "2025-10-02",
-    "sourceId": 167
+    "sourceId": 167,
+    "treasure": false
   },
   {
     "id": "julia",
@@ -1590,7 +1823,30 @@
       "Stack Oriented"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 30
+    "sourceId": 30,
+    "treasure": true
+  },
+  {
+    "id": "julia-treasure",
+    "name": "Julia (Treasure)",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "AR",
+    "weaponLabel": "Assault Rifle",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Iron",
+    "squad": "Master Hand",
+    "specialties": [
+      "Screen Wipe",
+      "Stack Oriented"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 30,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "k",
@@ -1609,7 +1865,8 @@
       "Buffer"
     ],
     "releaseDate": "2025-05-29",
-    "sourceId": 156
+    "sourceId": 156,
+    "treasure": false
   },
   {
     "id": "kilo",
@@ -1628,7 +1885,8 @@
       "Shielder"
     ],
     "releaseDate": "2024-04-25",
-    "sourceId": 120
+    "sourceId": 120,
+    "treasure": false
   },
   {
     "id": "kurumi",
@@ -1647,7 +1905,8 @@
       "Debuffer"
     ],
     "releaseDate": "2026-02-12",
-    "sourceId": 183
+    "sourceId": 183,
+    "treasure": false
   },
   {
     "id": "label",
@@ -1668,7 +1927,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2026-01-15",
-    "sourceId": 179
+    "sourceId": 179,
+    "treasure": false
   },
   {
     "id": "laplace",
@@ -1688,7 +1948,30 @@
       "True Damage"
     ],
     "releaseDate": "2022-11-24",
-    "sourceId": 66
+    "sourceId": 66,
+    "treasure": true
+  },
+  {
+    "id": "laplace-treasure",
+    "name": "Laplace (Treasure)",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "RL",
+    "weaponLabel": "Rocket Launcher",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Iron",
+    "squad": "Matis",
+    "specialties": [
+      "Pierce",
+      "True Damage"
+    ],
+    "releaseDate": "2022-11-24",
+    "sourceId": 66,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "leona",
@@ -1707,7 +1990,8 @@
       "Buffer"
     ],
     "releaseDate": "2024-01-11",
-    "sourceId": 109
+    "sourceId": 109,
+    "treasure": false
   },
   {
     "id": "liberalio",
@@ -1727,7 +2011,8 @@
       "Screen Wipe"
     ],
     "releaseDate": "2025-11-06",
-    "sourceId": 170
+    "sourceId": 170,
+    "treasure": false
   },
   {
     "id": "lily",
@@ -1747,7 +2032,8 @@
       "Cover Heal"
     ],
     "releaseDate": "2025-06-12",
-    "sourceId": 133
+    "sourceId": 133,
+    "treasure": false
   },
   {
     "id": "liter",
@@ -1768,7 +2054,8 @@
       "Cover Heal"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 31
+    "sourceId": 31,
+    "treasure": false
   },
   {
     "id": "little-mermaid-siren",
@@ -1790,7 +2077,8 @@
       "Debuffer"
     ],
     "releaseDate": "2025-04-24",
-    "sourceId": 154
+    "sourceId": 154,
+    "treasure": false
   },
   {
     "id": "ludmilla",
@@ -1811,7 +2099,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 32
+    "sourceId": 32,
+    "treasure": false
   },
   {
     "id": "ludmilla-winter-owner",
@@ -1828,7 +2117,8 @@
     "squad": "Unlimited",
     "specialties": [],
     "releaseDate": "2023-12-07",
-    "sourceId": 106
+    "sourceId": 106,
+    "treasure": false
   },
   {
     "id": "maiden",
@@ -1847,7 +2137,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 33
+    "sourceId": 33,
+    "treasure": false
   },
   {
     "id": "maiden-ice-rose",
@@ -1866,7 +2157,8 @@
       "Buffer"
     ],
     "releaseDate": "2024-12-05",
-    "sourceId": 143
+    "sourceId": 143,
+    "treasure": false
   },
   {
     "id": "makima",
@@ -1887,7 +2179,8 @@
       "Taunter"
     ],
     "releaseDate": "2023-02-22",
-    "sourceId": 78
+    "sourceId": 78,
+    "treasure": false
   },
   {
     "id": "mana",
@@ -1908,7 +2201,8 @@
       "Revive"
     ],
     "releaseDate": "2025-01-16",
-    "sourceId": 145
+    "sourceId": 145,
+    "treasure": false
   },
   {
     "id": "marciana",
@@ -1928,7 +2222,8 @@
       "Healer"
     ],
     "releaseDate": "2023-09-21",
-    "sourceId": 99
+    "sourceId": 99,
+    "treasure": false
   },
   {
     "id": "marciana-marine-study",
@@ -1944,7 +2239,8 @@
     "squad": "Academia",
     "specialties": [],
     "releaseDate": "2026-07-09",
-    "sourceId": 194
+    "sourceId": 194,
+    "treasure": false
   },
   {
     "id": "mari-makinami-illustrious",
@@ -1965,7 +2261,8 @@
       "Screen Wipe"
     ],
     "releaseDate": "2024-09-05",
-    "sourceId": 130
+    "sourceId": 130,
+    "treasure": false
   },
   {
     "id": "mary",
@@ -1985,7 +2282,8 @@
       "Healer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 34
+    "sourceId": 34,
+    "treasure": false
   },
   {
     "id": "mary-bay-goddess",
@@ -2005,7 +2303,8 @@
       "Healer"
     ],
     "releaseDate": "2023-06-15",
-    "sourceId": 90
+    "sourceId": 90,
+    "treasure": false
   },
   {
     "id": "mast",
@@ -2025,7 +2324,8 @@
       "Debuffer"
     ],
     "releaseDate": "2023-07-20",
-    "sourceId": 92
+    "sourceId": 92,
+    "treasure": false
   },
   {
     "id": "mast-romantic-maid",
@@ -2044,7 +2344,8 @@
       "Buffer"
     ],
     "releaseDate": "2025-01-30",
-    "sourceId": 147
+    "sourceId": 147,
+    "treasure": false
   },
   {
     "id": "maxwell",
@@ -2063,7 +2364,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 35
+    "sourceId": 35,
+    "treasure": false
   },
   {
     "id": "mica",
@@ -2083,7 +2385,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 36
+    "sourceId": 36,
+    "treasure": false
   },
   {
     "id": "mica-snow-buddy",
@@ -2103,7 +2406,8 @@
       "Cleanser"
     ],
     "releaseDate": "2023-12-14",
-    "sourceId": 107
+    "sourceId": 107,
+    "treasure": false
   },
   {
     "id": "mihara",
@@ -2122,7 +2426,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 37
+    "sourceId": 37,
+    "treasure": false
   },
   {
     "id": "mihara-bonding-chain",
@@ -2142,7 +2447,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-05-01",
-    "sourceId": 153
+    "sourceId": 153,
+    "treasure": false
   },
   {
     "id": "milk",
@@ -2163,7 +2469,31 @@
       "Healer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 38
+    "sourceId": 38,
+    "treasure": true
+  },
+  {
+    "id": "milk-treasure",
+    "name": "Milk (Treasure)",
+    "rarity": "SSR",
+    "burst": 1,
+    "burstLabel": "I",
+    "class": "Attacker",
+    "weapon": "SR",
+    "weaponLabel": "Sniper Rifle",
+    "manufacturer": "Tetra",
+    "manufacturerLabel": "Tetra Line",
+    "element": "Water",
+    "squad": "Cafe Sweety",
+    "specialties": [
+      "Buffer",
+      "Burst CD Reduction",
+      "Healer"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 38,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "milk-blooming-bunny",
@@ -2182,7 +2512,8 @@
       "Pierce"
     ],
     "releaseDate": "2025-09-11",
-    "sourceId": 165
+    "sourceId": 165,
+    "treasure": false
   },
   {
     "id": "mint",
@@ -2202,7 +2533,8 @@
       "Healer"
     ],
     "releaseDate": "2026-05-14",
-    "sourceId": 190
+    "sourceId": 190,
+    "treasure": false
   },
   {
     "id": "miranda",
@@ -2221,7 +2553,29 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 39
+    "sourceId": 39,
+    "treasure": true
+  },
+  {
+    "id": "miranda-treasure",
+    "name": "Miranda (Treasure)",
+    "rarity": "SSR",
+    "burst": 1,
+    "burstLabel": "I",
+    "class": "Supporter",
+    "weapon": "SMG",
+    "weaponLabel": "Sub Machine Gun",
+    "manufacturer": "Elysion",
+    "manufacturerLabel": "Elysion",
+    "element": "Fire",
+    "squad": "A.C.P.U.",
+    "specialties": [
+      "Buffer"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 39,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "misato-katsuragi",
@@ -2240,7 +2594,8 @@
       "Healer"
     ],
     "releaseDate": "2024-08-22",
-    "sourceId": 131
+    "sourceId": 131,
+    "treasure": false
   },
   {
     "id": "modernia",
@@ -2259,7 +2614,8 @@
       "Buffer"
     ],
     "releaseDate": "2023-01-01",
-    "sourceId": 4
+    "sourceId": 4,
+    "treasure": false
   },
   {
     "id": "moran",
@@ -2280,7 +2636,31 @@
       "Taunter"
     ],
     "releaseDate": "2024-01-25",
-    "sourceId": 110
+    "sourceId": 110,
+    "treasure": true
+  },
+  {
+    "id": "moran-treasure",
+    "name": "Moran (Treasure)",
+    "rarity": "SSR",
+    "burst": 1,
+    "burstLabel": "I",
+    "class": "Defender",
+    "weapon": "AR",
+    "weaponLabel": "Assault Rifle",
+    "manufacturer": "Tetra",
+    "manufacturerLabel": "Tetra Line",
+    "element": "Electric",
+    "squad": "Underworld Queen",
+    "specialties": [
+      "Buffer",
+      "Burst CD Reduction",
+      "Taunter"
+    ],
+    "releaseDate": "2024-01-25",
+    "sourceId": 110,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "mori",
@@ -2302,7 +2682,8 @@
       "Taunter"
     ],
     "releaseDate": "2025-04-24",
-    "sourceId": 65
+    "sourceId": 65,
+    "treasure": false
   },
   {
     "id": "n102",
@@ -2321,7 +2702,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 40
+    "sourceId": 40,
+    "treasure": false
   },
   {
     "id": "naga",
@@ -2343,7 +2725,8 @@
       "Pierce"
     ],
     "releaseDate": "2023-10-05",
-    "sourceId": 100
+    "sourceId": 100,
+    "treasure": false
   },
   {
     "id": "nayuta",
@@ -2365,7 +2748,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-10-30",
-    "sourceId": 171
+    "sourceId": 171,
+    "treasure": false
   },
   {
     "id": "neon",
@@ -2384,7 +2768,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 3
+    "sourceId": 3,
+    "treasure": false
   },
   {
     "id": "neon-blue-ocean",
@@ -2401,7 +2786,8 @@
     "squad": "Counters",
     "specialties": [],
     "releaseDate": "2023-06-22",
-    "sourceId": 91
+    "sourceId": 91,
+    "treasure": false
   },
   {
     "id": "neon-vision-eye",
@@ -2420,7 +2806,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2026-04-30",
-    "sourceId": 189
+    "sourceId": 189,
+    "treasure": false
   },
   {
     "id": "nero",
@@ -2440,7 +2827,8 @@
       "Taunter"
     ],
     "releaseDate": "2023-06-06",
-    "sourceId": 89
+    "sourceId": 89,
+    "treasure": false
   },
   {
     "id": "neve",
@@ -2459,7 +2847,8 @@
       "Pierce"
     ],
     "releaseDate": "2022-12-08",
-    "sourceId": 67
+    "sourceId": 67,
+    "treasure": false
   },
   {
     "id": "nihilister",
@@ -2478,7 +2867,8 @@
       "Pierce"
     ],
     "releaseDate": "2023-03-30",
-    "sourceId": 81
+    "sourceId": 81,
+    "treasure": false
   },
   {
     "id": "noah",
@@ -2499,7 +2889,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 42
+    "sourceId": 42,
+    "treasure": false
   },
   {
     "id": "noir",
@@ -2518,7 +2909,8 @@
       "Buffer"
     ],
     "releaseDate": "2023-05-25",
-    "sourceId": 87
+    "sourceId": 87,
+    "treasure": false
   },
   {
     "id": "noise",
@@ -2539,7 +2931,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 43
+    "sourceId": 43,
+    "treasure": false
   },
   {
     "id": "novel",
@@ -2558,7 +2951,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 44
+    "sourceId": 44,
+    "treasure": false
   },
   {
     "id": "pascal",
@@ -2578,7 +2972,8 @@
       "Healer"
     ],
     "releaseDate": "2023-09-01",
-    "sourceId": 97
+    "sourceId": 97,
+    "treasure": false
   },
   {
     "id": "pepper",
@@ -2599,7 +2994,8 @@
       "Healer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 45
+    "sourceId": 45,
+    "treasure": false
   },
   {
     "id": "phantom",
@@ -2620,7 +3016,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2024-10-10",
-    "sourceId": 135
+    "sourceId": 135,
+    "treasure": false
   },
   {
     "id": "poli",
@@ -2640,7 +3037,30 @@
       "Shielder"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 46
+    "sourceId": 46,
+    "treasure": true
+  },
+  {
+    "id": "poli-treasure",
+    "name": "Poli (Treasure)",
+    "rarity": "SSR",
+    "burst": 2,
+    "burstLabel": "II",
+    "class": "Defender",
+    "weapon": "SG",
+    "weaponLabel": "Shotgun",
+    "manufacturer": "Elysion",
+    "manufacturerLabel": "Elysion",
+    "element": "Water",
+    "squad": "A.C.P.U.",
+    "specialties": [
+      "Buffer",
+      "Shielder"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 46,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "power",
@@ -2657,7 +3077,8 @@
     "squad": "Devil Hunter",
     "specialties": [],
     "releaseDate": "2023-02-22",
-    "sourceId": 79
+    "sourceId": 79,
+    "treasure": false
   },
   {
     "id": "prika",
@@ -2678,7 +3099,8 @@
       "Pierce"
     ],
     "releaseDate": "2026-05-28",
-    "sourceId": 191
+    "sourceId": 191,
+    "treasure": false
   },
   {
     "id": "privaty",
@@ -2700,7 +3122,32 @@
       "Screen Wipe"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 47
+    "sourceId": 47,
+    "treasure": true
+  },
+  {
+    "id": "privaty-treasure",
+    "name": "Privaty (Treasure)",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "AR",
+    "weaponLabel": "Assault Rifle",
+    "manufacturer": "Elysion",
+    "manufacturerLabel": "Elysion",
+    "element": "Water",
+    "squad": "Triangle",
+    "specialties": [
+      "Buffer",
+      "Crowd Controller",
+      "Debuffer",
+      "Screen Wipe"
+    ],
+    "releaseDate": "2022-04-11",
+    "sourceId": 47,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "privaty-unkind-maid",
@@ -2719,11 +3166,12 @@
       "Screen Wipe"
     ],
     "releaseDate": "2024-02-05",
-    "sourceId": 111
+    "sourceId": 111,
+    "treasure": false
   },
   {
     "id": "product-08",
-    "name": "Product 08",
+    "name": "Product-08",
     "rarity": "R",
     "burst": 1,
     "burstLabel": "I",
@@ -2738,11 +3186,12 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 48
+    "sourceId": 48,
+    "treasure": false
   },
   {
     "id": "product-12",
-    "name": "Product 12",
+    "name": "Product-12",
     "rarity": "R",
     "burst": 3,
     "burstLabel": "III",
@@ -2755,11 +3204,12 @@
     "squad": "Replace",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 49
+    "sourceId": 49,
+    "treasure": false
   },
   {
     "id": "product-23",
-    "name": "Product 23",
+    "name": "Product-23",
     "rarity": "R",
     "burst": 2,
     "burstLabel": "II",
@@ -2774,7 +3224,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 50
+    "sourceId": 50,
+    "treasure": false
   },
   {
     "id": "quency",
@@ -2793,7 +3244,8 @@
       "Buffer"
     ],
     "releaseDate": "2023-01-12",
-    "sourceId": 72
+    "sourceId": 72,
+    "treasure": false
   },
   {
     "id": "quency-escape-queen",
@@ -2813,7 +3265,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2024-10-03",
-    "sourceId": 137
+    "sourceId": 137,
+    "treasure": false
   },
   {
     "id": "quiry",
@@ -2834,7 +3287,8 @@
       "Healer"
     ],
     "releaseDate": "2023-10-19",
-    "sourceId": 102
+    "sourceId": 102,
+    "treasure": false
   },
   {
     "id": "ram",
@@ -2855,7 +3309,8 @@
       "Shielder"
     ],
     "releaseDate": "2024-03-21",
-    "sourceId": 116
+    "sourceId": 116,
+    "treasure": false
   },
   {
     "id": "rapi",
@@ -2874,7 +3329,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 1
+    "sourceId": 1,
+    "treasure": false
   },
   {
     "id": "rapi-red-hood",
@@ -2894,7 +3350,8 @@
       "Burst CD Reduction"
     ],
     "releaseDate": "2025-01-01",
-    "sourceId": 144
+    "sourceId": 144,
+    "treasure": false
   },
   {
     "id": "rapunzel",
@@ -2916,7 +3373,8 @@
       "Revive"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 51
+    "sourceId": 51,
+    "treasure": false
   },
   {
     "id": "rapunzel-pure-grace",
@@ -2937,7 +3395,8 @@
       "Shielder"
     ],
     "releaseDate": "2024-10-31",
-    "sourceId": 136
+    "sourceId": 136,
+    "treasure": false
   },
   {
     "id": "raven",
@@ -2957,7 +3416,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-06-19",
-    "sourceId": 157
+    "sourceId": 157,
+    "treasure": false
   },
   {
     "id": "red-hood",
@@ -2979,6 +3439,30 @@
     ],
     "releaseDate": "2023-11-02",
     "sourceId": 103,
+    "treasure": false,
+    "notes": "Flexible burst (I-II-III)."
+  },
+  {
+    "id": "red-hood-b3",
+    "name": "Red Hood B3",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "I-II-III",
+    "class": "Attacker",
+    "weapon": "SR",
+    "weaponLabel": "Sniper Rifle",
+    "manufacturer": "Pilgrim",
+    "manufacturerLabel": "Pilgrim",
+    "element": "Iron",
+    "squad": "Goddess",
+    "specialties": [
+      "Buffer",
+      "Burst CD Reduction",
+      "Pierce"
+    ],
+    "releaseDate": "2023-11-02",
+    "sourceId": 103,
+    "treasure": false,
     "notes": "Flexible burst (I-II-III)."
   },
   {
@@ -2999,7 +3483,8 @@
       "Taunter"
     ],
     "releaseDate": "2023-04-27",
-    "sourceId": 85
+    "sourceId": 85,
+    "treasure": false
   },
   {
     "id": "rei-ayanami",
@@ -3020,7 +3505,8 @@
       "Shielder"
     ],
     "releaseDate": "2024-08-29",
-    "sourceId": 129
+    "sourceId": 129,
+    "treasure": false
   },
   {
     "id": "rei-ayanami-tentative-name",
@@ -3039,7 +3525,8 @@
       "Buffer"
     ],
     "releaseDate": "2025-02-27",
-    "sourceId": 149
+    "sourceId": 149,
+    "treasure": false
   },
   {
     "id": "rem",
@@ -3059,7 +3546,8 @@
       "Healer"
     ],
     "releaseDate": "2024-03-28",
-    "sourceId": 117
+    "sourceId": 117,
+    "treasure": false
   },
   {
     "id": "rosanna",
@@ -3076,7 +3564,8 @@
     "squad": "Underworld Queen",
     "specialties": [],
     "releaseDate": "2023-06-01",
-    "sourceId": 88
+    "sourceId": 88,
+    "treasure": false
   },
   {
     "id": "rosanna-chic-ocean",
@@ -3097,7 +3586,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2024-07-11",
-    "sourceId": 126
+    "sourceId": 126,
+    "treasure": false
   },
   {
     "id": "rouge",
@@ -3117,7 +3607,8 @@
       "Burst CD Reduction"
     ],
     "releaseDate": "2024-09-19",
-    "sourceId": 41
+    "sourceId": 41,
+    "treasure": false
   },
   {
     "id": "rumani",
@@ -3138,7 +3629,8 @@
       "Taunter"
     ],
     "releaseDate": "2024-10-17",
-    "sourceId": 138
+    "sourceId": 138,
+    "treasure": false
   },
   {
     "id": "rupee",
@@ -3157,7 +3649,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 52
+    "sourceId": 52,
+    "treasure": false
   },
   {
     "id": "rupee-winter-shopper",
@@ -3178,7 +3671,8 @@
       "Taunter"
     ],
     "releaseDate": "2022-12-08",
-    "sourceId": 68
+    "sourceId": 68,
+    "treasure": false
   },
   {
     "id": "sakura",
@@ -3198,7 +3692,8 @@
       "Burst CD Reduction"
     ],
     "releaseDate": "2023-03-30",
-    "sourceId": 82
+    "sourceId": 82,
+    "treasure": false
   },
   {
     "id": "sakura-suzuhara",
@@ -3219,11 +3714,12 @@
       "Healer"
     ],
     "releaseDate": "2025-02-20",
-    "sourceId": 134
+    "sourceId": 134,
+    "treasure": false
   },
   {
     "id": "sakura-bloom-in-summer",
-    "name": "Sakura: Bloom In Summer",
+    "name": "Sakura: Bloom in Summer",
     "rarity": "SSR",
     "burst": 3,
     "burstLabel": "III",
@@ -3239,7 +3735,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2024-07-04",
-    "sourceId": 125
+    "sourceId": 125,
+    "treasure": false
   },
   {
     "id": "scarlet",
@@ -3256,11 +3753,12 @@
     "squad": "Pioneer",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 53
+    "sourceId": 53,
+    "treasure": false
   },
   {
     "id": "scarlet-black-shadow",
-    "name": "Scarlet:Black Shadow",
+    "name": "Scarlet: Black Shadow",
     "rarity": "SSR",
     "burst": 3,
     "burstLabel": "III",
@@ -3273,7 +3771,8 @@
     "squad": "Goddess",
     "specialties": [],
     "releaseDate": "2024-01-01",
-    "sourceId": 108
+    "sourceId": 108,
+    "treasure": false
   },
   {
     "id": "signal",
@@ -3292,7 +3791,8 @@
       "Debuffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 54
+    "sourceId": 54,
+    "treasure": false
   },
   {
     "id": "sin",
@@ -3312,7 +3812,31 @@
       "Taunter"
     ],
     "releaseDate": "2023-01-12",
-    "sourceId": 73
+    "sourceId": 73,
+    "treasure": false
+  },
+  {
+    "id": "siren",
+    "name": "Siren",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "I",
+    "class": "Attacker",
+    "weapon": "MG",
+    "weaponLabel": "Sub Machine Gun",
+    "manufacturer": "Abnormal",
+    "manufacturerLabel": "Pilgrim",
+    "element": "Water",
+    "squad": "Old Tales",
+    "specialties": [
+      "Buffer",
+      "Burst CD Reduction",
+      "Crowd Controller",
+      "Debuffer"
+    ],
+    "releaseDate": "2025-04-24",
+    "sourceId": 154,
+    "treasure": false
   },
   {
     "id": "snow-crane",
@@ -3334,7 +3858,8 @@
       "Shielder"
     ],
     "releaseDate": "2026-04-09",
-    "sourceId": 186
+    "sourceId": 186,
+    "treasure": false
   },
   {
     "id": "snow-white",
@@ -3353,7 +3878,8 @@
       "Pierce"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 55
+    "sourceId": 55,
+    "treasure": false
   },
   {
     "id": "snow-white-heavy-arms",
@@ -3374,7 +3900,8 @@
       "Screen Wipe"
     ],
     "releaseDate": "2025-12-31",
-    "sourceId": 178
+    "sourceId": 178,
+    "treasure": false
   },
   {
     "id": "snow-white-innocent-days",
@@ -3391,7 +3918,8 @@
     "squad": "Goddess",
     "specialties": [],
     "releaseDate": "2023-11-02",
-    "sourceId": 104
+    "sourceId": 104,
+    "treasure": false
   },
   {
     "id": "soda",
@@ -3412,7 +3940,8 @@
       "Healer"
     ],
     "releaseDate": "2023-02-01",
-    "sourceId": 76
+    "sourceId": 76,
+    "treasure": false
   },
   {
     "id": "soda-twinkling-bunny",
@@ -3434,7 +3963,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2024-05-30",
-    "sourceId": 122
+    "sourceId": 122,
+    "treasure": false
   },
   {
     "id": "soldier-eg",
@@ -3451,7 +3981,8 @@
     "squad": "Replace",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 56
+    "sourceId": 56,
+    "treasure": false
   },
   {
     "id": "soldier-fa",
@@ -3468,7 +3999,8 @@
     "squad": "Replace",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 57
+    "sourceId": 57,
+    "treasure": false
   },
   {
     "id": "soldier-ow",
@@ -3487,7 +4019,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 58
+    "sourceId": 58,
+    "treasure": false
   },
   {
     "id": "soline",
@@ -3504,7 +4037,8 @@
     "squad": "Infinity Rail",
     "specialties": [],
     "releaseDate": "2022-04-11",
-    "sourceId": 59
+    "sourceId": 59,
+    "treasure": false
   },
   {
     "id": "soline-frost-ticket",
@@ -3525,7 +4059,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-11-20",
-    "sourceId": 172
+    "sourceId": 172,
+    "treasure": false
   },
   {
     "id": "sora",
@@ -3547,7 +4082,8 @@
       "Stack Oriented"
     ],
     "releaseDate": "2025-07-03",
-    "sourceId": 159
+    "sourceId": 159,
+    "treasure": false
   },
   {
     "id": "sugar",
@@ -3566,7 +4102,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 60
+    "sourceId": 60,
+    "treasure": false
   },
   {
     "id": "takina-inoue",
@@ -3588,7 +4125,8 @@
       "True Damage"
     ],
     "releaseDate": "2026-02-18",
-    "sourceId": 182
+    "sourceId": 182,
+    "treasure": false
   },
   {
     "id": "tia",
@@ -3612,7 +4150,8 @@
       "Taunter"
     ],
     "releaseDate": "2023-10-12",
-    "sourceId": 101
+    "sourceId": 101,
+    "treasure": false
   },
   {
     "id": "tove",
@@ -3632,7 +4171,30 @@
       "Stack Oriented"
     ],
     "releaseDate": "2023-11-23",
-    "sourceId": 105
+    "sourceId": 105,
+    "treasure": true
+  },
+  {
+    "id": "tove-treasure",
+    "name": "Tove (Treasure)",
+    "rarity": "SSR",
+    "burst": 1,
+    "burstLabel": "I",
+    "class": "Supporter",
+    "weapon": "AR",
+    "weaponLabel": "Assault Rifle",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Water",
+    "squad": "Unlimited",
+    "specialties": [
+      "Buffer",
+      "Stack Oriented"
+    ],
+    "releaseDate": "2023-11-23",
+    "sourceId": 105,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "trina",
@@ -3652,7 +4214,8 @@
       "Healer"
     ],
     "releaseDate": "2025-03-13",
-    "sourceId": 150
+    "sourceId": 150,
+    "treasure": false
   },
   {
     "id": "trony",
@@ -3671,7 +4234,8 @@
       "Debuffer"
     ],
     "releaseDate": "2024-05-16",
-    "sourceId": 121
+    "sourceId": 121,
+    "treasure": false
   },
   {
     "id": "velvet",
@@ -3690,7 +4254,8 @@
       "Buffer"
     ],
     "releaseDate": "2026-01-29",
-    "sourceId": 180
+    "sourceId": 180,
+    "treasure": false
   },
   {
     "id": "vesti",
@@ -3709,7 +4274,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 61
+    "sourceId": 61,
+    "treasure": false
   },
   {
     "id": "vesti-tactical-upgrade",
@@ -3729,7 +4295,8 @@
       "True Damage"
     ],
     "releaseDate": "2025-08-21",
-    "sourceId": 162
+    "sourceId": 162,
+    "treasure": false
   },
   {
     "id": "viper",
@@ -3749,7 +4316,30 @@
       "Debuffer"
     ],
     "releaseDate": "2023-01-19",
-    "sourceId": 74
+    "sourceId": 74,
+    "treasure": true
+  },
+  {
+    "id": "viper-treasure",
+    "name": "Viper (Treasure)",
+    "rarity": "SSR",
+    "burst": 2,
+    "burstLabel": "II",
+    "class": "Attacker",
+    "weapon": "SG",
+    "weaponLabel": "Shotgun",
+    "manufacturer": "Tetra",
+    "manufacturerLabel": "Tetra Line",
+    "element": "Water",
+    "squad": "Exotic",
+    "specialties": [
+      "Buffer",
+      "Debuffer"
+    ],
+    "releaseDate": "2023-01-19",
+    "sourceId": 74,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   },
   {
     "id": "volume",
@@ -3768,7 +4358,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 62
+    "sourceId": 62,
+    "treasure": false
   },
   {
     "id": "yan",
@@ -3788,7 +4379,8 @@
       "Crowd Controller"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 63
+    "sourceId": 63,
+    "treasure": false
   },
   {
     "id": "yulha",
@@ -3807,7 +4399,8 @@
       "Buffer"
     ],
     "releaseDate": "2022-04-11",
-    "sourceId": 64
+    "sourceId": 64,
+    "treasure": false
   },
   {
     "id": "yuni",
@@ -3829,7 +4422,8 @@
       "Healer"
     ],
     "releaseDate": "2022-11-04",
-    "sourceId": 173
+    "sourceId": 173,
+    "treasure": false
   },
   {
     "id": "zwei",
@@ -3851,6 +4445,31 @@
       "Stack Oriented"
     ],
     "releaseDate": "2024-08-08",
-    "sourceId": 174
+    "sourceId": 174,
+    "treasure": true
+  },
+  {
+    "id": "zwei-treasure",
+    "name": "Zwei (Treasure)",
+    "rarity": "SSR",
+    "burst": 1,
+    "burstLabel": "I",
+    "class": "Supporter",
+    "weapon": "SG",
+    "weaponLabel": "Shotgun",
+    "manufacturer": "Elysion",
+    "manufacturerLabel": "Elysion",
+    "element": "Electric",
+    "squad": "School Circle",
+    "specialties": [
+      "Buffer",
+      "Cover Heal",
+      "Pierce",
+      "Stack Oriented"
+    ],
+    "releaseDate": "2024-08-08",
+    "sourceId": 174,
+    "treasure": true,
+    "notes": "Treasure upgrade variant."
   }
 ]

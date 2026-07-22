@@ -60,6 +60,7 @@ export function NikkeDetailPage({ inventory, toggleNikke }: Props) {
           </>
         ) : null}
         {nikke.releaseDate ? <p className="fine-print">Added: {nikke.releaseDate}</p> : null}
+        {nikke.treasure ? <p className="fine-print">Treasure upgrade unit.</p> : null}
         {nikke.notes ? <p>{nikke.notes}</p> : null}
       </section>
     </div>
