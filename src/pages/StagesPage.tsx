@@ -16,7 +16,7 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'campaign-hard', label: 'Hard' },
   { id: 'anomaly', label: 'Anomaly AI' },
   { id: 'tower', label: 'Tower' },
-  { id: 'union', label: 'Union' },
+  { id: 'union', label: 'Union Raid' },
   { id: 'solo', label: 'Solo Raid' },
 ]
 

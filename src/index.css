@@ -594,6 +594,14 @@ select {
   border-color: rgba(240, 180, 41, 0.25);
 }
 
+.stage-card.mode-solo {
+  border-color: rgba(61, 224, 255, 0.28);
+}
+
+.stage-card.mode-union {
+  border-color: rgba(240, 180, 41, 0.32);
+}
+
 .search,
 .paste-box,
 select,
