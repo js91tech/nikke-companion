@@ -14,14 +14,15 @@ import {
 import { STORY_TIER_SCORE } from '../data/metaSource'
 import { useFlash } from '../hooks/useFlash'
 import { investmentScore } from '../lib/inventory'
-import { matchNameList } from '../lib/nameMatch'
+import { matchNameList, type AmbiguousHit } from '../lib/nameMatch'
 import { loadUiPrefs, saveUiPrefs } from '../lib/uiPrefs'
-import type { InventoryState } from '../types'
+import type { InventoryState, OwnedEntry } from '../types'
 
 interface Props {
   inventory: InventoryState
   toggleNikke: (id: string) => void
   setNikkesOwned: (ids: string[], owned: boolean) => void
+  patchNikke: (id: string, patch: Partial<OwnedEntry>) => void
   reset: () => void
   replaceInventory: (state: InventoryState) => void
   download: () => void
@@ -38,6 +39,7 @@ export function RosterPage({
   inventory,
   toggleNikke,
   setNikkesOwned,
+  patchNikke,
   reset,
   replaceInventory,
   download,
@@ -58,6 +60,7 @@ export function RosterPage({
   )
   const [paste, setPaste] = useState('')
   const [pasteReport, setPasteReport] = useState('')
+  const [ambiguousHits, setAmbiguousHits] = useState<AmbiguousHit[]>([])
   const [msg, flash] = useFlash()
   const [checklist, setChecklist] = useState(false)
   const [visible, setVisible] = useState(60)
@@ -143,16 +146,33 @@ export function RosterPage({
   const applyPaste = () => {
     const result = matchNameList(paste)
     setNikkesOwned(result.ids, true)
+    setAmbiguousHits(result.ambiguousHits)
     setPasteReport(
       [
         `Added ${result.ids.length}.`,
         result.unmatched.length ? `Unmatched: ${result.unmatched.slice(0, 10).join(', ')}` : '',
-        result.ambiguous.length ? `Ambiguous: ${result.ambiguous.slice(0, 8).join(', ')}` : '',
+        result.ambiguousHits.length
+          ? `Ambiguous: pick below (${result.ambiguousHits.length}).`
+          : '',
       ]
         .filter(Boolean)
         .join('\n'),
     )
-    flash(`Paste import: ${result.ids.length} owned.`)
+    flash(
+      result.ambiguousHits.length
+        ? `Paste import: ${result.ids.length} owned — resolve ${result.ambiguousHits.length} ambiguous.`
+        : `Paste import: ${result.ids.length} owned.`,
+    )
+  }
+
+  const resolveAmbiguous = (query: string, id: string) => {
+    setNikkesOwned([id], true)
+    setAmbiguousHits((prev) => prev.filter((h) => h.query !== query))
+    flash('Ambiguous name resolved.')
+  }
+
+  const skipAmbiguous = (query: string) => {
+    setAmbiguousHits((prev) => prev.filter((h) => h.query !== query))
   }
 
   const updatedLabel = inventory.updatedAt
@@ -232,6 +252,39 @@ export function RosterPage({
           </button>
         </div>
         {pasteReport ? <pre className="paste-report">{pasteReport}</pre> : null}
+        {ambiguousHits.length > 0 ? (
+          <div className="ambiguous-list">
+            <p className="section-lede">Pick the Nikke for each ambiguous paste:</p>
+            {ambiguousHits.map((hit) => (
+              <div key={hit.query} className="ambiguous-row">
+                <div className="ambiguous-query">
+                  <strong>{hit.query}</strong>
+                  <button type="button" className="btn ghost btn-compact" onClick={() => skipAmbiguous(hit.query)}>
+                    Skip
+                  </button>
+                </div>
+                <ul className="chip-row">
+                  {hit.candidates.map((c) => (
+                    <li key={c.id}>
+                      <button
+                        type="button"
+                        className="btn ghost ambiguous-pick"
+                        onClick={() => resolveAmbiguous(hit.query, c.id)}
+                      >
+                        <Portrait
+                          src={catalog.find((n) => n.id === c.id)?.portraitUrl}
+                          name={c.name}
+                          size={24}
+                        />
+                        {c.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </section>
 
       <div className="roster-sticky">
@@ -362,25 +415,65 @@ export function RosterPage({
         {filtered.slice(0, visible).map((n) => {
           const entry = inventory.nikkes[n.id]
           const owned = Boolean(entry?.owned)
+          const lb = entry?.limitBreak ?? 0
+          const ol = entry?.olLines ?? 0
           return (
-            <li key={n.id}>
+            <li key={n.id} className={owned ? 'row-owned' : ''}>
               <label className={owned ? 'owned' : ''}>
                 <input type="checkbox" checked={owned} onChange={() => toggleNikke(n.id)} />
                 <Portrait src={n.portraitUrl} name={n.name} size={36} />
                 <span className="name">
                   <Link to={`/nikkes/${n.id}`}>{n.name}</Link>
-                  {owned && (entry?.limitBreak || entry?.olLines) ? (
-                    <span className="invest-chips">
-                      {entry?.limitBreak ? ` LB${entry.limitBreak}` : ''}
-                      {entry?.olLines ? ` OL${entry.olLines}` : ''}
-                    </span>
-                  ) : null}
                 </span>
                 <span className="meta">
                   B{n.burst} · {n.class} · {n.weapon}
                   {n.element ? ` · ${n.element}` : ''} · {n.manufacturer} · {n.rarity}
                 </span>
               </label>
+              {owned ? (
+                <div
+                  className="invest-inline"
+                  onClick={(e) => e.stopPropagation()}
+                  onKeyDown={(e) => e.stopPropagation()}
+                >
+                  <label className="invest-field">
+                    <span>LB</span>
+                    <select
+                      value={lb}
+                      aria-label={`${n.name} limit break`}
+                      onChange={(e) =>
+                        patchNikke(n.id, {
+                          limitBreak: Number(e.target.value) as OwnedEntry['limitBreak'],
+                        })
+                      }
+                    >
+                      {[0, 1, 2, 3].map((v) => (
+                        <option key={v} value={v}>
+                          {v}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="invest-field">
+                    <span>OL</span>
+                    <select
+                      value={ol}
+                      aria-label={`${n.name} overload pieces`}
+                      onChange={(e) =>
+                        patchNikke(n.id, {
+                          olLines: Number(e.target.value) as OwnedEntry['olLines'],
+                        })
+                      }
+                    >
+                      {[0, 1, 2, 3].map((v) => (
+                        <option key={v} value={v}>
+                          {v}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+              ) : null}
             </li>
           )
         })}

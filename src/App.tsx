@@ -26,6 +26,7 @@ export default function App() {
                   inventory={inv.inventory}
                   toggleNikke={inv.toggleNikke}
                   setNikkesOwned={inv.setNikkesOwned}
+                  patchNikke={inv.patchNikke}
                   reset={inv.reset}
                   replaceInventory={inv.replaceInventory}
                   download={inv.download}
