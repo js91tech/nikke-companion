@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { MetaBadge } from '../components/MetaBadge'
 import { Portrait } from '../components/Portrait'
 import { allElements, allManufacturers, resolveNikkeRef } from '../data/catalog'
+import { useFlash } from '../hooks/useFlash'
+import { copyText, formatSquadLine } from '../lib/copyText'
 import { suggestTeams } from '../lib/recommendations'
 import {
   buildAllGoalTeams,
@@ -11,6 +13,7 @@ import {
   type BuildContext,
   type TeamGoal,
 } from '../lib/teamBuilder'
+import { loadUiPrefs, saveUiPrefs } from '../lib/uiPrefs'
 import type { InventoryState, Manufacturer } from '../types'
 
 interface Props {
@@ -24,14 +27,47 @@ const GOALS: { id: TeamGoal; label: string }[] = [
   { id: 'raid', label: 'Raid' },
 ]
 
+const GOAL_IDS = new Set<string>(GOALS.map((g) => g.id))
 const ELEMENTS = ['Fire', 'Wind', 'Iron', 'Electric', 'Water']
 
+function parseGoal(raw: string | null | undefined): TeamGoal | '' {
+  return raw && GOAL_IDS.has(raw) ? (raw as TeamGoal) : ''
+}
+
 export function TeamsPage({ inventory }: Props) {
-  const [goal, setGoal] = useState<TeamGoal>('boss')
-  const [weakTo, setWeakTo] = useState('')
-  const [avoidElement, setAvoidElement] = useState('')
-  const [manufacturer, setManufacturer] = useState<'' | Manufacturer>('')
+  const [params] = useSearchParams()
+  const prefs = useMemo(() => loadUiPrefs(), [])
+  const [goal, setGoal] = useState<TeamGoal>(
+    () => parseGoal(params.get('goal')) || parseGoal(prefs.teamsGoal) || 'boss',
+  )
+  const [weakTo, setWeakTo] = useState(
+    () => params.get('weakTo') || prefs.teamsWeakTo || '',
+  )
+  const [avoidElement, setAvoidElement] = useState(
+    () => params.get('avoid') || prefs.teamsAvoid || '',
+  )
+  const [manufacturer, setManufacturer] = useState<'' | Manufacturer>(
+    () => (params.get('mfr') as Manufacturer | null) || (prefs.teamsMfr as Manufacturer | '') || '',
+  )
   const [squadCount, setSquadCount] = useState(3)
+  const [msg, flash] = useFlash()
+
+  useEffect(() => {
+    const g = parseGoal(params.get('goal'))
+    if (g) setGoal(g)
+    if (params.has('weakTo')) setWeakTo(params.get('weakTo') || '')
+    if (params.has('avoid')) setAvoidElement(params.get('avoid') || '')
+    if (params.has('mfr')) setManufacturer((params.get('mfr') as Manufacturer | null) || '')
+  }, [params])
+
+  useEffect(() => {
+    saveUiPrefs({
+      teamsGoal: goal,
+      teamsWeakTo: weakTo,
+      teamsAvoid: avoidElement,
+      teamsMfr: manufacturer,
+    })
+  }, [goal, weakTo, avoidElement, manufacturer])
 
   const ctx: BuildContext = useMemo(
     () => ({
@@ -49,6 +85,11 @@ export function TeamsPage({ inventory }: Props) {
   )
   const all = useMemo(() => buildAllGoalTeams(inventory, ctx), [inventory, ctx])
   const templates = useMemo(() => suggestTeams(inventory), [inventory])
+
+  const copyNames = async (names: string[], label?: string) => {
+    const ok = await copyText(formatSquadLine(names, label))
+    flash(ok ? 'Squad copied.' : 'Clipboard blocked — select text manually.')
+  }
 
   return (
     <div className="page">
@@ -133,6 +174,31 @@ export function TeamsPage({ inventory }: Props) {
           )}
         </div>
 
+        <div className="toolbar secondary" style={{ marginTop: '0.75rem' }}>
+          <button
+            type="button"
+            className="btn ghost"
+            disabled={built.members.length === 0}
+            onClick={() => void copyNames(built.members.map((m) => m.name), built.label)}
+          >
+            Copy squad
+          </button>
+          {(weakTo || avoidElement || manufacturer) && (
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => {
+                setWeakTo('')
+                setAvoidElement('')
+                setManufacturer('')
+              }}
+            >
+              Clear filters
+            </button>
+          )}
+        </div>
+        {msg ? <p className="flash">{msg}</p> : null}
+
         <ul className="chip-row squad-portrait-row" style={{ marginTop: '1rem' }}>
           {built.members.map((m) => (
             <li key={m.id} className="have squad-chip-li">
@@ -163,7 +229,16 @@ export function TeamsPage({ inventory }: Props) {
               <article key={t.label} className="panel">
                 <div className="panel-head">
                   <h3>{t.label}</h3>
-                  <span className="pill">score {t.score}</span>
+                  <div className="panel-actions">
+                    <span className="pill">score {t.score}</span>
+                    <button
+                      type="button"
+                      className="btn ghost"
+                      onClick={() => void copyNames(t.members.map((m) => m.name), t.label)}
+                    >
+                      Copy
+                    </button>
+                  </div>
                 </div>
                 <ul className="chip-row">
                   {t.members.map((m) => (
@@ -175,6 +250,22 @@ export function TeamsPage({ inventory }: Props) {
               </article>
             ))}
           </div>
+          <div className="toolbar secondary" style={{ marginTop: '0.65rem' }}>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => {
+                const block = multi
+                  .map((t) => formatSquadLine(t.members.map((m) => m.name), t.label))
+                  .join('\n')
+                void copyText(block).then((ok) =>
+                  flash(ok ? 'All squads copied.' : 'Clipboard blocked — select text manually.'),
+                )
+              }}
+            >
+              Copy all squads
+            </button>
+          </div>
         </section>
       ) : null}
 
@@ -185,9 +276,19 @@ export function TeamsPage({ inventory }: Props) {
             <article key={t.goal} className="panel">
               <div className="panel-head">
                 <h3>{t.label}</h3>
-                <button type="button" className="btn ghost" onClick={() => setGoal(t.goal)}>
-                  Use
-                </button>
+                <div className="panel-actions">
+                  <button type="button" className="btn ghost" onClick={() => setGoal(t.goal)}>
+                    Use
+                  </button>
+                  <button
+                    type="button"
+                    className="btn ghost"
+                    disabled={t.members.length === 0}
+                    onClick={() => void copyNames(t.members.map((m) => m.name), t.label)}
+                  >
+                    Copy
+                  </button>
+                </div>
               </div>
               <p className="fine-print">{t.members.map((m) => m.name).join(' · ') || 'Need more roster'}</p>
             </article>
@@ -202,7 +303,21 @@ export function TeamsPage({ inventory }: Props) {
             <article key={t.id} className="panel">
               <div className="panel-head">
                 <h3>{t.name}</h3>
-                <span className="pill">{t.score}%</span>
+                <div className="panel-actions">
+                  <span className="pill">{t.score}%</span>
+                  <button
+                    type="button"
+                    className="btn ghost"
+                    onClick={() =>
+                      void copyNames(
+                        t.slots.map((ref) => resolveNikkeRef(ref)?.name ?? ref),
+                        t.name,
+                      )
+                    }
+                  >
+                    Copy
+                  </button>
+                </div>
               </div>
               <p className="purpose">{t.purpose}</p>
               <div className="meter" aria-hidden>
