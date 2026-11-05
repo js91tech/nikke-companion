@@ -1,14 +1,14 @@
 import type { TeamTemplate } from '../types'
 import { META_SOURCE } from './metaSource'
 
-/** Global templates — Prydwen Story/AI meta ({@link META_SOURCE.asOf}). */
+/** Global templates — Prydwen Story/AI/PvP meta ({@link META_SOURCE.asOf}). */
 export const teamTemplates: TeamTemplate[] = [
   {
     id: 'story-anis-star',
     name: 'Story BiS (Anis: Star)',
     purpose: 'Campaign / high deficit',
-    slots: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Scarlet: Black Shadow'],
-    notes: `Prydwen Story SSS core (${META_SOURCE.asOf}). Anis: Star = top B1 CDR.`,
+    slots: ['Anis: Star', 'Crown', 'Flora (Treasure)', 'Marian: Queen', 'Rapi: Red Hood'],
+    notes: `Prydwen Story SSS core (${META_SOURCE.asOf}). Flora (Treasure) B2 + Marian: Queen wipe.`,
   },
   {
     id: 'story-vesgod',
@@ -16,6 +16,13 @@ export const teamTemplates: TeamTemplate[] = [
     purpose: 'Campaign mobbing / deficit',
     slots: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Vesti: Tactical Upgrade', 'Ada Wong'],
     notes: 'Vesti: TU one-nikke-army + Ada Wong (Prydwen SSS B3).',
+  },
+  {
+    id: 'story-marian-queen',
+    name: 'Marian: Queen core',
+    purpose: 'Campaign / Hard Mode',
+    slots: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Marian: Queen', 'Rapi: Red Hood'],
+    notes: 'Marian: Queen fullscreen wipe + Open Wounds — Prydwen SSS B3.',
   },
   {
     id: 'duo-maids',
@@ -39,11 +46,18 @@ export const teamTemplates: TeamTemplate[] = [
     notes: 'Siren is #2 B1 after Anis: Star on Prydwen AI/Story guides.',
   },
   {
+    id: 'laplace-uh',
+    name: 'Laplace: Ultimate Hero',
+    purpose: 'Campaign / Wind stages',
+    slots: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Laplace: Ultimate Hero', 'Scarlet: Black Shadow'],
+    notes: 'Laplace UH Wind RL carry — Prydwen Story SS.',
+  },
+  {
     id: 'bunny-legacy',
     name: 'Bunny duo (legacy)',
     purpose: 'Mid-game / budget B2',
     slots: ['Liter', 'Blanc', 'Noir', 'Alice', 'Scarlet'],
-    notes: 'Still fine early; Prydwen ranks maids above bunny now.',
+    notes: 'Still fine early; Prydwen ranks maids / FloraT above bunny now.',
   },
   {
     id: 'budget-early',
@@ -100,5 +114,19 @@ export const teamTemplates: TeamTemplate[] = [
     purpose: 'Union Raid — Wind',
     slots: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Liberalio'],
     notes: 'Wind carry line; save SBS/Liberalio for Modernia.',
+  },
+  {
+    id: 'pvp-scar-jackal',
+    name: 'SP Scarlet Jackal',
+    purpose: 'SP Arena Attack / Defense',
+    slots: ['Scarlet', 'Anne: Miracle Fairy', 'Anis', 'Centi', 'Jackal'],
+    notes: `Prydwen SP Arena (${META_SOURCE.asOf}) — dominant 2RL nuke archetype.`,
+  },
+  {
+    id: 'pvp-biscuit-sanis',
+    name: 'SP Biscuit SAnis',
+    purpose: 'SP Arena Attack / Defense',
+    slots: ['Noah', 'Rapunzel', 'Anis: Sparkling Summer', 'Biscuit', 'Anis'],
+    notes: 'Primary stall archetype — defenses should plan to answer this over Scar Jackal.',
   },
 ]

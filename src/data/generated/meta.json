@@ -1,11 +1,20 @@
 {
-  "nikkeCount": 213,
-  "prydwenCount": 212,
+  "nikkeCount": 223,
+  "prydwenCount": 222,
   "utilsCount": 194,
-  "stubCount": 0,
+  "stubCount": 8,
   "version": "prydwen+nikke-utils",
   "package": "@sancti0n/nikke-utils",
-  "builtAt": "2026-07-22T19:41:54.169Z",
-  "note": "Master list from Prydwen (Jul 2026). Stats/metadata from nikke-utils where available.",
-  "stubs": []
+  "builtAt": "2026-11-05T16:28:07.379Z",
+  "note": "Master list from Prydwen (Nov 2026). Stats/metadata from nikke-utils where available.",
+  "stubs": [
+    "Drake: Great Villain",
+    "Belorta: Pumpkin Witch",
+    "Guilty: Mighty Bunny",
+    "Laplace: Ultimate Hero",
+    "Marian: Queen",
+    "Red Hood B1",
+    "Scarlet: Goddeath",
+    "Sin: Swift Bunny"
+  ]
 }

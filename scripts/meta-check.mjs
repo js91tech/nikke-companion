@@ -16,6 +16,7 @@ for (const file of [
   'src/data/stages.ts',
   'src/data/teams.ts',
   'src/data/metaSource.ts',
+  'src/data/pvpTeams.ts',
 ]) {
   const src = readFileSync(join(root, file), 'utf8')
   for (const m of src.matchAll(/(?:members|slots):\s*\[([^\]]+)\]/gs)) {

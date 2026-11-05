@@ -22,7 +22,9 @@ To add newly released Nikkes, append the English name to `scripts/prydwen-names.
 ## Features
 
 - Roster checklist + paste import + `NKC1.…` sync codes
-- Team builder (campaign / boss / tower / raid) using owned Nikkes
+- Team builder (campaign / Hard Mode / boss / tower / raid) using owned Nikkes
+- Hard Mode chapter builder (Ch.1–50) and boss/raid picker with BiS fill + roster backfill
+- SP Arena (PvP) attack/defense team builder from Prydwen archetypes
 - Template coverage and stage clear estimates
 - Progression tips by game stage
 - Installable PWA (data stays on-device)

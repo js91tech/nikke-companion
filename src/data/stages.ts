@@ -1,8 +1,8 @@
 import type { Stage } from '../types'
 import { META_SOURCE } from './metaSource'
 
-/** Current campaign ceiling (Normal + Hard). Ch. 47–48 planned Aug 2026. */
-export const CAMPAIGN_MAX_CHAPTER = 46
+/** Current campaign ceiling (Normal + Hard). Ch. 49–50 shipped with 4th anniversary (Oct 29 2026). */
+export const CAMPAIGN_MAX_CHAPTER = 50
 
 const CHAPTER_TITLES: Record<number, string> = {
   1: 'Catastrophic',
@@ -51,6 +51,10 @@ const CHAPTER_TITLES: Record<number, string> = {
   44: 'The Path Forward',
   45: 'Price of Sin',
   46: 'Reborn',
+  47: 'Opening of War',
+  48: 'Newly Reborn',
+  49: 'Decisive Battle',
+  50: 'Ascension',
 }
 
 type Team = { label: string; members: string[]; notes: string }
@@ -166,10 +170,10 @@ function bandTeams(chapter: number, hard: boolean): Team[] {
     return [
       {
         label: 'BiS',
-        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Scarlet: Black Shadow'],
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Marian: Queen'],
         notes: hard
-          ? 'Hard — Prydwen Story BiS; invest OL on carries.'
-          : 'Prydwen Story BiS (Anis: Star + Crown + Maid Mast).',
+          ? 'Hard — Prydwen Story SSS; OL carries before pushing.'
+          : 'Prydwen Story BiS (Anis: Star + Crown + Maid Mast + Marian: Queen).',
       },
       {
         label: 'Sub 1',
@@ -188,18 +192,44 @@ function bandTeams(chapter: number, hard: boolean): Team[] {
       },
     ]
   }
+  if (chapter <= 46) {
+    return [
+      {
+        label: 'BiS',
+        members: ['Anis: Star', 'Crown', 'Flora (Treasure)', 'Marian: Queen', 'Rapi: Red Hood'],
+        notes: hard
+          ? 'Hard Ch.39–46 — Flora (Treasure) B2 enable + Marian: Queen wipe.'
+          : `Prydwen Story SSS core (${META_SOURCE.asOf}).`,
+      },
+      {
+        label: 'Sub 1',
+        members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Vesti: Tactical Upgrade', 'Ada Wong'],
+        notes: 'Vesgod / Ada Wong if Marian: Queen missing.',
+      },
+      {
+        label: 'Sub 2',
+        members: ['Siren', 'Nayuta', 'Mast: Romantic Maid', 'Scarlet: Black Shadow', 'Laplace: Ultimate Hero'],
+        notes: 'Siren / Nayuta / Laplace UH high-deficit flex.',
+      },
+      {
+        label: 'Sub 3',
+        members: ['Anis: Star', 'Mast: Romantic Maid', 'Anchor: Innocent Maid', 'Privaty (Treasure)', 'Alice'],
+        notes: 'Full Maids + PrivatyT when Crown / FloraT spent.',
+      },
+    ]
+  }
   return [
     {
       label: 'BiS',
-      members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Rapi: Red Hood', 'Scarlet: Black Shadow'],
+      members: ['Anis: Star', 'Crown', 'Flora (Treasure)', 'Marian: Queen', 'Vesti: Tactical Upgrade'],
       notes: hard
-        ? 'Hard Ch.40+ — Prydwen Story SSS/SS core.'
-        : `Current campaign BiS (Prydwen ${META_SOURCE.asOf}).`,
+        ? 'Hard Ch.47–50 (4th anniv endgame) — max deficit Story SSS core.'
+        : `Ch.47–50 campaign BiS (Prydwen ${META_SOURCE.asOf}).`,
     },
     {
       label: 'Sub 1',
-      members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Ada Wong', 'Vesti: Tactical Upgrade'],
-      notes: 'Ada + Vesgod SSS B3 alternate.',
+      members: ['Anis: Star', 'Crown', 'Mast: Romantic Maid', 'Ada Wong', 'Rapi: Red Hood'],
+      notes: 'Ada + RRH when Vesgod / Marian rotate out.',
     },
     {
       label: 'Sub 2',
@@ -208,8 +238,8 @@ function bandTeams(chapter: number, hard: boolean): Team[] {
     },
     {
       label: 'Sub 3',
-      members: ['Anis: Star', 'Mast: Romantic Maid', 'Anchor: Innocent Maid', 'Privaty (Treasure)', 'Alice'],
-      notes: 'Full Maids + PrivatyT when Crown is spent.',
+      members: ['Anis: Star', 'Mint', 'Prika', 'Laplace: Ultimate Hero', 'Scarlet: Goddeath'],
+      notes: 'Mint-ka + Laplace UH / Goddeath alt carries.',
     },
   ]
 }
@@ -241,15 +271,26 @@ function makeCampaignStages(): Stage[] {
                 'Clearing 22 boss unlocks Anomaly Interception.',
                 'Invest a real B1 (Anis: Star / Siren / Liter) before pushing further.',
               ]
-            : hard
-              ? [
-                  'Hard Mode rewards extra resources — clear when ~recommended CP.',
-                  'Manual the chapter boss if auto fails at the last node.',
-                ]
-              : [
-                  'Follow recommended CP before forcing clears.',
-                  'Keep one healer / taunt B2 for comfort.',
-                ],
+            : ch >= 47
+              ? hard
+                ? [
+                    'Hard Ch.47–50 — 4th anniv endgame CP spikes; expect multi-million recommended CP by Ch.50.',
+                    'Bring Story SSS cores (Anis: Star, Crown/FloraT, Marian: Queen / Vesgod) and manual chapter bosses.',
+                  ]
+                : [
+                    'Ch.47–50 continue the 4th anniversary climax — clear Normal before Hard.',
+                    'One-Nikke-army stops working at high deficit; lock a full B1/B2/B3 rotation.',
+                  ]
+              : hard
+                ? [
+                    'Hard Mode rewards extra resources — clear when ~recommended CP.',
+                    'Manual the chapter boss if auto fails at the last node.',
+                    'Prefer invested OL on B3 carries; Hard punishes thin skill investment.',
+                  ]
+                : [
+                    'Follow recommended CP before forcing clears.',
+                    'Keep one healer / taunt B2 for comfort.',
+                  ],
         sampleTeams: bandTeams(ch, hard),
       })
     }
@@ -1179,3 +1220,13 @@ export const stages: Stage[] = [
 ]
 
 export const stageById = Object.fromEntries(stages.map((s) => [s.id, s]))
+
+/** Hard campaign chapters only — used by the Hard Mode team builder. */
+export function hardCampaignStages(): Stage[] {
+  return stages.filter((s) => s.mode === 'campaign-hard')
+}
+
+/** Boss / raid stages (Anomaly, Solo Museum, Union) for the boss builder picker. */
+export function bossRaidStages(): Stage[] {
+  return stages.filter((s) => s.mode === 'anomaly' || s.mode === 'solo' || s.mode === 'union')
+}

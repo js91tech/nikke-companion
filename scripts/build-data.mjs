@@ -43,8 +43,42 @@ const OVERRIDES = {
   Rapi: { burst: 3 },
   'Rapi: Red Hood': { burst: 3 },
   'Red Hood': { burst: 3 },
+  'Red Hood B1': { burst: 1, class: 'Attacker', weapon: 'SR', manufacturer: 'Pilgrim', element: 'Iron' },
   'Red Hood B3': { burst: 3 },
   Siren: { burst: 3, class: 'Attacker', weapon: 'MG', manufacturer: 'Abnormal', element: 'Water' },
+  'Marian: Queen': {
+    burst: 3,
+    class: 'Attacker',
+    weapon: 'MG',
+    manufacturer: 'Pilgrim',
+    element: 'Fire',
+  },
+  'Scarlet: Goddeath': {
+    burst: 3,
+    class: 'Attacker',
+    weapon: 'AR',
+    manufacturer: 'Pilgrim',
+    element: 'Fire',
+  },
+  'Laplace: Ultimate Hero': {
+    burst: 3,
+    class: 'Attacker',
+    weapon: 'RL',
+    manufacturer: 'Missilis',
+    element: 'Wind',
+  },
+  'Sin: Swift Bunny': {
+    burst: 3,
+    class: 'Attacker',
+    weapon: 'SR',
+    manufacturer: 'Missilis',
+    element: 'Water',
+  },
+  'Flora (Treasure)': { burst: 2, class: 'Supporter', weapon: 'MG', manufacturer: 'Missilis', element: 'Electric' },
+  'Phantom (Treasure)': { burst: 3, class: 'Attacker', weapon: 'AR', manufacturer: 'Elysion', element: 'Water' },
+  'Guilty: Mighty Bunny': { burst: 3, class: 'Attacker', weapon: 'SG', manufacturer: 'Missilis', element: 'Wind' },
+  'Drake: Great Villain': { burst: 3, class: 'Attacker', weapon: 'SG', manufacturer: 'Missilis', element: 'Fire' },
+  'Belorta: Pumpkin Witch': { burst: 2, class: 'Attacker', weapon: 'RL', manufacturer: 'Tetra', element: 'Electric' },
 }
 
 function slug(name) {
@@ -155,11 +189,17 @@ function fromUtils(name, src) {
 
 function stubFromBase(name, base) {
   const id = slug(name)
+  const over = OVERRIDES[name] || {}
   if (base) {
     return {
       ...base,
       id,
       name,
+      burst: over.burst ?? base.burst,
+      class: over.class ?? base.class,
+      weapon: over.weapon ?? base.weapon,
+      manufacturer: over.manufacturer ?? base.manufacturer,
+      element: over.element ?? base.element,
       treasure: /\(Treasure\)$/i.test(name),
       portraitUrl: `https://cdn.prydwen.gg/images/nikke/characters/${id}.webp`,
       cardUrl: `https://cdn.prydwen.gg/images/nikke/characters/${id}_card.webp`,
@@ -167,11 +207,12 @@ function stubFromBase(name, base) {
         ? `Treasure variant of ${base.name}.`
         : name === 'Red Hood B3'
           ? 'Red Hood locked to Burst III mode.'
-          : base.notes,
+          : name === 'Red Hood B1'
+            ? 'Red Hood locked to Burst I mode.'
+            : base.notes,
       sourceId: undefined,
     }
   }
-  const over = OVERRIDES[name] || {}
   return {
     id,
     name,
@@ -214,7 +255,14 @@ for (const name of unmatched) {
   const baseName = name.replace(/\s*\(Treasure\)$/i, '').trim()
   const base =
     byName.get(baseName) ||
-    (name === 'Red Hood B3' ? byName.get('Red Hood') : null) ||
+    (name === 'Red Hood B3' || name === 'Red Hood B1' ? byName.get('Red Hood') : null) ||
+    (name.startsWith('Sin:') ? byName.get('Sin') : null) ||
+    (name.startsWith('Scarlet:') ? byName.get('Scarlet') : null) ||
+    (name.startsWith('Laplace:') ? byName.get('Laplace') : null) ||
+    (name.startsWith('Guilty:') ? byName.get('Guilty') : null) ||
+    (name.startsWith('Drake:') ? byName.get('Drake') : null) ||
+    (name.startsWith('Belorta:') ? byName.get('Belorta') : null) ||
+    (name === 'Marian: Queen' ? byName.get('Modernia') : null) ||
     (name === 'Siren'
       ? [...byName.values()].find((n) => /siren|mermaid/i.test(n.name))
       : null)
@@ -248,7 +296,7 @@ writeFileSync(
       version: 'prydwen+nikke-utils',
       package: '@sancti0n/nikke-utils',
       builtAt: new Date().toISOString(),
-      note: 'Master list from Prydwen (Jul 2026). Stats/metadata from nikke-utils where available.',
+      note: 'Master list from Prydwen (Nov 2026). Stats/metadata from nikke-utils where available.',
       stubs: unmatched,
     },
     null,
