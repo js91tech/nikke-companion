@@ -14,6 +14,8 @@ export interface BuildContext {
   manufacturer?: Manufacturer
   /** Already used Nikke ids (multi-squad). */
   excludeIds?: string[]
+  /** Force these owned units into the squad first (primary squad). */
+  lockedIds?: string[]
 }
 
 export interface BuiltTeam {
@@ -81,19 +83,30 @@ export function buildTeamFromInventory(
   goal: TeamGoal,
   ctx: BuildContext = {},
 ): BuiltTeam {
+  const exclude = new Set(ctx.excludeIds ?? [])
   const pool = ownedPool(inv, ctx)
   const used = new Set<string>()
   const members: Nikke[] = []
   const meta = GOAL_META[goal]
 
+  const add = (n: Nikke | undefined) => {
+    if (!n || members.length >= 5 || used.has(n.id) || exclude.has(n.id)) return
+    if (!inv.nikkes[n.id]?.owned) return
+    used.add(n.id)
+    members.push(n)
+  }
+
+  for (const id of ctx.lockedIds ?? []) {
+    const n = catalog.find((c) => c.id === id)
+    add(n)
+  }
+
   const pickBurst = (burst: Burst) => {
+    if (members.length >= 5) return
     const pick = pool
       .filter((n) => !used.has(n.id) && n.burst === burst)
       .sort((a, b) => scoreNikke(b, goal, inv, ctx) - scoreNikke(a, goal, inv, ctx))[0]
-    if (pick) {
-      used.add(pick.id)
-      members.push(pick)
-    }
+    add(pick)
   }
 
   pickBurst(1)
@@ -107,8 +120,7 @@ export function buildTeamFromInventory(
       .filter((n) => !used.has(n.id))
       .sort((a, b) => scoreNikke(b, goal, inv, ctx) - scoreNikke(a, goal, inv, ctx))[0]
     if (!next) break
-    used.add(next.id)
-    members.push(next)
+    add(next)
   }
 
   const burstCounts: Record<Burst, number> = { 1: 0, 2: 0, 3: 0 }
@@ -123,6 +135,10 @@ export function buildTeamFromInventory(
     ctx.weakTo || ctx.avoidElement
       ? ` WeakTo ${ctx.weakTo ?? '—'}; avoid ${ctx.avoidElement ?? '—'}.`
       : ''
+  const lockNote =
+    (ctx.lockedIds?.length ?? 0) > 0
+      ? ` Locked ${members.filter((m) => ctx.lockedIds?.includes(m.id)).length}.`
+      : ''
 
   return {
     goal,
@@ -132,11 +148,11 @@ export function buildTeamFromInventory(
     burstCounts,
     context: ctx,
     notes:
-      pool.length < 5
+      pool.length + (ctx.lockedIds?.length ?? 0) < 5
         ? 'Log more Nikkes in Roster for better teams.'
         : burstCounts[1] === 0
           ? 'No B1 owned — full burst will feel slow. Prioritize Anis: Star / Siren / Liter.'
-          : meta.notes + elemNote,
+          : meta.notes + elemNote + lockNote,
   }
 }
 
