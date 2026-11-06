@@ -57,17 +57,19 @@ export function Layout() {
           </span>
         </NavLink>
         <nav className="nav" aria-label="Primary">
-          {links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.end}
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            >
-              <span className="nav-index">{String(links.indexOf(l)).padStart(2, '0')}</span>
-              {l.label}
-            </NavLink>
-          ))}
+          <div className="nav-scroll">
+            {links.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                end={l.end}
+                className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+              >
+                <span className="nav-index">{String(links.indexOf(l)).padStart(2, '0')}</span>
+                {l.label}
+              </NavLink>
+            ))}
+          </div>
         </nav>
       </header>
 

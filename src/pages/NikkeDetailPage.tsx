@@ -53,7 +53,10 @@ export function NikkeDetailPage({ inventory, toggleNikke, patchNikke }: Props) {
           <button type="button" className={owned ? 'btn ghost' : 'btn primary'} onClick={() => toggleNikke(nikke.id)}>
             {owned ? 'Mark not owned' : 'Mark owned'}
           </button>
-          <Link className="btn primary" to="/teams">
+          <Link
+            className="btn primary"
+            to={`/teams?goal=boss${nikke.element ? `&weakTo=${encodeURIComponent(nikke.element)}` : ''}`}
+          >
             Use in team builder
           </Link>
         </div>
