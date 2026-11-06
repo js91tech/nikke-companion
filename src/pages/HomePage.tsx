@@ -138,8 +138,9 @@ export function HomePage({ inventory, ownedCount }: Props) {
         </div>
         <div className="boss-grid">
           {anomaly.map((a, i) => (
-            <article
+            <Link
               key={a.stage.id}
+              to={`/stages?mode=anomaly&q=${encodeURIComponent(a.stage.name)}`}
               className={`boss-tile status-${a.canClear}`}
               style={{ animationDelay: `${i * 60}ms` }}
             >
@@ -160,7 +161,7 @@ export function HomePage({ inventory, ownedCount }: Props) {
                 {(a.stage.sampleTeams[0]?.members.length ?? 0) > 3 ? '…' : ''} · {a.ownedCount}/
                 {a.totalCount} best owned · {a.stage.sampleTeams.length} teams
               </p>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
@@ -173,10 +174,10 @@ export function HomePage({ inventory, ownedCount }: Props) {
           </div>
           <div className="mini-boss-list">
             {solo.map((a) => (
-              <div key={a.stage.id} className="mini-boss">
+              <Link key={a.stage.id} to={`/stages?mode=solo&q=${encodeURIComponent(a.stage.name)}`} className="mini-boss">
                 <span>{a.stage.name}</span>
                 <span className={`pill status-${a.canClear}`}>{a.canClear === 'likely' ? 'ready' : a.canClear}</span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -192,10 +193,10 @@ export function HomePage({ inventory, ownedCount }: Props) {
           </p>
           <div className="mini-boss-list">
             {union.slice(0, 6).map((a) => (
-              <div key={a.stage.id} className="mini-boss">
+              <Link key={a.stage.id} to={`/stages?mode=union&q=${encodeURIComponent(a.stage.name)}`} className="mini-boss">
                 <span>{a.stage.name}</span>
                 {a.stage.weakTo ? <span className="tag weak">{a.stage.weakTo}</span> : null}
-              </div>
+              </Link>
             ))}
           </div>
         </div>

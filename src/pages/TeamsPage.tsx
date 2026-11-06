@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { MetaBadge } from '../components/MetaBadge'
 import { Portrait } from '../components/Portrait'
-import { allElements, allManufacturers, resolveNikkeRef } from '../data/catalog'
+import { allElements, allManufacturers, nikkeById, resolveNikkeRef } from '../data/catalog'
 import { META_SOURCE } from '../data/metaSource'
 import { bossRaidStages, CAMPAIGN_MAX_CHAPTER, hardCampaignStages, stageById } from '../data/stages'
+import { useFlash } from '../hooks/useFlash'
+import { copyText, formatSquadLine } from '../lib/copyText'
 import { suggestTeams } from '../lib/recommendations'
 import {
   buildAllGoalTeams,
@@ -17,6 +19,7 @@ import {
   type BuiltTeam,
   type TeamGoal,
 } from '../lib/teamBuilder'
+import { loadUiPrefs, saveUiPrefs } from '../lib/uiPrefs'
 import type { InventoryState, Manufacturer } from '../types'
 
 interface Props {
@@ -33,6 +36,7 @@ const STANDARD_GOALS: { id: TeamGoal; label: string }[] = [
   { id: 'raid', label: 'Raid' },
 ]
 
+const GOAL_IDS = new Set<string>(STANDARD_GOALS.map((g) => g.id))
 const ELEMENTS = ['Fire', 'Wind', 'Iron', 'Electric', 'Water']
 
 const TABS: { id: BuilderTab; label: string }[] = [
@@ -42,7 +46,17 @@ const TABS: { id: BuilderTab; label: string }[] = [
   { id: 'pvp', label: 'PvP Arena' },
 ]
 
-function SquadRow({ team }: { team: BuiltTeam }) {
+function parseGoal(raw: string | null | undefined): TeamGoal | '' {
+  return raw && GOAL_IDS.has(raw) ? (raw as TeamGoal) : ''
+}
+
+function SquadRow({
+  team,
+  onCopy,
+}: {
+  team: BuiltTeam
+  onCopy?: (names: string[], label?: string) => void
+}) {
   return (
     <>
       <p className="section-lede">{team.notes}</p>
@@ -66,21 +80,65 @@ function SquadRow({ team }: { team: BuiltTeam }) {
       {team.missing && team.missing.length > 0 ? (
         <p className="missing">Preferred missing: {team.missing.join(', ')}</p>
       ) : null}
+      {onCopy && team.members.length > 0 ? (
+        <div className="toolbar secondary" style={{ marginTop: '0.65rem' }}>
+          <button
+            type="button"
+            className="btn ghost"
+            onClick={() => onCopy(team.members.map((m) => m.name), team.label)}
+          >
+            Copy squad
+          </button>
+        </div>
+      ) : null}
     </>
   )
 }
 
 export function TeamsPage({ inventory }: Props) {
+  const [params] = useSearchParams()
+  const prefs = useMemo(() => loadUiPrefs(), [])
   const [tab, setTab] = useState<BuilderTab>('hard')
-  const [goal, setGoal] = useState<TeamGoal>('campaign-hard')
-  const [weakTo, setWeakTo] = useState('')
-  const [avoidElement, setAvoidElement] = useState('')
-  const [manufacturer, setManufacturer] = useState<'' | Manufacturer>('')
+  const [goal, setGoal] = useState<TeamGoal>(
+    () => parseGoal(params.get('goal')) || parseGoal(prefs.teamsGoal) || 'campaign-hard',
+  )
+  const [weakTo, setWeakTo] = useState(() => params.get('weakTo') || prefs.teamsWeakTo || '')
+  const [avoidElement, setAvoidElement] = useState(
+    () => params.get('avoid') || prefs.teamsAvoid || '',
+  )
+  const [manufacturer, setManufacturer] = useState<'' | Manufacturer>(
+    () => (params.get('mfr') as Manufacturer | null) || (prefs.teamsMfr as Manufacturer | '') || '',
+  )
   const [squadCount, setSquadCount] = useState(3)
+  const [lockedIds, setLockedIds] = useState<string[]>([])
+  const [excludeIds, setExcludeIds] = useState<string[]>([])
+  const [msg, flash] = useFlash()
+
+  useEffect(() => {
+    const g = parseGoal(params.get('goal'))
+    if (g) {
+      setGoal(g)
+      setTab('standard')
+    }
+    if (params.has('weakTo')) setWeakTo(params.get('weakTo') || '')
+    if (params.has('avoid')) setAvoidElement(params.get('avoid') || '')
+    if (params.has('mfr')) setManufacturer((params.get('mfr') as Manufacturer | null) || '')
+  }, [params])
+
+  useEffect(() => {
+    saveUiPrefs({
+      teamsGoal: goal,
+      teamsWeakTo: weakTo,
+      teamsAvoid: avoidElement,
+      teamsMfr: manufacturer,
+    })
+  }, [goal, weakTo, avoidElement, manufacturer])
 
   const hardStages = useMemo(() => hardCampaignStages(), [])
   const bossStages = useMemo(() => bossRaidStages(), [])
-  const [hardChapterId, setHardChapterId] = useState(() => hardStages[hardStages.length - 1]?.id ?? 'hard-50')
+  const [hardChapterId, setHardChapterId] = useState(
+    () => hardStages[hardStages.length - 1]?.id ?? 'hard-50',
+  )
   const [bossStageId, setBossStageId] = useState(() => bossStages[0]?.id ?? 'ai-kraken')
   const [pvpSide, setPvpSide] = useState<'attack' | 'defense'>('attack')
 
@@ -90,9 +148,27 @@ export function TeamsPage({ inventory }: Props) {
       avoidElement: avoidElement || undefined,
       manufacturer: manufacturer || undefined,
       hardMode: goal === 'campaign-hard',
+      lockedIds: lockedIds.length ? lockedIds : undefined,
+      excludeIds: excludeIds.length ? excludeIds : undefined,
     }),
-    [weakTo, avoidElement, manufacturer, goal],
+    [weakTo, avoidElement, manufacturer, goal, lockedIds, excludeIds],
   )
+
+  const toggleLock = (id: string) => {
+    setExcludeIds((prev) => prev.filter((x) => x !== id))
+    setLockedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
+  }
+
+  const toggleExclude = (id: string) => {
+    setLockedIds((prev) => prev.filter((x) => x !== id))
+    setExcludeIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
+  }
+
+  const clearLocks = () => {
+    setLockedIds([])
+    setExcludeIds([])
+    flash('Locks & excludes cleared.')
+  }
 
   const built = useMemo(() => buildTeamFromInventory(inventory, goal, ctx), [inventory, goal, ctx])
   const multi = useMemo(
@@ -116,6 +192,11 @@ export function TeamsPage({ inventory }: Props) {
 
   const pvpTeams = useMemo(() => buildPvpTeams(inventory, pvpSide, 3), [inventory, pvpSide])
   const pvpArchetypes = useMemo(() => listPvpArchetypes(pvpSide), [pvpSide])
+
+  const copyNames = async (names: string[], label?: string) => {
+    const ok = await copyText(formatSquadLine(names, label))
+    flash(ok ? 'Squad copied.' : 'Clipboard blocked — select text manually.')
+  }
 
   return (
     <div className="page">
@@ -150,7 +231,7 @@ export function TeamsPage({ inventory }: Props) {
                 score {built.score} · B{built.burstCounts[1]}/{built.burstCounts[2]}/{built.burstCounts[3]}
               </span>
             </div>
-            <SquadRow team={built} />
+            <p className="section-lede">{built.notes}</p>
 
             <div className="seg wrap" style={{ marginTop: '1rem' }}>
               {STANDARD_GOALS.map((g) => (
@@ -215,6 +296,102 @@ export function TeamsPage({ inventory }: Props) {
                 </label>
               )}
             </div>
+
+            <div className="toolbar secondary" style={{ marginTop: '0.75rem' }}>
+              <button
+                type="button"
+                className="btn ghost"
+                disabled={built.members.length === 0}
+                onClick={() => void copyNames(built.members.map((m) => m.name), built.label)}
+              >
+                Copy squad
+              </button>
+              {(weakTo || avoidElement || manufacturer) && (
+                <button
+                  type="button"
+                  className="btn ghost"
+                  onClick={() => {
+                    setWeakTo('')
+                    setAvoidElement('')
+                    setManufacturer('')
+                  }}
+                >
+                  Clear filters
+                </button>
+              )}
+              {(lockedIds.length > 0 || excludeIds.length > 0) && (
+                <button type="button" className="btn ghost" onClick={clearLocks}>
+                  Clear locks
+                </button>
+              )}
+            </div>
+            <p className="fine-print" style={{ marginTop: '0.45rem' }}>
+              Lock keeps a unit on squad 1 · Exclude pulls them out of the pool.
+            </p>
+            {msg ? <p className="flash">{msg}</p> : null}
+
+            <ul className="chip-row squad-portrait-row" style={{ marginTop: '1rem' }}>
+              {built.members.map((m) => {
+                const locked = lockedIds.includes(m.id)
+                return (
+                  <li key={m.id} className={`have squad-chip-li ${locked ? 'is-locked' : ''}`}>
+                    <Link to={`/nikkes/${m.id}`} className="squad-link">
+                      <Portrait src={m.portraitUrl} name={m.name} size={36} />
+                      <span>
+                        {m.name}
+                        {locked ? <span className="lock-badge"> locked</span> : null}{' '}
+                        <span className="fine-print">
+                          B{m.burst}
+                          {m.element ? ` · ${m.element}` : ''}
+                        </span>
+                      </span>
+                    </Link>
+                    <div className="squad-chip-actions">
+                      <button
+                        type="button"
+                        className={`btn ghost btn-compact ${locked ? 'active-toggle' : ''}`}
+                        onClick={() => toggleLock(m.id)}
+                      >
+                        {locked ? 'Unlock' : 'Lock'}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn ghost btn-compact"
+                        onClick={() => toggleExclude(m.id)}
+                      >
+                        Exclude
+                      </button>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+            {built.members.length === 0 ? <p className="fine-print">Log Nikkes in Roster first.</p> : null}
+
+            {excludeIds.length > 0 ? (
+              <div className="exclude-row">
+                <span className="fine-print">Excluded:</span>
+                <ul className="chip-row">
+                  {excludeIds.map((id) => {
+                    const n = nikkeById[id]
+                    if (!n) return null
+                    return (
+                      <li key={id} className="need">
+                        <button
+                          type="button"
+                          className="btn ghost btn-compact"
+                          onClick={() => toggleExclude(id)}
+                          title="Restore to pool"
+                        >
+                          <Portrait src={n.portraitUrl} name={n.name} size={22} />
+                          {n.name} ×
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            ) : null}
           </section>
 
           {multi.length > 1 ? (
@@ -228,7 +405,16 @@ export function TeamsPage({ inventory }: Props) {
                   <article key={t.label} className="panel">
                     <div className="panel-head">
                       <h3>{t.label}</h3>
-                      <span className="pill">score {t.score}</span>
+                      <div className="panel-actions">
+                        <span className="pill">score {t.score}</span>
+                        <button
+                          type="button"
+                          className="btn ghost"
+                          onClick={() => void copyNames(t.members.map((m) => m.name), t.label)}
+                        >
+                          Copy
+                        </button>
+                      </div>
                     </div>
                     <ul className="chip-row">
                       {t.members.map((m) => (
@@ -240,6 +426,22 @@ export function TeamsPage({ inventory }: Props) {
                   </article>
                 ))}
               </div>
+              <div className="toolbar secondary" style={{ marginTop: '0.65rem' }}>
+                <button
+                  type="button"
+                  className="btn ghost"
+                  onClick={() => {
+                    const block = multi
+                      .map((t) => formatSquadLine(t.members.map((m) => m.name), t.label))
+                      .join('\n')
+                    void copyText(block).then((ok) =>
+                      flash(ok ? 'All squads copied.' : 'Clipboard blocked — select text manually.'),
+                    )
+                  }}
+                >
+                  Copy all squads
+                </button>
+              </div>
             </section>
           ) : null}
 
@@ -250,9 +452,19 @@ export function TeamsPage({ inventory }: Props) {
                 <article key={t.goal} className="panel">
                   <div className="panel-head">
                     <h3>{t.label}</h3>
-                    <button type="button" className="btn ghost" onClick={() => setGoal(t.goal)}>
-                      Use
-                    </button>
+                    <div className="panel-actions">
+                      <button type="button" className="btn ghost" onClick={() => setGoal(t.goal)}>
+                        Use
+                      </button>
+                      <button
+                        type="button"
+                        className="btn ghost"
+                        disabled={t.members.length === 0}
+                        onClick={() => void copyNames(t.members.map((m) => m.name), t.label)}
+                      >
+                        Copy
+                      </button>
+                    </div>
                   </div>
                   <p className="fine-print">{t.members.map((m) => m.name).join(' · ') || 'Need more roster'}</p>
                 </article>
@@ -297,10 +509,10 @@ export function TeamsPage({ inventory }: Props) {
               ))}
             </ul>
           ) : null}
-          <SquadRow team={hardBuilt} />
+          <SquadRow team={hardBuilt} onCopy={(names, label) => void copyNames(names, label)} />
+          {msg && tab === 'hard' ? <p className="flash">{msg}</p> : null}
           <p className="fine-print" style={{ marginTop: '0.75rem' }}>
-            Sample BiS:{' '}
-            {(hardStage.sampleTeams[0]?.members ?? []).join(' · ') || '—'}
+            Sample BiS: {(hardStage.sampleTeams[0]?.members ?? []).join(' · ') || '—'}
           </p>
         </section>
       ) : null}
@@ -342,7 +554,8 @@ export function TeamsPage({ inventory }: Props) {
               ))}
             </ul>
           ) : null}
-          <SquadRow team={bossBuilt} />
+          <SquadRow team={bossBuilt} onCopy={(names, label) => void copyNames(names, label)} />
+          {msg && tab === 'boss' ? <p className="flash">{msg}</p> : null}
         </section>
       ) : null}
 
@@ -378,16 +591,27 @@ export function TeamsPage({ inventory }: Props) {
                 <article key={t.label} className="panel nested-panel">
                   <div className="panel-head">
                     <h3>{t.label}</h3>
-                    <span className="pill">
-                      score {t.score}
-                      {t.coverage != null ? ` · ${Math.round(t.coverage * 100)}%` : ''}
-                    </span>
+                    <div className="panel-actions">
+                      <span className="pill">
+                        score {t.score}
+                        {t.coverage != null ? ` · ${Math.round(t.coverage * 100)}%` : ''}
+                      </span>
+                      <button
+                        type="button"
+                        className="btn ghost"
+                        disabled={t.members.length === 0}
+                        onClick={() => void copyNames(t.members.map((m) => m.name), t.label)}
+                      >
+                        Copy
+                      </button>
+                    </div>
                   </div>
                   <SquadRow team={t} />
                 </article>
               ))}
               {pvpTeams.length === 0 ? <p className="fine-print">Log PvP Nikkes in Roster first.</p> : null}
             </div>
+            {msg && tab === 'pvp' ? <p className="flash">{msg}</p> : null}
           </section>
 
           <section className="section">
@@ -400,7 +624,21 @@ export function TeamsPage({ inventory }: Props) {
                 <article key={a.id} className="panel">
                   <div className="panel-head">
                     <h3>{a.name}</h3>
-                    <span className="pill">{a.speed}</span>
+                    <div className="panel-actions">
+                      <span className="pill">{a.speed}</span>
+                      <button
+                        type="button"
+                        className="btn ghost"
+                        onClick={() =>
+                          void copyNames(
+                            a.slots.map((ref) => resolveNikkeRef(ref)?.name ?? ref),
+                            a.name,
+                          )
+                        }
+                      >
+                        Copy
+                      </button>
+                    </div>
                   </div>
                   <p className="purpose">{a.purpose}</p>
                   <ul className="chip-row">
@@ -436,7 +674,21 @@ export function TeamsPage({ inventory }: Props) {
             <article key={t.id} className="panel">
               <div className="panel-head">
                 <h3>{t.name}</h3>
-                <span className="pill">{t.score}%</span>
+                <div className="panel-actions">
+                  <span className="pill">{t.score}%</span>
+                  <button
+                    type="button"
+                    className="btn ghost"
+                    onClick={() =>
+                      void copyNames(
+                        t.slots.map((ref) => resolveNikkeRef(ref)?.name ?? ref),
+                        t.name,
+                      )
+                    }
+                  >
+                    Copy
+                  </button>
+                </div>
               </div>
               <p className="purpose">{t.purpose}</p>
               <div className="meter" aria-hidden>

@@ -17,6 +17,7 @@
   --font-ui: 'Barlow', system-ui, sans-serif;
   --font-brand: 'Orbitron', sans-serif;
   --font-mono: 'Share Tech Mono', ui-monospace, monospace;
+  --sticky-under-nav: 4.75rem;
   color-scheme: dark;
 }
 
@@ -641,9 +642,30 @@ select {
 
 .nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
   flex: 1;
+  min-width: 0;
+}
+
+.nav-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.3rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 0.15rem;
+  max-width: 100%;
+}
+
+.nav-scroll .nav-link {
+  flex: 0 0 auto;
+}
+
+@media (min-width: 960px) {
+  .nav-scroll {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
 }
 
 .nav-link {
@@ -1229,6 +1251,20 @@ select {
   gap: 0.75rem;
 }
 
+.panel-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.btn-compact {
+  padding: 0.28rem 0.55rem !important;
+  font-size: 0.72rem !important;
+  min-height: 0 !important;
+}
+
 .panel h3 {
   margin: 0 0 0.35rem;
   font-family: var(--font-brand);
@@ -1321,6 +1357,8 @@ select {
 
 .boss-tile {
   position: relative;
+  display: block;
+  color: inherit;
   padding: 0.9rem;
   background:
     linear-gradient(160deg, rgba(255, 36, 88, 0.1), transparent 50%),
@@ -1411,6 +1449,7 @@ select {
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--line);
   font-size: 0.9rem;
+  color: inherit;
   transition: border-color 0.15s ease;
 }
 
@@ -1668,6 +1707,13 @@ select,
   gap: 0.35rem;
 }
 
+.check-list > li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem;
+  align-items: stretch;
+}
+
 .check-list label {
   display: grid;
   grid-template-columns: auto auto 1fr;
@@ -1721,6 +1767,109 @@ select,
   font-size: 0.72rem;
   color: var(--cyan);
   font-weight: 500;
+}
+
+.invest-inline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.45rem;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.35);
+  min-width: 4.5rem;
+}
+
+.invest-field {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.invest-field select {
+  min-width: 2.4rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.78rem;
+}
+
+.ambiguous-list {
+  margin-top: 0.85rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ambiguous-row {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line-hot);
+  background: rgba(255, 36, 88, 0.06);
+}
+
+.ambiguous-query {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.ambiguous-pick {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.squad-chip-li {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.squad-chip-li.is-locked {
+  border-color: rgba(255, 193, 77, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(255, 193, 77, 0.2);
+}
+
+.squad-chip-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.lock-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--warn);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.active-toggle {
+  border-color: var(--warn) !important;
+  color: var(--warn) !important;
+}
+
+.exclude-row {
+  margin-top: 0.85rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+@media (max-width: 720px) {
+  .check-list > li {
+    grid-template-columns: 1fr;
+  }
+
+  .invest-inline {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 }
 
 .chip-row {
@@ -1982,15 +2131,35 @@ select,
   text-decoration: underline;
 }
 
-.stages-sticky {
+.stages-sticky,
+.roster-sticky {
   position: sticky;
-  top: 0;
-  z-index: 8;
+  top: var(--sticky-under-nav);
+  z-index: 20;
   margin: 0 -0.25rem 0.5rem;
   padding: 0.55rem 0.25rem 0.65rem;
   background: linear-gradient(180deg, rgba(5, 6, 8, 0.97) 70%, rgba(5, 6, 8, 0.85));
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
+}
+
+.roster-sticky .filter-row {
+  margin-bottom: 0.35rem;
+}
+
+.filter-actions {
+  margin-top: 0.15rem;
+  margin-bottom: 0.25rem;
+}
+
+.ready-seg {
+  margin-top: 0.45rem;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --sticky-under-nav: 6.5rem;
+  }
 }
 
 .finish-badge {

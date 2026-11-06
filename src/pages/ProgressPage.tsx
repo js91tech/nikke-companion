@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { buildProgressPlan, type ProgressChapter } from '../lib/progression'
+import { loadUiPrefs, saveUiPrefs } from '../lib/uiPrefs'
 import type { InventoryState } from '../types'
 
 interface Props {
@@ -14,8 +15,13 @@ const CHAPTERS: { id: ProgressChapter; label: string }[] = [
   { id: 'endgame', label: 'Endgame' },
 ]
 
+const CHAPTER_IDS = new Set(CHAPTERS.map((c) => c.id))
+
 export function ProgressPage({ inventory }: Props) {
-  const [chapter, setChapter] = useState<ProgressChapter>('mid')
+  const [chapter, setChapter] = useState<ProgressChapter>(() => {
+    const saved = loadUiPrefs().progressChapter as ProgressChapter | undefined
+    return saved && CHAPTER_IDS.has(saved) ? saved : 'mid'
+  })
   const plan = useMemo(() => buildProgressPlan(inventory, chapter), [inventory, chapter])
 
   return (
@@ -33,7 +39,10 @@ export function ProgressPage({ inventory }: Props) {
               key={c.id}
               type="button"
               className={chapter === c.id ? 'active' : ''}
-              onClick={() => setChapter(c.id)}
+              onClick={() => {
+                setChapter(c.id)
+                saveUiPrefs({ progressChapter: c.id })
+              }}
             >
               {c.label}
             </button>

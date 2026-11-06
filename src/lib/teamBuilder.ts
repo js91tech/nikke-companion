@@ -20,6 +20,8 @@ export interface BuildContext {
   manufacturer?: Manufacturer
   /** Already used Nikke ids (multi-squad). */
   excludeIds?: string[]
+  /** Force these owned units into the squad first (primary squad). */
+  lockedIds?: string[]
   /** Stage label for notes. */
   stageName?: string
   /** Prefer sustain / OL-heavy picks (Hard Mode). */
@@ -95,12 +97,15 @@ export function scoreNikke(n: Nikke, goal: TeamGoal, inv: InventoryState, ctx: B
   if (goal === 'campaign-hard') {
     s += n.burst === 1 ? 4 : 0
     s += (entry?.olLines ?? 0) * 2
-    s += (entry?.limitBreak ?? 0)
+    s += entry?.limitBreak ?? 0
     if (n.class === 'Defender' || n.class === 'Supporter') s += 1
     if (n.name === 'Crown' || n.name === 'Flora (Treasure)' || n.name === 'Mast: Romantic Maid') s += 3
   }
   if (goal === 'boss' && n.burst === 3) s += 4
-  if (goal === 'boss' && (n.name === 'Crown' || n.name === 'Naga' || n.name === 'Mast: Romantic Maid' || n.name === 'Flora (Treasure)'))
+  if (
+    goal === 'boss' &&
+    (n.name === 'Crown' || n.name === 'Naga' || n.name === 'Mast: Romantic Maid' || n.name === 'Flora (Treasure)')
+  )
     s += 2
   if (goal === 'raid' && n.burst === 3) s += 3
   if (goal === 'tower' && n.burst === 1) s += 2
@@ -128,20 +133,31 @@ export function buildTeamFromInventory(
   goal: TeamGoal,
   ctx: BuildContext = {},
 ): BuiltTeam {
+  const exclude = new Set(ctx.excludeIds ?? [])
   const pool = ownedPool(inv, ctx)
   const used = new Set<string>()
   const members: Nikke[] = []
   const meta = GOAL_META[goal]
   const scoreGoal: TeamGoal = goal === 'pvp' ? 'pvp' : goal
 
+  const add = (n: Nikke | undefined) => {
+    if (!n || members.length >= 5 || used.has(n.id) || exclude.has(n.id)) return
+    if (!inv.nikkes[n.id]?.owned) return
+    used.add(n.id)
+    members.push(n)
+  }
+
+  for (const id of ctx.lockedIds ?? []) {
+    const n = catalog.find((c) => c.id === id)
+    add(n)
+  }
+
   const pickBurst = (burst: Burst) => {
+    if (members.length >= 5) return
     const pick = pool
       .filter((n) => !used.has(n.id) && n.burst === burst)
       .sort((a, b) => scoreNikke(b, scoreGoal, inv, ctx) - scoreNikke(a, scoreGoal, inv, ctx))[0]
-    if (pick) {
-      used.add(pick.id)
-      members.push(pick)
-    }
+    add(pick)
   }
 
   if (goal === 'pvp') {
@@ -151,12 +167,6 @@ export function buildTeamFromInventory(
     pickBurst(3)
     pickBurst(1)
     pickBurst(2)
-  } else if (goal === 'campaign-hard') {
-    pickBurst(1)
-    pickBurst(2)
-    pickBurst(2)
-    pickBurst(3)
-    pickBurst(3)
   } else {
     pickBurst(1)
     pickBurst(2)
@@ -170,8 +180,7 @@ export function buildTeamFromInventory(
       .filter((n) => !used.has(n.id))
       .sort((a, b) => scoreNikke(b, scoreGoal, inv, ctx) - scoreNikke(a, scoreGoal, inv, ctx))[0]
     if (!next) break
-    used.add(next.id)
-    members.push(next)
+    add(next)
   }
 
   const burstCounts = burstCountsOf(members)
@@ -186,6 +195,10 @@ export function buildTeamFromInventory(
       ? ` WeakTo ${ctx.weakTo ?? '—'}; avoid ${ctx.avoidElement ?? '—'}.`
       : ''
   const stageNote = ctx.stageName ? ` Target: ${ctx.stageName}.` : ''
+  const lockNote =
+    (ctx.lockedIds?.length ?? 0) > 0
+      ? ` Locked ${members.filter((m) => ctx.lockedIds?.includes(m.id)).length}.`
+      : ''
 
   return {
     goal,
@@ -195,11 +208,11 @@ export function buildTeamFromInventory(
     burstCounts,
     context: ctx,
     notes:
-      pool.length < 5
+      pool.length + (ctx.lockedIds?.length ?? 0) < 5
         ? 'Log more Nikkes in Roster for better teams.'
         : burstCounts[1] === 0
           ? 'No B1 owned — full burst will feel slow. Prioritize Anis: Star / Siren / Liter (or Jackal/Centi for PvP).'
-          : meta.notes + elemNote + stageNote,
+          : meta.notes + elemNote + stageNote + lockNote,
   }
 }
 
@@ -218,7 +231,12 @@ export function buildMultiSquads(
   const excludeIds = [...(ctx.excludeIds ?? [])]
   const out: BuiltTeam[] = []
   for (let i = 0; i < count; i++) {
-    const team = buildTeamFromInventory(inv, goal, { ...ctx, excludeIds: [...excludeIds] })
+    // Locks only apply to squad 1; later squads just inherit exclusions.
+    const team = buildTeamFromInventory(inv, goal, {
+      ...ctx,
+      lockedIds: i === 0 ? ctx.lockedIds : undefined,
+      excludeIds: [...excludeIds],
+    })
     if (team.members.length === 0) break
     out.push({ ...team, label: `${team.label} · Squad ${i + 1}` })
     for (const m of team.members) excludeIds.push(m.id)
@@ -245,7 +263,8 @@ export function buildTeamForStage(inv: InventoryState, stage: Stage, preferHard 
     stageName: stage.name,
   }
 
-  const preferred = stage.sampleTeams.find((t) => t.label === 'BiS' || t.label.startsWith('BiS')) ?? stage.sampleTeams[0]
+  const preferred =
+    stage.sampleTeams.find((t) => t.label === 'BiS' || t.label.startsWith('BiS')) ?? stage.sampleTeams[0]
   const excludeIds: string[] = []
   const members: Nikke[] = []
   const missing: string[] = []
@@ -297,7 +316,9 @@ export function buildTeamForStage(inv: InventoryState, stage: Stage, preferHard 
             preferred?.notes,
             stage.weakTo ? `Prefer ${stage.weakTo} codes.` : null,
             stage.strongAgainst ? `Avoid ${stage.strongAgainst}.` : null,
-            missing.length ? `Missing BiS: ${missing.join(', ')} — filled from roster.` : 'Full BiS coverage from roster.',
+            missing.length
+              ? `Missing BiS: ${missing.join(', ')} — filled from roster.`
+              : 'Full BiS coverage from roster.',
             stage.mode === 'campaign-hard' ? 'Hard Mode: invest skills/OL before forcing clears.' : null,
           ]
             .filter(Boolean)
@@ -371,7 +392,9 @@ export function buildPvpArchetypeTeam(
     members: members.slice(0, 5),
     score,
     burstCounts,
-    coverage: archetype.slots.length ? (archetype.slots.length - missing.length) / archetype.slots.length : 0,
+    coverage: archetype.slots.length
+      ? (archetype.slots.length - missing.length) / archetype.slots.length
+      : 0,
     missing,
     notes: [
       archetype.notes,
