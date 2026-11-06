@@ -1,6 +1,6 @@
 /**
  * Meta reference snapshot for team builder / BiS lists.
- * Primary: Prydwen Institute (tier list + AI guides + meta teams), Jul 2026.
+ * Primary: Prydwen Institute (Story tier list + meta teams + SP Arena), Oct/Nov 2026.
  * Secondary: r/NikkeMobile community consensus (manual; Reddit API blocked).
  * Not auto-scraped — refresh when Prydwen changelogs move the meta.
  */
@@ -8,19 +8,23 @@ export const META_SOURCE = {
   primary: 'https://www.prydwen.gg/nikke/tier-list/',
   anomaly: 'https://www.prydwen.gg/nikke/guides/game-modes-anomaly-interception/',
   storyTeams: 'https://www.prydwen.gg/nikke/guides/meta-teams',
-  asOf: '2026-07',
+  pvp: 'https://www.prydwen.gg/nikke/guides/pvp-sp-arena-teams',
+  pvpBasics: 'https://www.prydwen.gg/nikke/guides/pvp-sp-arena',
+  asOf: '2026-11',
   notes:
-    'Anis: Star / Siren B1, Crown / Mast: Romantic Maid / Nayuta B2, RRH / SBS / Ada / Vesgod / SWHA B3 lead Story+AI.',
+    'Story SSS: Anis: Star B1, Crown / Flora (Treasure) B2, Marian: Queen / Ada / RRH / Vesgod B3. SP Arena still pivots on Scarlet+Jackal and Biscuit+SAnis.',
 } as const
 
-/** Prydwen Story tier boosts used by the inventory team builder. */
+/** Prydwen Story (>25% deficit) tier boosts used by the inventory team builder. */
 export const STORY_TIER_SCORE: Record<string, number> = {
   // SSS
-  'Anis: Star': 22,
-  Crown: 22,
-  'Ada Wong': 22,
-  'Rapi: Red Hood': 22,
-  'Vesti: Tactical Upgrade': 22,
+  'Anis: Star': 24,
+  Crown: 24,
+  'Flora (Treasure)': 24,
+  'Ada Wong': 24,
+  'Marian: Queen': 24,
+  'Rapi: Red Hood': 24,
+  'Vesti: Tactical Upgrade': 24,
   // SS
   'Moran (Treasure)': 18,
   Siren: 18,
@@ -28,21 +32,26 @@ export const STORY_TIER_SCORE: Record<string, number> = {
   Nayuta: 18,
   'Takina Inoue': 18,
   'Cinderella: Crystal Wave': 18,
+  'Laplace: Ultimate Hero': 18,
   'Privaty (Treasure)': 18,
   'Scarlet: Black Shadow': 18,
   'Snow White: Heavy Arms': 18,
   // S
+  'Red Hood B1': 14,
   'Anchor: Innocent Maid': 14,
   Mint: 14,
   Prika: 14,
   Alice: 14,
   Ein: 14,
   'Helm (Treasure)': 14,
+  'Laplace (Treasure)': 14,
   Liberalio: 14,
   'Milk: Blooming Bunny': 14,
   'Neon: Vision Eye': 14,
+  'Phantom (Treasure)': 14,
   'Red Hood B3': 14,
-  // A (still very usable)
+  'Sin: Swift Bunny': 14,
+  // A
   'D: Killer Wife': 10,
   'Emma: Tactical Upgrade': 10,
   Liter: 10,
@@ -52,6 +61,7 @@ export const STORY_TIER_SCORE: Record<string, number> = {
   Tia: 10,
   'Ade: Agent Bunny': 10,
   Blanc: 10,
+  'Mary: Bay Goddess': 10,
   'Brid: Silent Track': 10,
   'Eunhwa: Tactical Upgrade': 10,
   Grave: 10,
@@ -67,10 +77,50 @@ export const STORY_TIER_SCORE: Record<string, number> = {
   Modernia: 10,
   'Rei Ayanami': 10,
   Scarlet: 10,
+  'Scarlet: Goddeath': 10,
   'Anis: Sparkling Summer': 10,
-  // Common carry aliases
+  // Common carry aliases / legacy
   'Little Mermaid (Siren)': 18,
   'Red Hood': 12,
   Dorothy: 8,
   Noir: 8,
+  Phantom: 8,
+  Flora: 6,
+}
+
+/** SP Arena priority scores — distinct from Story (burst gen / nukes / stall). */
+export const PVP_TIER_SCORE: Record<string, number> = {
+  Scarlet: 22,
+  Jackal: 22,
+  Biscuit: 20,
+  'Anis: Sparkling Summer': 20,
+  Noah: 18,
+  Blanc: 18,
+  Noise: 18,
+  Rapunzel: 17,
+  Alice: 16,
+  Centi: 15,
+  Anis: 14,
+  Privaty: 14,
+  Maiden: 14,
+  Power: 13,
+  Makima: 13,
+  'Anne: Miracle Fairy': 13,
+  Pepper: 12,
+  Rosanna: 12,
+  Emma: 11,
+  '2B': 14,
+  'Mary: Bay Goddess': 12,
+  Folkwang: 11,
+  Maxwell: 11,
+  Harran: 11,
+  Laplace: 11,
+  Diesel: 10,
+  Nero: 10,
+  Viper: 10,
+  Poli: 10,
+  'Rupee: Winter Shopper': 10,
+  Liter: 8,
+  Noir: 8,
+  'Marian: Queen': 12,
 }

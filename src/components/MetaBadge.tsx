@@ -11,6 +11,10 @@ export function MetaBadge({ className = '' }: { className?: string }) {
       <a className="text-link" href={META_SOURCE.anomaly} target="_blank" rel="noreferrer">
         AI guides
       </a>
+      {' · '}
+      <a className="text-link" href={META_SOURCE.pvp} target="_blank" rel="noreferrer">
+        SP Arena
+      </a>
     </p>
   )
 }

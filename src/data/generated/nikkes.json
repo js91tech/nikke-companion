@@ -557,6 +557,28 @@
     "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/belorta_card.webp"
   },
   {
+    "id": "belorta-pumpkin-witch",
+    "name": "Belorta: Pumpkin Witch",
+    "rarity": "SR",
+    "burst": 2,
+    "burstLabel": "II",
+    "class": "Attacker",
+    "weapon": "RL",
+    "weaponLabel": "Rocket Launcher",
+    "manufacturer": "Tetra",
+    "manufacturerLabel": "Tetra Line",
+    "element": "Electric",
+    "squad": "The Carronades",
+    "specialties": [
+      "Buffer",
+      "Debuffer"
+    ],
+    "releaseDate": "2022-04-11",
+    "treasure": false,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/belorta-pumpkin-witch.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/belorta-pumpkin-witch_card.webp"
+  },
+  {
     "id": "biscuit",
     "name": "Biscuit",
     "rarity": "SSR",
@@ -1227,6 +1249,27 @@
     "notes": "Treasure upgrade variant."
   },
   {
+    "id": "drake-great-villain",
+    "name": "Drake: Great Villain",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "SG",
+    "weaponLabel": "Shotgun",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Fire",
+    "squad": "Matis",
+    "specialties": [
+      "Buffer"
+    ],
+    "releaseDate": "2022-04-11",
+    "treasure": false,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/drake-great-villain.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/drake-great-villain_card.webp"
+  },
+  {
     "id": "e-h",
     "name": "E.H.",
     "rarity": "SSR",
@@ -1567,6 +1610,31 @@
     "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/flora_card.webp"
   },
   {
+    "id": "flora-treasure",
+    "name": "Flora (Treasure)",
+    "rarity": "SSR",
+    "burst": 2,
+    "burstLabel": "II",
+    "class": "Supporter",
+    "weapon": "MG",
+    "weaponLabel": "Machine Gun",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Electric",
+    "squad": "Botanic Garden",
+    "specialties": [
+      "Healer",
+      "Shielder",
+      "True Damage"
+    ],
+    "releaseDate": "2024-11-21",
+    "sourceId": 141,
+    "treasure": true,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/flora-treasure.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/flora-treasure_card.webp",
+    "notes": "Treasure upgrade variant."
+  },
+  {
     "id": "folkwang",
     "name": "Folkwang",
     "rarity": "SSR",
@@ -1725,6 +1793,28 @@
     "treasure": false,
     "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/guilty.webp",
     "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/guilty_card.webp"
+  },
+  {
+    "id": "guilty-mighty-bunny",
+    "name": "Guilty: Mighty Bunny",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "II",
+    "class": "Attacker",
+    "weapon": "SG",
+    "weaponLabel": "Shotgun",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Wind",
+    "squad": "Real Kindness",
+    "specialties": [
+      "Buffer",
+      "Debuffer"
+    ],
+    "releaseDate": "2023-01-12",
+    "treasure": false,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/guilty-mighty-bunny.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/guilty-mighty-bunny_card.webp"
   },
   {
     "id": "harran",
@@ -2162,6 +2252,28 @@
     "notes": "Treasure upgrade variant."
   },
   {
+    "id": "laplace-ultimate-hero",
+    "name": "Laplace: Ultimate Hero",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "RL",
+    "weaponLabel": "Rocket Launcher",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Wind",
+    "squad": "Matis",
+    "specialties": [
+      "Pierce",
+      "True Damage"
+    ],
+    "releaseDate": "2022-11-24",
+    "treasure": false,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/laplace-ultimate-hero.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/laplace-ultimate-hero_card.webp"
+  },
+  {
     "id": "leona",
     "name": "Leona",
     "rarity": "SSR",
@@ -2479,6 +2591,27 @@
     "treasure": false,
     "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/mari-makinami-illustrious.webp",
     "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/mari-makinami-illustrious_card.webp"
+  },
+  {
+    "id": "marian-queen",
+    "name": "Marian: Queen",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "MG",
+    "weaponLabel": "Machine Gun",
+    "manufacturer": "Pilgrim",
+    "manufacturerLabel": "Pilgrim",
+    "element": "Fire",
+    "squad": "Heretic",
+    "specialties": [
+      "Buffer"
+    ],
+    "releaseDate": "2023-01-01",
+    "treasure": false,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/marian-queen.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/marian-queen_card.webp"
   },
   {
     "id": "mary",
@@ -3308,6 +3441,31 @@
     "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/phantom_card.webp"
   },
   {
+    "id": "phantom-treasure",
+    "name": "Phantom (Treasure)",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "AR",
+    "weaponLabel": "Assault Rifle",
+    "manufacturer": "Elysion",
+    "manufacturerLabel": "Elysion",
+    "element": "Water",
+    "squad": "Best Seller",
+    "specialties": [
+      "Debuffer",
+      "Screen Wipe",
+      "Stack Oriented"
+    ],
+    "releaseDate": "2024-10-10",
+    "sourceId": 135,
+    "treasure": true,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/phantom-treasure.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/phantom-treasure_card.webp",
+    "notes": "Treasure upgrade variant."
+  },
+  {
     "id": "poli",
     "name": "Poli",
     "rarity": "SSR",
@@ -3771,6 +3929,30 @@
     "notes": "Flexible burst (I-II-III)."
   },
   {
+    "id": "red-hood-b1",
+    "name": "Red Hood B1",
+    "rarity": "SSR",
+    "burst": 1,
+    "burstLabel": "I-II-III",
+    "class": "Attacker",
+    "weapon": "SR",
+    "weaponLabel": "Sniper Rifle",
+    "manufacturer": "Pilgrim",
+    "manufacturerLabel": "Pilgrim",
+    "element": "Iron",
+    "squad": "Goddess",
+    "specialties": [
+      "Buffer",
+      "Burst CD Reduction",
+      "Pierce"
+    ],
+    "releaseDate": "2023-11-02",
+    "treasure": false,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/red-hood-b1.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/red-hood-b1_card.webp",
+    "notes": "Red Hood locked to Burst I mode."
+  },
+  {
     "id": "red-hood-b3",
     "name": "Red Hood B3",
     "rarity": "SSR",
@@ -4135,6 +4317,25 @@
     "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/scarlet-black-shadow_card.webp"
   },
   {
+    "id": "scarlet-goddeath",
+    "name": "Scarlet: Goddeath",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "III",
+    "class": "Attacker",
+    "weapon": "AR",
+    "weaponLabel": "Assault Rifle",
+    "manufacturer": "Pilgrim",
+    "manufacturerLabel": "Pilgrim",
+    "element": "Fire",
+    "squad": "Pioneer",
+    "specialties": [],
+    "releaseDate": "2022-04-11",
+    "treasure": false,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/scarlet-goddeath.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/scarlet-goddeath_card.webp"
+  },
+  {
     "id": "signal",
     "name": "Signal",
     "rarity": "SSR",
@@ -4178,6 +4379,28 @@
     "treasure": false,
     "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/sin.webp",
     "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/sin_card.webp"
+  },
+  {
+    "id": "sin-swift-bunny",
+    "name": "Sin: Swift Bunny",
+    "rarity": "SSR",
+    "burst": 3,
+    "burstLabel": "II",
+    "class": "Attacker",
+    "weapon": "SR",
+    "weaponLabel": "Assault Rifle",
+    "manufacturer": "Missilis",
+    "manufacturerLabel": "Missilis Industry",
+    "element": "Water",
+    "squad": "Real Kindness",
+    "specialties": [
+      "Debuffer",
+      "Taunter"
+    ],
+    "releaseDate": "2023-01-12",
+    "treasure": false,
+    "portraitUrl": "https://cdn.prydwen.gg/images/nikke/characters/sin-swift-bunny.webp",
+    "cardUrl": "https://cdn.prydwen.gg/images/nikke/characters/sin-swift-bunny_card.webp"
   },
   {
     "id": "siren",

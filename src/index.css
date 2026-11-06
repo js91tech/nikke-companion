@@ -1679,6 +1679,26 @@ select,
   box-shadow: 0 0 16px rgba(61, 231, 255, 0.35);
 }
 
+.tip-list {
+  margin: 0.65rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.tip-list li + li {
+  margin-top: 0.25rem;
+}
+
+.panel.nested-panel {
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: none;
+}
+
+.threat-row {
+  margin-top: 0.35rem;
+}
+
 .check-list {
   list-style: none;
   margin: 0;
